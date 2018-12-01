@@ -1,0 +1,206 @@
+﻿{
+  "windows": [
+    [
+      {
+        "axis": "Safety Features",
+        "value": 5
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 3
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 3
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 4
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 3
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 3
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 4.5
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 4.5
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 4
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 4
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 3
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 3
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 2
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 4
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 2.5
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 1
+      }
+    ]
+  ],
+  "osx": [
+    [
+      {
+        "axis": "Safety Features",
+        "value": 4
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 3
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 3
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 4
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 3
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 3
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 4.5
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 4.5
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 4
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 4
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 3
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 3
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 2
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 4
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 2.5
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 1
+      }
+    ]
+  ],
+  "linux": [
+    [
+      {
+        "axis": "Safety Features",
+        "value": 4
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 3
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 3
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 4
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 3
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 3
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 4.5
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 4.5
+      }
+    ],
+    [
+      {
+        "axis": "Safety Features",
+        "value": 4
+      },
+      {
+        "axis": "Crash Testing",
+        "value": 4
+      },
+      {
+        "axis": "Code Complexity",
+        "value": 3
+      },
+      {
+        "axis": "Code Hygiene",
+        "value": 3
+      }
+    ]   
+  ]
+}

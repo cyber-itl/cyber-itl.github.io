@@ -1,0 +1,79 @@
+<header>
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div>
+                <a id="logo" href="{{ site.baseurl }}"><img alt="Cyber Independent Testing Lab" src="{{ '/assets/images/CyberITL_LogoHoriz_White.svg' | relative_url }}" /></a>
+            </div>
+            <div class="d-lg-none">
+                <button id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <nav class="d-none d-lg-block">
+                <ul>
+                    {% for item in site.data.menu.toc %}
+                    <li>
+                        <a href="{{ item.url }}">{{ item.page }}</a>
+                        {% if item.subfolderitems[0] %}
+                        <ul>
+                            {% for entry in item.subfolderitems %}
+                            <li>
+                                <a href="{{ entry.url }}">{{ entry.page }}</a>
+                                {% if entry.subfolderitems[0] %}
+                                <ul>
+                                    {% for subentry in entry.subfolderitems %}
+                                    <li>
+                                        <a href="{{ subentry.url }}">{{ subentry.page }}</a>
+                                    </li>
+                                    {% endfor %}
+
+                                </ul>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+
+        <nav id="mobile-nav" class="d-lg-none">
+            <ul>
+
+                {% for item in site.data.menu.toc %}
+                {% if forloop.index == 1 %}
+                {% assign selectClass = "open" %}
+                {% else %}
+                {% assign selectClass = "" %}
+                {% endif %}
+                <li class="{{ selectClass }}">
+                    <a href="{{ item.url }}">{{ item.page }}</a>
+                    {% if item.subfolderitems[0] %}
+                    <ul>
+                        {% for entry in item.subfolderitems %}
+                        <li>
+                            <a href="{{ entry.url }}">{{ entry.page }}</a>
+                            {% if entry.subfolderitems[0] %}
+                            <ul>
+                                {% for subentry in entry.subfolderitems %}
+                                <li>
+                                    <a href="{{ subentry.url }}">{{ subentry.page }}</a>
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,24 @@
+past:
+  - event: Def Con 24
+    date: 4 Aug 2016
+    location: Las Vegas
+    videoSrc: https://www.youtube.com/embed/GhO9vyW1f7w
+  - event: Def Con 25
+    date: 4 Aug 2017
+    location: Las Vegas
+    videoSrc: https://www.youtube.com/embed/BufzX-zeZvQ
+  - event: 34C3
+    date: 27 Dec 2017
+    location: Leipzig
+    videoSrc: https://media.ccc.de/v/34c3-9225-how_risky_is_the_software_you_use/oembed
+  - event: Schmoocon
+    date: 19 Jan 2018
+    location: Washington D.C.
+    videoSrc: https://archive.org/embed/Shmoocon2018/Shmoocon2018-CitlQuantitativeComparableSoftwareRiskReporting.mp4
+
+upcoming:
+  - event: Schmoocon
+    date: 18-20 Jan 2019
+    location: Washington D.C.
+    link: https://www.shmoocon.org/
+ 

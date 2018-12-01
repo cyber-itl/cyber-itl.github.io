@@ -1,0 +1,41 @@
+---
+layout: post
+title: To Upgrade or not?  A look at Office 2016 for OSX
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _thumbnail_id: '39'
+excerpt_separator: <!--more-->
+---
+<p>When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.<!--more--> &nbsp;Sometimes there's a long-awaited feature, and you can't wait to get the latest and greatest, and sometimes it looks an awful lot like what you've already got, so it doesn't really seem worth the bother. &nbsp;The security and software risk profiles of the old vs new versions are another factor that should be part of this consideration. &nbsp;</p><p>When we looked at <a href="/data/our_approach/2016/09/15/2016-9-12-a-closer-look-at-the-osx-continuum.html">scores for OSX applications</a>, the Microsoft Office 2011 suite was at the bottom of its category, and the accompanying Microsoft AutoUpdate application was at the bottom of the whole OSX environment. &nbsp;Since then we've been asked how Office 2016 stacks up in comparison, and it provides an excellent example of hidden benefits of an upgrade, as it has a much better risk profile than the 2011 suite. &nbsp;</p><p style="margin-left:0in; margin-right:0in">Where the 2011 suite was mostly 32 bit files, largely without ASLR, the 2016 had all 64 bit files, all with ASLR.&nbsp; Stack guards are now consistently employed, and function fortification is used in 58% of the files, as compared to 5% before.&nbsp; The main applications (e.g. Word.app, Excel.app, etc.) were at the bottom of the pack in the 2016 suite, meaning that these had not improved by much, but the overall score distributions, which take into account all of the binary applications and the libraries against which they are linked,&nbsp;improved greatly.&nbsp;&nbsp;</p>
+  
+       <figure><img src="{{ '/assets/images/blog/to-upgrade-or-not-a-look-at-office-2016-for-osx-1.png' | relative_url }}" alt=" The histogram shows the score distributions for a base install of OSX (El Capitan), with the 5th, 50th, and 95th percentile scores called out. &nbsp;Each triangle corresponds to one of the scores called out on the hardening line below. &nbsp;We're comparing the Average score, the score for the AutoUpdate binary, and the scores for the main applications (Word, Excel, and PowerPoint) between Office 2011 and Office 2016. &nbsp; "/><figcaption>The histogram shows the score distributions for a base install of OSX (El Capitan), with the 5th, 50th, and 95th percentile scores called out. &nbsp;Each triangle corresponds to one of the scores called out on the hardening line below. &nbsp;We're comparing the Average score, the score for the AutoUpdate binary, and the scores for the main applications (Word, Excel, and PowerPoint) between Office 2011 and Office 2016.</figcaption></figure>
+  
+
+<table data-preserve-html-node="true">
+    <thead><tr data-preserve-html-node="true">
+    <th data-preserve-html-node="true"></th>
+    <th data-preserve-html-node="true" width="40p" align="right">2011</th>
+    <th data-preserve-html-node="true" width="40p" align="right">2016</th>
+</tr></thead>
+  <tbody>
+  <tr data-preserve-html-node="true">
+    <td data-preserve-html-node="true">Average Score</td>
+    <td data-preserve-html-node="true" align="right">16.5</td>
+    <td data-preserve-html-node="true" align="right">77</td>
+  </tr>
+   <tr data-preserve-html-node="true">
+    <td data-preserve-html-node="true">Minimum Score</td>
+    <td data-preserve-html-node="true" align="right">-5</td>
+    <td data-preserve-html-node="true" align="right">54</td>
+  </tr>
+   <tr data-preserve-html-node="true">
+    <td data-preserve-html-node="true">Maximum Score</td>
+    <td data-preserve-html-node="true" align="right">80</td>
+    <td data-preserve-html-node="true" align="right">92.5</td>
+  </tr>
+
+</tbody></table><p>The Microsoft AutoUpdate file that was such an egregious offender also improved significantly, with a new score of 64.&nbsp; It still has risky and ick functions (two calls to system(), which should make anyone in the security field a bit nervous about general hygiene here...), but now has stack guards, ASLR, partial fortification, good functions, and is 64 bit.&nbsp;</p><p>The story wasn’t 100% positive, however – the Microsoft Error Reporting (MERP) application had a call to an ick function, system(),&nbsp;that hadn’t been present in the 2011 MERP files.&nbsp; These sorts of bad and ick functions weren’t seen in Microsoft products for Windows, which implies that they might still be less strict about developer practices for OSX products.&nbsp; Both suites had risky functions in most their files.&nbsp; 2016 had slightly more, but this could be because our risky function list was expanded to be more complete in its ANSI v POSIX coverage between the two data collections. [As a reminder:&nbsp;when we reveal our dynamic runtime analysis scores later this year we hope to share more information on our function lists and the math behind their weightings!]</p><p>Overall, the 2016 security stance was much improved, with much more consistent use of application armoring features, and much better overall static feature scores. &nbsp;Perhaps most importantly, the AutoUpdate liability was significantly decreased. &nbsp;This isn't a security feature that would be heavily advertised by the vendor, but it might be attractive to someone making the decision on whether to upgrade their corporate environment or not. &nbsp;</p><p>Looking at changes in software packages in this way helps quantify and prioritize which upgrades may significantly decrease your security exposure, and which ones are more simply designed as feature enhancements aimed at selling you incremental revisions of the same tool. In the case of Office for OSX, removing Office 2011 and replacing it with Office 2016 is a measurable reduction in risk to your environment. However, we still do not see sandboxing, strict hygiene regarding bad and risky functions, and other advanced safety features in their OS X products (e.g. CFI and ShadowStacks) they way we do in their Windows 10 offerings.</p>

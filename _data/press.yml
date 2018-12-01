@@ -1,0 +1,39 @@
+pressLinks:
+  - title: Top Googler leaves to set up new cybersecurity agency
+    source: Engadget
+    url: https://www.engadget.com/2015/06/30/peiter-zatko-leaving-google/
+    quote: "One of Google's most well-regarded security researchers is leaving the company, reportedly to help the government beef up its cybersecuity. Re/code is reporting that Peiter 'Mudge' Zatko will be building a new agency that examines electronic threats in a similar manner as the famous Underwriters Laboratories does for safety research."
+
+  - title: Q&A With Peiter Zatko (aka Mudge) - Setting Up the Cyber Independent Testing Laboratory
+    source: Council on Foreign Relations
+    url: http://blogs.cfr.org/cyber/2015/12/18/qa-with-peiter-zatko-aka-mudge-setting-up-the-cyber-independent-testing-laboratory/
+    quote: "In the computer security realm, we have been trying for decades to get the general public to care about security. Now they do care, but they have no way of differentiating good security products from bad ones. In fact, some of the most insecure software on the market can be the very security software that is supposed to protect you."
+
+  - title: A Famed Hacker Is Grading Thousands Of Programs - And May Revolutionize Software In The Process
+    source: The Intercept
+    url: https://theintercept.com/2016/07/29/a-famed-hacker-is-grading-thousands-of-programs-and-may-revolutionize-software-in-the-process/
+    quote: "Mudge and his wife, Sarah, a former NSA mathematician, have developed a first-of-its-kind method for testing and scoring the security of software — a method inspired partly by Underwriters Laboratories, that century-old entity responsible for the familiar circled UL seal that tells you your toaster and hair dryer have been tested for safety and won’t burst into flames."
+
+  - title: Famed Hacker Creates New Ratings System for Software
+    source: Reuters
+    url: http://www.reuters.com/article/us-usa-cyber-ratings-idUSKCN10D2EO
+    quote: "The Zatkos’ system, which they have licensed in perpetuity to a new nonprofit, is a radical attempt to solve a problem that has vexed software customers for decades: There is no unbiased, consistent method for rating the security of programs."
+
+  - title: A 'Consumer Reports' For Software Vulnerabilities
+    source: GCN
+    url: https://gcn.com/articles/2016/08/11/black-hat-citl.aspx?m=1
+    quote: "At the recent Black Hat conference, long-time computer scientists Peiter 'Mudge' and Sarah Zatko discussed the Cyber Independent Testing Lab, an independent organization to benchmark commercial software security flaws."
+
+  - title: No wonder cybersecurity is so bad - There's no way to measure&nbsp;it
+    source: Cyberscoop
+    url: https://www.cyberscoop.com/defcon-zatko-cyber-itl-measurements-cybersecurity/
+    quote: "When the founders of a new nonprofit assessing the cybersecurity of software for consumers were trying to develop a scoring system that would rate programs depending on which security features they used, they encountered a “mind-blowing” problem. No one had ever measured how well such features actually worked."
+
+  - title: Rating software security Consumer Reports-style
+    source: CSO
+    url: https://www.csoonline.com/article/3247677/application-security/this-hacker-is-rating-software-security-consumer-reports-style.html
+    quote: "The poor security of much enterprise software can be dramatically improved at low cost with the compile-time equivalents of seatbelts and airbags. With that in mind, the Cyber Independent Testing Lab (CITL) is building a Consumer Reports-style rating systems to grade the security of thousands of software binaries."	
+  - title: Slowly but surely, browsers are becoming more secure
+    source: The Parallax
+    url: https://www.the-parallax.com/2018/01/23/browser-secure-citl-shmoocon/
+    quote: "The CITL, which thinks of itself as Consumer Reports for software (and has actually partnered with Consumer Reports to broaden its reach), is one of a few independent initiatives that analyzes code and publicly reports on its findings. Its report acknowledges that browsers are challenging to secure because of their inherent complexity. Major browsers contain millions of lines of code to which hundreds of developers contribute."

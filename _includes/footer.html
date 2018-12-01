@@ -1,0 +1,79 @@
+	<footer>
+	<div class="footer-top">
+		<div class="container">
+            <div class="row">
+                {% for item in site.data.menu.toc %}
+                {% if forloop.index == 2 %}
+                {% assign rowClass = "col-sm-3 col-lg-2 d-none d-md-block" %}
+                {% else %}
+                {% assign rowClass = "col-sm-4 col-lg-3 d-none d-md-block" %}
+                {% endif %}
+                <div class="{{ rowClass }}">
+                    <h5>{{ item.page }}</h5>
+                    {% if item.subfolderitems[0] %}
+                    <ul>
+                        {% for entry in item.subfolderitems %}
+                        <li>
+                            <a href="{{ entry.url }}">{{ entry.page }}</a>
+                            {% if entry.subfolderitems[0] %}
+                            <ul>
+                                {% for subentry in entry.subfolderitems %}
+                                <li>
+                                    <a href="{{ subentry.url }}">{{ subentry.page }}</a>
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="col-12 col-md-8 col-lg-4">
+                    <!-- Begin MailChimp Signup Form -->
+                    <div id="mc_embed_signup">
+                        <form action="https://cyber-itl.us17.list-manage.com/subscribe/post?u=e9dd02b32620100fe3c4c13aa&amp;id=829354d438" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <div id="mc_embed_signup_scroll">
+                                <div class="mc-field-group">
+                                    <label for="mce-EMAIL">Sign Up for Updates </label>
+                                    <div class="input-group">
+                                        <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="email@mail.com">
+                                        <span class="input-group-btn">
+                                            <button id="mc-embedded-subscribe" type="submit" class="btn"><img src="{{ '/assets/images/chevron.svg' | relative_url }}" alt="Submit Arrow" /></button>
+                                            <!--		<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="mce-responses" class="clear">
+                                    <div class="response" id="mce-error-response" style="display:none"></div>
+                                    <div class="response" id="mce-success-response" style="display:none"></div>
+                                </div>
+                                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                    <input type="text" name="b_e9dd02b32620100fe3c4c13aa_829354d438" tabindex="-1" value="">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--    <script type="text/javascript" src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='BIRTHDAY';ftypes[3]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+        End mc_embed_signup-->
+
+                </div>
+            </div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-6 contact-icons">
+				<a href="mailto:{{site.email}}"><img src="{{ '/assets/images/envelope.svg' | relative_url }}" alt=""/>{{site.email}}</a>
+			</div>
+			 <div class="col-12 col-md-6 copyright text-right">
+				© <span id="year">2018</span> Cyber Independent Testing Lab
+			</div>
+		  </div>
+		</div>
+	</div>
+</footer>

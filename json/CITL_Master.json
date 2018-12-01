@@ -1,0 +1,134 @@
+﻿{
+  "browsers": [
+    {
+      "name": "Edge",
+      "score": "4.5",
+      "safetyFeatures": {
+        "scoreTotal": 100,
+        "_64bit": 100,
+        "DEP": 100,
+        "ASLR": 100,
+        "CFI": 100,
+        "safeSEH": 100,
+        "stackGuards": 100
+      },
+      "codeHygiene": {
+        "scoreTotal": 93,
+        "totalFunctions": 56600,
+        "good": 771,
+        "risky": 1115,
+        "veryRisky": 4,
+        "extremelyRisky": 0
+      },
+      "codeComplexity": {
+        "scoreTotal": 93,
+        "size": 1615872,
+        "libraries": 297
+      },
+      "securityAids": {
+        "openSource": false,
+        "sandboxing": true
+      }
+    },
+    {
+      "name": "Chrome",
+      "score": "4.5",
+      "safetyFeatures": {
+        "scoreTotal": 52,
+        "_64bit": 24,
+        "DEP": 99,
+        "ASLR": 100,
+        "CFI": 5,
+        "safeSEH": 100,
+        "stackGuards": 34
+      },
+      "codeHygiene": {
+        "scoreTotal": 88,
+        "totalFunctions": 57600,
+        "good": 79,
+        "risky": 755,
+        "veryRisky": 5,
+        "extremelyRisky": 0
+      },
+      "codeComplexity": {
+        "scoreTotal": 93,
+        "size": 4479104,
+        "libraries": 323
+      },
+      "securityAids": {
+        "openSource": false,
+        "sandboxing": true
+      }
+    },
+    {
+      "name": "Firefox",
+      "score": "4.5",
+      "safetyFeatures": {
+        "scoreTotal": 93,
+        "_64bit": 67,
+        "DEP": 100,
+        "ASLR": 100,
+        "CFI": 6,
+        "safeSEH": 0,
+        "stackGuards": 32
+      },
+      "codeHygiene": {
+        "scoreTotal": 89,
+        "totalFunctions": 58600,
+        "good": 866,
+        "risky": 6759,
+        "veryRisky": 68,
+        "extremelyRisky": 0
+      },
+      "codeComplexity": {
+        "scoreTotal": 93,
+        "size": 1033728,
+        "libraries": 331
+      },
+      "securityAids": {
+        "openSource": false,
+        "sandboxing": true
+      }
+    },
+    {
+      "name": "Opera",
+      "score": "4.5",
+      "safetyFeatures": {
+        "scoreTotal": 88,
+        "_64bit": 100,
+        "DEP": 100,
+        "ASLR": 100,
+        "CFI": 37.5,
+        "safeSEH": 100,
+        "stackGuards": 100
+      },
+      "codeHygiene": {
+        "scoreTotal": 88,
+        "totalFunctions": 59600,
+        "good": 79,
+        "risky": 641,
+        "veryRisky": 0,
+        "extremelyRisky": 0
+      },
+      "codeComplexity": {
+        "scoreTotal": 93,
+        "size": 662528,
+        "libraries": 126
+      },
+      "securityAids": {
+        "openSource": false,
+        "sandboxing": true
+      }
+    }
+  ],
+  "measurement": {
+    "scoreRange": {
+      "min": 0,
+      "max": 5
+    },
+    "scoreTotalRange": {
+      "min": 0,
+      "max": 100
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "comparisonType": "Microsoft Office Updates",
+  "devices": [
+    {
+      "displayName": "Office 2011",
+      "name": "macos_10.11.6_msft-office-2011_14.7.3",
+      "codeHygiene": {
+        "good": 148.0,
+        "veryRisky": 144.0,
+        "scoreTotal": 84,
+        "totalExternalCalls": 870222,
+        "extremelyRisky": 4.0,
+        "risky": 7920.0
+      },
+      "nameKey": "Office2011",
+      "deviceVersion": "14.7.3",
+      "score": 3.1,
+      "securityAids": {
+        "sandboxing": "NOT",
+        "openSource": "NOT"
+      },
+      "codeComplexity": {
+        "totalFunctions": 828314,
+        "scoreTotal": 100,
+        "libraries": 119.0,
+        "LibraryScore": 1.0,
+        "TextSizeScore": 1.0,
+        "size": 206242816.0
+      },
+      "safetyFeatures": {
+        "ASLR": 87.1,
+        "fortification": 4.65,
+        "stackGuards": 75.86,
+        "_64bit": 2.15,
+        "scoreTotal": 44,
+        "DEP": 95.0,
+        "HEAP_PROT": 0.0
+      }
+    },
+    {
+      "displayName": "Office 2016",
+      "name": "macos_10.11.6_msft-office-2016_15.33",
+      "codeHygiene": {
+        "good": 2189.0,
+        "veryRisky": 356.0,
+        "scoreTotal": 89,
+        "totalExternalCalls": 2778823,
+        "extremelyRisky": 10.0,
+        "risky": 41037.0
+      },
+      "nameKey": "Office2016",
+      "deviceVersion": "15.33",
+      "score": 4.3,
+      "securityAids": {
+        "sandboxing": "NOT",
+        "openSource": "NOT"
+      },
+      "codeComplexity": {
+        "totalFunctions": 2307113,
+        "scoreTotal": 0,
+        "libraries": 133.0,
+        "LibraryScore": 0.0,
+        "TextSizeScore": 0.0,
+        "size": 610742272.0
+      },
+      "safetyFeatures": {
+        "ASLR": 99.55,
+        "fortification": 50.21,
+        "stackGuards": 98.09,
+        "_64bit": 99.44,
+        "scoreTotal": 73,
+        "DEP": 91.84,
+        "HEAP_PROT": 0.0
+      }
+    }
+  ],
+  "operatingSystemVersion": "10.11.6",
+  "measurement": {
+    "scoreTotalRange": {
+      "max": 100,
+      "min": 0
+    },
+    "scoreRange": {
+      "max": 5,
+      "min": 0
+    }
+  },
+  "testDate": "10\/2018",
+  "operatingSystem": "Mac OS"
+}

@@ -1,0 +1,177 @@
+---
+layout: default
+permalink: /news/
+custom_js:
+- jquery-3.3.1.min
+- swipe
+- news
+---
+<main id="news" class="sub-page blog-page">
+    <section class="hero dark-section">
+        <div class="container">
+            <h1>News</h1>
+        </div>
+    </section>
+    <section class="latest-posts">
+        <div class="container">
+            <div class="header-group">
+                <h2 class="h3-mono">Latest Posts</h2>
+                <a href="{{ site.url }}{% link news/blog.html %}" class="d-none d-lg-block">More Posts</a>
+            </div>
+            <div class="row">
+
+                {% for post in site.posts %}
+                <div class="col-12 col-lg-6 col-xl-4">
+                    <article class="beige-bg">
+                        {% if post.img %}
+                        <img src="{{ site.url }}/assets/images/blog/{{ post.img }}" alt="" />
+                        {% endif %}
+                        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                        <time datetime=" {{ post.date }}" class="label-sans">
+                            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                            {{ post.date | date: date_format }}
+                        </time>
+                        <p>{{ post.excerpt | remove: '<p>' | remove: '</p>'}}</p>
+                        <a href="{{ post.url }}" class="btn btn-purple">Read</a>
+                    </article>
+                </div>
+                {% if forloop.index == 3 %}
+                {% break %}
+                {% endif %}
+                {% endfor %}
+
+            </div>
+            <div class="d-lg-none text-center">
+                <a href="{{ site.url }}{% link news/blog.html %}" class="btn">More Posts</a>
+            </div>
+        </div>
+    </section>
+    <section class="alt-bg">
+        <div class="container">
+            <h2>Recent Press</h2>
+            <div id="quote-slider">
+                <div class="slider-wrap">
+                    {% for item in site.data.press.pressLinks reversed %}
+                    <div class="quote-slide">
+                        <h3 class="h4-mono"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                        <p class="quote">
+                            {{ item.quote }}&nbsp;&nbsp;&nbsp;&nbsp;
+                        </p>
+                        <span class="h4-display">–{{ item.source }}</span>
+                    </div>
+                    {% if forloop.index == 3 %}
+                    {% break %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="indicator">
+                    <button class="active"><span class="sr-only">show slide 1</span></button>
+                    <button><span class="sr-only">show slide 2</span></button>
+                    <button><span class="sr-only">show slide 3</span></button>
+                </div>
+            </div>
+            <div class="text-center">
+                <a class="btn" href="{{ site.url }}{% link news/press.html %}">More Press</a>
+            </div>
+        </div>
+    </section>
+    <section class="appearances">
+        <div class="container">
+            <h2>Appearances</h2>
+            {% if site.data.appearances.past[0] %}
+            <div class="appearance-group">
+                <div class="group-title">
+                    <svg width="80" height="70" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0.305908L11.319 9.4832L22.253 5.83476e-07" transform="translate(1 32.3616)" stroke="#CAD5D9" stroke-width="3" stroke-miterlimit="10" />
+                        <path d="M0 0.305908L11.319 9.4832L22.253 5.83476e-07" transform="translate(1 32.3616)" stroke="#8ABFE7" stroke-width="3" stroke-miterlimit="10" />
+                        <path d="M0.616296 39.4623C0.231296 37.3974 0.000296203 35.1796 0.000296203 32.9618C-0.0767038 14.7601 14.8613 0 33.1873 0C51.5133 0 66.4513 14.7601 66.4513 33.0382C66.4513 51.3163 51.5133 66 33.1873 66C22.4843 66 12.9363 60.9525 6.8533 53.1518" transform="translate(11.5488 2)" stroke="#CAD5D9" stroke-width="3" stroke-miterlimit="10" />
+                        <path d="M0.616296 39.4623C0.231296 37.3974 0.000296203 35.1796 0.000296203 32.9618C-0.0767038 14.7601 14.8613 0 33.1873 0C51.5133 0 66.4513 14.7601 66.4513 33.0382C66.4513 51.3163 51.5133 66 33.1873 66C22.4843 66 12.9363 60.9525 6.8533 53.1518" transform="translate(11.5488 2)" stroke="#8ABFE7" stroke-width="3" stroke-miterlimit="10" />
+                        <path d="M-5.87463e-07 2.91738e-07V19.8841L17.556 34.3384" transform="translate(44.7363 15.0776)" stroke="#8ABFE7" stroke-width="3" stroke-miterlimit="10" />
+                    </svg>
+                    <h3 class="label-sans">Our Latest</h3>
+                </div>
+                {% for item in site.data.appearances.past reversed %}
+                <div class="appearance">
+                    <div>
+                        <h4 class="h3-mono">{{ item.event }}</h4>
+                        <h5 class="h5-mono"><span>{{ item.date }}</span> / {{ item.location }}</h5>
+                    </div>
+                    <div class="d-none d-lg-block">
+                        <a href="{{ site.url }}{% link news/appearances.html %}" class="btn btn-red">More Appearances</a>
+                    </div>
+                </div>
+                {% if forloop.index == 1 %}
+                {% break %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% for item in site.data.appearances.past reversed %}
+            <div class="video-wrapper">
+                <iframe src="{{ item.videoSrc }}" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
+            </div>
+            <div class="d-lg-none btn-wrapper">
+                <a href="{{ site.url }}{% link news/appearances.html %}" class="btn btn-red">More Appearances</a>
+            </div>
+            {% if forloop.index == 1 %}
+            {% break %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% if site.data.appearances.upcoming[0] %}
+            <div class="appearance-group">
+                <div class="group-title">
+                    <svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24.1202 3.16798L24.3323 3.04495L24.4942 2.86078C25.2294 2.02427 26.3026 1.5 27.5 1.5C28.6974 1.5 29.7706 2.02427 30.5058 2.86078L30.6677 3.04495L30.8798 3.16799C36.9147 6.66864 43.0261 10.1386 49.1252 13.5H5.87109C12.0756 10.0797 18.1914 6.60715 24.1202 3.16798Z" transform="translate(5.5)" stroke="#CAD5D9" stroke-width="3" />
+                        <path d="M24.1202 3.16798L24.3323 3.04495L24.4942 2.86078C25.2294 2.02427 26.3026 1.5 27.5 1.5C28.6974 1.5 29.7706 2.02427 30.5058 2.86078L30.6677 3.04495L30.8798 3.16799C36.9147 6.66864 43.0261 10.1386 49.1252 13.5H5.87109C12.0756 10.0797 18.1914 6.60715 24.1202 3.16798Z" transform="translate(5.5)" stroke="#8ABFE7" stroke-width="3" />
+                        <circle cx="5.5" cy="5.5" r="4" transform="translate(27.5)" stroke="#CAD5D9" stroke-width="3" />
+                        <circle cx="5.5" cy="5.5" r="4" transform="translate(27.5)" stroke="#8ABFE7" stroke-width="3" />
+                        <path d="M1.5 3C1.5 2.17157 2.17157 1.5 3 1.5H63C63.8284 1.5 64.5 2.17157 64.5 3V9V51C64.5 51.8284 63.8284 52.5 63 52.5H3C2.17157 52.5 1.5 51.8284 1.5 51V9V3Z" transform="translate(0 12)" stroke="#CAD5D9" stroke-width="3" />
+                        <path d="M1.5 3C1.5 2.17157 2.17157 1.5 3 1.5H63C63.8284 1.5 64.5 2.17157 64.5 3V9V51C64.5 51.8284 63.8284 52.5 63 52.5H3C2.17157 52.5 1.5 51.8284 1.5 51V9V3Z" transform="translate(0 12)" stroke="#8ABFE7" stroke-width="3" />
+                        <path d="M3 1.5H63C63.8284 1.5 64.5 2.17157 64.5 3V9H1.5V3C1.5 2.17157 2.17157 1.5 3 1.5Z" transform="translate(0 12)" stroke="#CAD5D9" stroke-width="3" />
+                        <path d="M3 1.5H63C63.8284 1.5 64.5 2.17157 64.5 3V9H1.5V3C1.5 2.17157 2.17157 1.5 3 1.5Z" transform="translate(0 12)" stroke="#8ABFE7" stroke-width="3" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(55.0586 29.5)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(47.2158 29.5)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(39.3721 29.5)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(31.5293 29.5)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(23.6865 29.5)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(55.0586 38.1785)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(47.2158 38.1785)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(39.3721 38.1785)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(31.5293 38.1785)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(23.6865 38.1785)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(15.8428 38.1785)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(8 38.1785)" fill="#8ABFE7" />
+                        <ellipse cx="1.75" cy="1.6875" rx="1.75" ry="1.6875" transform="translate(55.0586 45.8928)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(47.2158 45.8928)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(39.3721 45.8928)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(31.5293 45.8928)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(23.6865 45.8928)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(15.8428 45.8928)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(8 45.8928)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(39.3721 53.6072)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(31.5293 53.6072)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(23.6865 53.6072)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(15.8428 53.6072)" fill="#8ABFE7" />
+                        <circle cx="1.75" cy="1.75" r="1.75" transform="translate(8 53.6072)" fill="#8ABFE7" />
+                    </svg>
+
+
+                    <h3 class="label-sans">Upcoming</h3>
+                </div>
+                <div class="appearance-list">
+                    {% for item in site.data.appearances.upcoming %}
+                    <div class="appearance">
+                        <div>
+                            <h4 class="h3-mono">{{ item.event }}</h4>
+                            <h5 class="h5-mono"><span>{{ item.date }}</span> / {{ item.location }}</h5>
+                        </div>
+                        <a href="{{ item.link }}" class="btn btn-red" target="_blank">Learn More</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </section>
+</main>

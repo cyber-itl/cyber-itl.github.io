@@ -1,0 +1,14 @@
+<svg width="30" height="30" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>OSX</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-150 -3283)">
+<g id="OSX">
+<use xlink:href="#path0_fill" transform="translate(150 3283)" fill="#4C596B"/>
+<use xlink:href="#path0_fill" transform="translate(150 3283)" fill="#90E89D"/>
+<use xlink:href="#path0_fill" transform="translate(150 3283)" fill="#EF6050"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 15 0C 6.7 0 0 6.7 0 15C 0 23.3 6.7 30 15 30C 23.3 30 30 23.3 30 15C 30 6.7 23.3 0 15 0ZM 21.8 24.2L 20.9 24.2L 15 15.7L 14.9 15.7L 9 24.2L 8.1 24.2L 14.5 15L 8.1 5.8L 9 5.8L 14.9 14.4L 15 14.4L 21 5.8L 21.9 5.8L 15.5 15L 21.8 24.2Z"/>
+</defs>
+</svg>

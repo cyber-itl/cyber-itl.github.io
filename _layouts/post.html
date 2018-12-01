@@ -1,0 +1,33 @@
+---
+layout: default
+---
+	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>{{ page.title | escape }}</h1>
+				<time datetime=" {{ page.date }}" class="h5-mono">
+					{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   {{ content }}
+			</div>
+			<div class="container post-nav">
+				<div>
+					 {% if page.previous.url %}
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+  {% endif %}
+					</div>
+				<div class="text-right">
+					{% if page.next.url %}
+				<h5 class="label-sans">Next Post:</h5>			 
+    <a class="next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+  {% endif %}
+					</div>
+			</div>
+		</section>
+	</main>

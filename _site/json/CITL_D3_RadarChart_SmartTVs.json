@@ -1,0 +1,56 @@
+﻿[
+  [
+    {
+      "axis": "Safety Features",
+      "value": 5
+    },
+    {
+      "axis": "Crash Testing",
+      "value": 4.5
+    },
+    {
+      "axis": "Code Complexity",
+      "value": 3.5
+    },
+    {
+      "axis": "Code Hygiene",
+      "value": 4
+    }
+  ],
+  [
+    {
+      "axis": "Safety Features",
+      "value": 3
+    },
+    {
+      "axis": "Crash Testing",
+      "value": 3
+    },
+    {
+      "axis": "Code Complexity",
+      "value": 1.5
+    },
+    {
+      "axis": "Code Hygiene",
+      "value": 4.5
+    }
+  ],
+  [
+    {
+      "axis": "Safety Features",
+      "value": 5
+    },
+    {
+      "axis": "Crash Testing",
+      "value": 2
+    },
+    {
+      "axis": "Code Complexity",
+      "value": 3
+    },
+    {
+      "axis": "Code Hygiene",
+      "value": 3
+    }
+  ]
+]

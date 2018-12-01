@@ -1,0 +1,39 @@
+toc:
+  - page: Compare Software
+    url: /
+    subfolderitems:
+    - page: Operating Systems
+      url: /comparisons/comparison.html?comparisonType=OS
+    - page: Browsers
+      url: /comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows
+      subfolderitems:
+      - page: on Windows
+        url: /comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows
+      - page: on MacOS
+        url: /comparisons/comparison.html?comparisonType=browser&operatingSystem=OSX
+      - page: on Linux
+        url: /comparisons/comparison.html?comparisonType=browser&operatingSystem=Linux
+    - page: Smart TVs
+      url: /comparisons/comparison.html?comparisonType=smarttv
+    - page: Office Updates
+      url: /comparisons/comparison.html?comparisonType=microsoftoffice
+  - page: News
+    url: /news/
+    subfolderitems:
+    - page: Blog
+      url: /news/blog/
+    - page: Press
+      url: /news/press/
+    - page: Appearances
+      url: /news/appearances/
+  - page: About
+    url: /about/company/
+    subfolderitems:
+    - page: Company
+      url: /about/company/
+    - page: Methodology
+      url: /about/methodology/
+    - page: Glossary
+      url: /about/glossary/
+    - page: Partners
+      url: /about/partners/

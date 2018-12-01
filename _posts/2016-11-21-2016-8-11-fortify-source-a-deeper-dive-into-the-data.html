@@ -1,0 +1,39 @@
+---
+layout: post
+title: 'Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X'
+categories:
+- data
+tags:
+- fortify-source
+- static-analysis
+- data
+- linux
+- osx
+status: publish
+type: post
+published: true
+meta:
+  _thumbnail_id: '13'
+excerpt_separator: <!--more-->
+---
+<p>Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions<!--more--> with safer, better-bounded versions. &nbsp;Of course, the compiler can only do that if it can figure out what those bounds should be, which isn't always easy. &nbsp;The developer does not get much feedback as to the success rate of this process, though. &nbsp;The developer knows that they may have enabled source code fortification (-D_FORTIFY_SOURCE), but they do not get a readout on how many of their memcpy instances are now replaced with the safer memcpy_chk function, for example. This is important to the consumer because just looking to see that a good software build practice was intended does not reveal whether the practice actually improved the safety in the resulting application. That made us really curious to dig into the data on source fortification and its efficacy.&nbsp;</p><p>We first looked at the fortification statistics on Linux. &nbsp;The following numbers only deal with the 25% of Linux binaries (2631 files) where fortification was enabled. &nbsp;Linux compilers, at the time we performed our initial analysis,&nbsp;have 72 functions that they inspect for potential fortification, and the binaries we inspected had a total of almost 2 million instances of those 72 functions.&nbsp;&nbsp;Of those 2 million instances with functions that could potentially made safer, 91.7% were fortified! &nbsp;Well done, Linux. Of course, those 165,000+ functions that remain in their less secure form warrant some concern and the there's still further good and bad news when you look at all of this more closely. &nbsp;We viewed this data two different ways. &nbsp;First we looked at it broken out by binary, then by function. &nbsp;</p><p>This chart shows the percent fortification for all binary files on our default base install of Ubuntu Linux. &nbsp;31% of files were 95-100% fortified. &nbsp;Many of these had large function counts, with some as high as 25k fortified function instances. &nbsp;The rest of the files were evenly distributed from 0 to 95%. &nbsp;While these binaries generally had lower function counts, there were exceptions to this rule. &nbsp;Most notable was /lib/systemd/systemd, which had over 42k unfortified pread instances.&nbsp;</p>
+
+<figure><img src="{{ '/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-1.png' | relative_url }}" alt=" Fortification by binary on Ubuntu Linux. &nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &nbsp;This chart excludes /lib/systemd/systemd for readability, as it had 43,212 functions, but was 0.7% fortified. " />  <figcaption>Fortification by binary on Ubuntu Linux. &nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &nbsp;This chart excludes /lib/systemd/systemd for readability, as it had 43,212 functions, but was 0.7% fortified.</figcaption></figure>
+
+
+<p>&nbsp;When we view the fortification data by function, as shown in the graphic below, we see that most functions are at one extreme or the other. &nbsp;15 are 95-100% fortified, while 39 were 0-5% fortified. &nbsp;Of those 39 functions, 28 of them were *never* fortified. &nbsp;Many of these totally unfortified functions are less common, with an average of 302 total instances across the 2,631 Ubuntu files we examined. &nbsp;On the other hand, the highly fortified functions had an average of 104k total instances. &nbsp;The most common function overall was sprintf, which had 1.3 million instances and was over 99.9% fortified. &nbsp;</p>
+
+<figure>
+    <img src="{{ '/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-2.png' | relative_url }}" alt=" Fortification by function in Ubuntu Linux. &nbsp;The x axis shows percent fortification broken up into bins that are 5 points wide. &nbsp;The y axis shows how many functions fall in each bin. &nbsp; " />  <figcaption>Fortification by function in Ubuntu Linux. &nbsp;The x axis shows percent fortification broken up into bins that are 5 points wide. &nbsp;The y axis shows how many functions fall in each bin. </figcaption>
+</figure>
+
+
+<p>So, function fortification is a fairly mature feature on Linux, although imperfect. &nbsp;It does well on many commonly used risky functions, and fortifies 91% of files overall. &nbsp;Still, over 2/3 of the binaries that are intended to be fortified end up being less than 95% fortified, and the developer gets no feedback as to the success rate for their particular case.&nbsp;&nbsp;</p><p>On OSX, however, we see that this security feature is much less mature. &nbsp;For OSX we had more software installed, so we had almost 7 million function instances observed. &nbsp;21.4% of these were fortified, which is fairly dismal, especially when compared to Linux's 91.7%. &nbsp;</p><p>In fact, while Linux had many binaries with high function counts that were almost entirely fortified, no OSX binaries with high function counts got high fortification scores. &nbsp;The most fortified functions in a 100% fortified file was 121. &nbsp;</p>
+
+<figure><img src="{{ '/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-3.png' | relative_url }}" alt=" Fortification by binary on OSX (El Capitan).&nbsp;&nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &nbsp; " />  <figcaption>Fortification by binary on OSX (El Capitan).&nbsp;&nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. </figcaption></figure>
+
+
+<p>The picture is similar when OSX fortification is viewed by function. &nbsp;52 functions are never fortified. &nbsp;The most successful function is strcat, with 93% fortification, followed by strncat and sprintf (83% and 82%, respectively). &nbsp;Interestingly, we found that a couple functions had higher fortification rates in OSX than they did in Linux. &nbsp;&nbsp;</p><p>In both Linux and OSX, we observed that string functions like these had higher success rates than functions dealing with (dynamic) memory pointers.</p>
+
+<figure><img src="{{ '/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-4.png' | relative_url }}" alt=" Histogram of fortification by function on OSX. &nbsp;The x axis shows percentage fortified, with a bin width of 5. &nbsp;The y axis shows how many functions fell into each bin. &nbsp;Nothing was 95-100% fortified. " /><figcaption>Histogram of fortification by function on OSX. &nbsp;The x axis shows percentage fortified, with a bin width of 5. &nbsp;The y axis shows how many functions fell into each bin. &nbsp;Nothing was 95-100% fortified.</figcaption></figure>
+<p>So, OSX has some catching up to do, compared to their Linux equivalent. This was a relatively unexpected result,&nbsp;but that's why this sort of data analysis is important. &nbsp;</p>
