@@ -3,17 +3,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Cyber Independent Testing Lab | The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</title>
+<title>Score Distributions in OSX, Win10, and Linux | Cyber Independent Testing Lab</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="Cyber Independent Testing Lab" />
+<meta property="og:title" content="Score Distributions in OSX, Win10, and Linux" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<meta property="og:description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<link rel="canonical" href="http://localhost:4000/news/blog/" />
-<meta property="og:url" content="http://localhost:4000/news/blog/" />
+<meta name="description" content="The data we&#39;re sharing first is the data from what we refer to as our static analysis. &nbsp;(Fuzzing and dynamic analysis data will be described later)." />
+<meta property="og:description" content="The data we&#39;re sharing first is the data from what we refer to as our static analysis. &nbsp;(Fuzzing and dynamic analysis data will be described later)." />
+<link rel="canonical" href="http://localhost:4000/2016/09/01/score-distributions-in-osx-win10-and-linux.html" />
+<meta property="og:url" content="http://localhost:4000/2016/09/01/score-distributions-in-osx-win10-and-linux.html" />
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-09-01T00:00:00-07:00" />
 <script type="application/ld+json">
-{"description":"The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.","headline":"Cyber Independent Testing Lab","@type":"WebPage","url":"http://localhost:4000/news/blog/","@context":"http://schema.org"}</script>
+{"description":"The data we&#39;re sharing first is the data from what we refer to as our static analysis. &nbsp;(Fuzzing and dynamic analysis data will be described later).","headline":"Score Distributions in OSX, Win10, and Linux","@type":"BlogPosting","datePublished":"2016-09-01T00:00:00-07:00","dateModified":"2016-09-01T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2016/09/01/score-distributions-in-osx-win10-and-linux.html"},"url":"http://localhost:4000/2016/09/01/score-distributions-in-osx-win10-and-linux.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -250,164 +252,50 @@
 </header>
 <main class="page-content" aria-label="Content">
         <div class="wrapper">
-            <main id="blog" class="sub-page blog-page">
-  <section class="hero dark-section">
-	  <div class="container">
-		  <h1>Blog</h1>
-	  </div>
-  </section>
-  <section>
-		  <div class="container">
-								  <div class="row">
-							 
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">Building on research success, CITL grows and focuses on scale</a></h3>
-									<time datetime=" 2017-05-01 00:00:00 -0700" class="label-sans">May 1, 2017</time>
-									<p>In the past year a lot has happened at CITL
+            	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>Score Distributions in OSX, Win10, and Linux</h1>
+				<time datetime=" 2016-09-01 00:00:00 -0700" class="h5-mono">Sep 1, 2016
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   <p>The data we're sharing first is the data from what we refer to as our <a href="/2016/09/01/our-static-analysis-metrics-and-features.html">static analysis</a>. &nbsp;(Fuzzing and dynamic analysis data will be described later).<!--more--> This is the part of our data that is most similar to nutritional facts of software, as it focuses on features and contents of the binary. &nbsp;In particular, what application armoring features are present (and how well were they done), how complex is it, and what does the developer hygiene look like? &nbsp;Each binary gets a "local score", based on just that binary, and a "library score", based on the local scores for all libraries it depends on (directly or indirectly, through other libraries). &nbsp;These two values are combined to produce the total score. &nbsp;The charts below show histograms of the total scores for each of the tested environments. &nbsp;</p><p>We have static analysis data on the base installs on all 3 of our initial desktop environments: OSX (El Capitan 10.11), Windows 10, and Ubuntu Linux (16.04 LTS). &nbsp;Since it had come to our attention as an interesting test case, these installs also include <a href="https://www.continuum.io/">Anaconda</a>, the big data analytics package from Continuum. &nbsp;It's important to note that scores don't compare directly between environments. &nbsp;If the 50th percentile mark for Windows is higher than the one for Linux, for example, that doesn't necessarily mean anything. &nbsp;Each environment has different sets of safety features available and different hazards for programmers to avoid, so the score values aren't apples to apples. This is important enough to bear repeating: consumers should compare the ratings we will be releasing of applications against each other *within*&nbsp;a particular environment. What we're focusing on here is the overall distribution and range of scores, as this tells us something about how consistent the development process was for that operating system/environment. &nbsp;So which company appears to have the better Security Development Life Cycle (SDLC)&nbsp;process for their base OS?</p><p>We're still finalizing some data before we share reports or scores for specific software verticals, but we can share the overall landscape in each environment. &nbsp;In a near-future blog post we'll add call-outs for specific applications to these charts, allowing comparisons between competing projects. &nbsp;For now, we're just getting the lay of the land. &nbsp;First off, here's the histogram of application scores for the base installation of OSX. &nbsp;</p>
+  
+<figure><img src="/assets/images/blog/score-distributions-in-osx-win10-and-linux-1.png" alt=" Histogram of static analysis scores for base install of OSX El Capitan. &nbsp; " /><figcaption>Histogram of static analysis scores for base install of OSX El Capitan.</figcaption></figure>
+  
 
-</p>
-									<a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2017/01/30/citl-status-report.html">CITL Status Report</a></h3>
-									<time datetime=" 2017-01-30 00:00:00 -0800" class="label-sans">Jan 30, 2017</time>
-									<p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.
+<p>Base OSX has a roughly bimodal distribution, with the scores covering a pretty broad range. &nbsp;The 5th and 95th percentile lines are 67 points away from each other. &nbsp;&nbsp; While there aren't any perfect scores, there's a fair amount in the 90s (100 would be a "perfect score" for this high level static view). [Note: "Perfect score" does not mean secure. Instead, it means that the appropriate safety measures and protective harnesses were enabled in the development process. As an analogy, a car that has seat belts, anti-lock breaks, air bags, active and passive restraints, etc. would receive a "perfect score". We could also call this the "bare minimum", but we're trying to encourage the industry rather than simply berate it. In the future we will release the measurements that show the level of efficacy each of these safety features achieved per application, but for now we are discussing this at a much higher level to help acclimate people to the approach.]&nbsp; &nbsp;</p>
+  
+<figure><img src="/assets/images/blog/score-distributions-in-osx-win10-and-linux-2.png" alt=" Similar histogram showing total score distribution in Ubuntu Linux. &nbsp; " /><figcaption>Similar histogram showing total score distribution in Ubuntu Linux.</figcaption></figure>
+  
 
-</p>
-									<a href="/our_approach/2017/01/30/citl-status-report.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">To Upgrade or not?  A look at Office 2016 for OSX</a></h3>
-									<time datetime=" 2017-01-04 00:00:00 -0800" class="label-sans">Jan 4, 2017</time>
-									<p>When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.
+<p>With Linux Ubuntu (16.04 LTS), we still have a pretty broad range of scores, but with a longer tail for the upper range of the scores. &nbsp;Here we have more of a normal distribution. &nbsp;The 95th percentile line moves down a bit, but the other percentile marks are surprisingly close to the values in OSX. &nbsp;</p><p>With Windows, we have a very different picture. Frankly, this is very impressive:&nbsp;</p>
+  
+<figure><img src="/assets/images/blog/score-distributions-in-osx-win10-and-linux-3.png" alt=" Windows 10 score distribution. &nbsp;All scores lower than -22 are from Anaconda. &nbsp;Without Anaconda included the 5th percentile is a score of 53 (instead of 40). &nbsp; " />  <figcaption>Windows 10 score distribution. &nbsp;All scores lower than -22 are from Anaconda. &nbsp;Without Anaconda included the 5th percentile is a score of 53 (instead of 40). </figcaption></figure> 
+  
 
-</p>
-									<a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</a></h3>
-									<time datetime=" 2016-11-21 00:00:00 -0800" class="label-sans">Nov 21, 2016</time>
-									<p>Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions
+<p>Windows shows a pretty different chart from the previous two. &nbsp;The bin for scores from 65-70 has about 5500 files in it. &nbsp;Even accounting for the increased number of files in the Windows base install, this is much higher than the biggest peaks on either of the other charts, indicating that application of armoring and security features is much more uniform for the Windows environment. &nbsp;Windows also has many more files with a perfect or near-perfect score than OSX or Linux had. &nbsp;While all three environments had the potential for a final score to be slightly over 100, this is the only environment to have any in practice. &nbsp;</p><p>This distribution will become a lot broader once we bring in third party applications. &nbsp;This prediction is supported by what Anaconda's presence already does to the chart. &nbsp;Namely, it contributes the lowest 450 or so scores to the chart, including everything scoring a -22 or lower. &nbsp;[Note: Continuum, the company that packages Anaconda, is aware of these findings. Should they decide to move to a modern development with a full complement of safety features available (and frequently enabled by default), their scores will improve significantly. &nbsp;We are hoping they do so, as their current product imposes significant risk on their customers, and it would be a great initial win if this got fixed. We will keep you posted on this topic.]</p><p>We are installing a wide variety of third party software onto our test systems. This will provide an understanding of the overall software ecosystem for each environment. &nbsp;More importantly, though, it'll allow consumers to call out all members of a particular software category and compare them based on where they fall on this safety continuum. &nbsp;</p><p>With this information it will become a straight forward process to choose and use software that increases the cost to the adversary, and thus measurably decreases the risk to yourself.&nbsp;After all, who would want to install and run the easiest target software for no reason?</p>
 
-</p>
-									<a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/11/15/revisiting-the-linux-score-distribution.html">Revisiting the Linux Score Distribution</a></h3>
-									<time datetime=" 2016-11-15 00:00:00 -0800" class="label-sans">Nov 15, 2016</time>
-									<p>A while back, we showed what the score distributions were for base installs of three major platforms.
-
-</p>
-									<a href="/2016/11/15/revisiting-the-linux-score-distribution.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">Software Application Risks on the OSX Continuum</a></h3>
-									<time datetime=" 2016-09-15 00:00:00 -0700" class="label-sans">Sep 15, 2016</time>
-									<p>In our <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">previous post</a> about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.
-
-</p>
-									<a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">Score Distributions in OSX, Win10, and Linux</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>The data we're sharing first is the data from what we refer to as our <a href="/2016/09/01/our-static-analysis-metrics-and-features.html">static analysis</a>. &nbsp;(Fuzzing and dynamic analysis data will be described later).
-
-</p>
-									<a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/our-static-analysis-metrics-and-features.html">Our Static Analysis Metrics and Features</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>If you've seen <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">our post</a> about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.
-
-</p>
-									<a href="/2016/09/01/our-static-analysis-metrics-and-features.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html">Other Industries that Inspired Us</a></h3>
-									<time datetime=" 2016-08-15 00:00:00 -0700" class="label-sans">Aug 15, 2016</time>
-									<p>Evaluating the risk profile of software is a technically complex task, but there are lots of other industries where consumers have to engage in complex decision-making. 
-
-</p>
-									<a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html">CITL's Reception at Black Hat and Defcon</a></h3>
-									<time datetime=" 2016-08-11 00:00:00 -0700" class="label-sans">Aug 11, 2016</time>
-									<p>So, first off, thank you! &nbsp;We've been thrilled so far by the media coverage and security community reaction we received.
-
-</p>
-									<a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/30/citl-at-black-hat-and-def-con.html">CITL at Black Hat and Def Con!</a></h3>
-									<time datetime=" 2016-07-30 00:00:00 -0700" class="label-sans">Jul 30, 2016</time>
-									<p>The first public talks about CITL, including details about our metrics and preliminary data, will be at this year's Black Hat and Def Con!
-
-</p>
-									<a href="/2016/07/30/citl-at-black-hat-and-def-con.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/14/problem-with-standards-and-certifications.html">The Problem With Standards and Certifications</a></h3>
-									<time datetime=" 2016-07-14 00:00:00 -0700" class="label-sans">Jul 14, 2016</time>
-									<p>One of the common misconceptions about our work at CITL is that we’re certifying software products, or in some way asserting that they meet a particular standard.
-
-</p>
-									<a href="/2016/07/14/problem-with-standards-and-certifications.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-			  </div>
-	  </div>
-    </section>
-  </main>
+			</div>
+			<div class="container post-nav">
+				<div>
+					 
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="/2016/09/01/our-static-analysis-metrics-and-features.html">&laquo; Our Static Analysis Metrics and Features</a>
+  
+					</div>
+				<div class="text-right">
+					
+				<h5 class="label-sans">Next Post:</h5>			 
+    <a class="next" href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">Software Application Risks on the OSX Continuum &raquo;</a>
+  
+					</div>
+			</div>
+		</section>
+	</main>
         </div>
     </main>	<footer>
 	<div class="footer-top">

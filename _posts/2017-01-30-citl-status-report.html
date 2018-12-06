@@ -1,0 +1,18 @@
+---
+layout: post
+title: CITL Status Report
+categories:
+- our_approach
+tags: []
+status: publish
+type: post
+published: true
+meta: {}
+excerpt_separator: <!--more-->
+---
+<p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.<!--more--> &nbsp;We've realized that while we're busy executing on this plan, maybe other people would like to know more about the behind the scenes also. &nbsp;In order to have automatically generated reports and software scores available at scale, here's what needs to happen:&nbsp;</p><p>1. Automate Static Analysis measurement collection - This part is done for Windows, OSX, and Linux/ELF environments (Intel and ARM). &nbsp;It takes ~1 second per binary and we're confident in the accuracy of the results we're collecting. &nbsp;</p><p>2. Collect a lot of fuzzing and crash test data - Well underway, but still ongoing. &nbsp;We've got about 100 cores chugging away, and enough results now to be moving on to the next step.</p>
+  
+      <img src="{{ '/assets/images/blog/citl-status-report-1.jpg' | relative_url }}" alt=""/>
+  
+
+<p>3. Correlate dynamic analysis results (2) with static analysis results (1) to finalize score calculations. &nbsp;This is what we're working on now, and it's the main thing that has to happen before we're happy with releasing reports at scale. &nbsp;</p><p>4. (Reach Goal) Gain enough confidence in our mathematical model to successfully predict dynamic results based on static results. &nbsp;This will allow us to present estimated crash test results based on easily automated analysis. &nbsp;</p><p>Why is this third step so important? &nbsp;While we know that some things make software safer (ASLR, stack guards, DEP, source fortification, etc) and that some things make software weaker (using historically unsafe functions, high complexity, etc), the industry needs better data on how much they impact software safety. &nbsp;If a perfect score is 100, how many points is having ASLR worth? &nbsp;Linking to insecure libraries certainly introduces risk, but how much should it impact the overall score? &nbsp;We want to have a better answer to questions like these before we publish our first official software safety reports. &nbsp;Having a strong model to support our risk assessments will provide our ratings with the credibility they need in order to influence consumers, developers, the security community, and the commercial world. &nbsp;</p><p>In the meantime, here's an <a href="{{ site.baseurl }}{% post_url 2016-09-01-our-static-analysis-metrics-and-features %}">overview</a>&nbsp;of the sorts of software properties we're measuring with our static analysis. &nbsp;Also, stay tuned! &nbsp;We're hoping to have some exciting new partnerships and efforts to announce in the coming months. &nbsp;</p>

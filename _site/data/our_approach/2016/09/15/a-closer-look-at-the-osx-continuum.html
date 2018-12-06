@@ -3,17 +3,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Cyber Independent Testing Lab | The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</title>
+<title>Software Application Risks on the OSX Continuum | Cyber Independent Testing Lab</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="Cyber Independent Testing Lab" />
+<meta property="og:title" content="Software Application Risks on the OSX Continuum" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<meta property="og:description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<link rel="canonical" href="http://localhost:4000/news/blog/" />
-<meta property="og:url" content="http://localhost:4000/news/blog/" />
+<meta name="description" content="In our previous post about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come." />
+<meta property="og:description" content="In our previous post about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come." />
+<link rel="canonical" href="http://localhost:4000/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" />
+<meta property="og:url" content="http://localhost:4000/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" />
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-09-15T00:00:00-07:00" />
 <script type="application/ld+json">
-{"description":"The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.","headline":"Cyber Independent Testing Lab","@type":"WebPage","url":"http://localhost:4000/news/blog/","@context":"http://schema.org"}</script>
+{"description":"In our previous post about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.","headline":"Software Application Risks on the OSX Continuum","@type":"BlogPosting","datePublished":"2016-09-15T00:00:00-07:00","dateModified":"2016-09-15T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html"},"url":"http://localhost:4000/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -250,164 +252,55 @@
 </header>
 <main class="page-content" aria-label="Content">
         <div class="wrapper">
-            <main id="blog" class="sub-page blog-page">
-  <section class="hero dark-section">
-	  <div class="container">
-		  <h1>Blog</h1>
-	  </div>
-  </section>
-  <section>
-		  <div class="container">
-								  <div class="row">
-							 
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">Building on research success, CITL grows and focuses on scale</a></h3>
-									<time datetime=" 2017-05-01 00:00:00 -0700" class="label-sans">May 1, 2017</time>
-									<p>In the past year a lot has happened at CITL
+            	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>Software Application Risks on the OSX Continuum</h1>
+				<time datetime=" 2016-09-15 00:00:00 -0700" class="h5-mono">Sep 15, 2016
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   <p>In our <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">previous post</a> about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.<!--more--> We also noted interesting things about each continuum and reminded people that the real value is being able to compare risk present in various software within a single continuum.&nbsp; No we will take our first look at where some applications of interest live on the score continuum for OSX. &nbsp;We'll look at three categories of software here: browsers, office suites, and update software. &nbsp;All of these are targets for attack, so security is a concern for all of them. &nbsp;The extent to which security influences purchasing decisions in these categories likely varies a great deal, however. &nbsp;We'll discuss this aspect in more detail for each group as they're introduced. [Note: As stated before, these articles are to familiarize people with the value and limitation of static measures of risk. Once we finish these blog posts we will begin describing our dynamic and predictive analysis values and how they work with our static measurements.]</p><p>First up are browsers. &nbsp;Browsers are particularly interesting because it's easy to change which one you're using, and easier for security to be a main consideration in the choice of which to use. &nbsp;After all, they all provide you access to the same web content, they're a major vector for infection, and most of them are free, so cost isn't usually a deciding factor. &nbsp;For corporations it is often most efficient to pick a single browser to configure and support. So if you are an OS X based shop, how would you chose the browser with the strongest security build and developer hygiene characteristics?</p><p>You might remember that the histogram of all OSX El Captain scores looked like so (as of August 2016):&nbsp;</p>
 
-</p>
-									<a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2017/01/30/citl-status-report.html">CITL Status Report</a></h3>
-									<time datetime=" 2017-01-30 00:00:00 -0800" class="label-sans">Jan 30, 2017</time>
-									<p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.
+<img src="/assets/images/blog/a-closer-look-at-the-osx-continuum-1.png" alt="" />
 
-</p>
-									<a href="/our_approach/2017/01/30/citl-status-report.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">To Upgrade or not?  A look at Office 2016 for OSX</a></h3>
-									<time datetime=" 2017-01-04 00:00:00 -0800" class="label-sans">Jan 4, 2017</time>
-									<p>When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.
 
-</p>
-									<a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</a></h3>
-									<time datetime=" 2016-11-21 00:00:00 -0800" class="label-sans">Nov 21, 2016</time>
-									<p>Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions
+<p>The scores increase as you go from left to right, so applications lacking basic security artifacts will fall further to the left, and better built applications (from a security/risk perspective), will be further to the right. &nbsp;To make this more concrete, let's look at where our three main OSX browsers fall on the continuum. &nbsp;</p>
 
-</p>
-									<a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/11/15/revisiting-the-linux-score-distribution.html">Revisiting the Linux Score Distribution</a></h3>
-									<time datetime=" 2016-11-15 00:00:00 -0800" class="label-sans">Nov 15, 2016</time>
-									<p>A while back, we showed what the score distributions were for base installs of three major platforms.
+<img src="/assets/images/blog/a-closer-look-at-the-osx-continuum-1.png" alt="" />
 
-</p>
-									<a href="/2016/11/15/revisiting-the-linux-score-distribution.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">Software Application Risks on the OSX Continuum</a></h3>
-									<time datetime=" 2016-09-15 00:00:00 -0700" class="label-sans">Sep 15, 2016</time>
-									<p>In our <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">previous post</a> about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.
 
-</p>
-									<a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">Score Distributions in OSX, Win10, and Linux</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>The data we're sharing first is the data from what we refer to as our <a href="/2016/09/01/our-static-analysis-metrics-and-features.html">static analysis</a>. &nbsp;(Fuzzing and dynamic analysis data will be described later).
+<p>The line below the histogram is our relative hardening line. It is mapped to the histogram above, and used to notate where a particular piece of software (and it's supporting libraries) falls on the soft-to-hard scale. The yellow triangle on the histogram above the relative hardening line is aligned with its binary package below to help the viewer see where they land in the overall distribution.</p><p>With the browsers, the story is pretty clear - there are pretty big score differences between our three exemplars currently available on OS X, with Firefox (v 39.0) close to the 5th percentile mark, Safari (v 9.0)&nbsp;in the middle (of the browsers, but below the 50th percentile mark for the OS X environment), and Chrome (v 48.0.2564)&nbsp;leading the pack with a more respectable score. &nbsp; We were surprised to see that Firefox had no ASLR enabled, so we did some digging and discovered that the feature had been <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1290675#c0">intentionally disabled by the development team</a> so that it could be backwards compatible with OSX 10.6. &nbsp;That backwards compatibility is planned on being dropped in the next major Firefox release, v 49.&nbsp;</p><p>Keep in mind that the scores for these browsers and other applications, are only meaningfully compared within the same operating environment.&nbsp;For Windows 10 and Linux the same browsers we are showing here in OS X ranked and scored significantly differently. No wonder there has not been a clear winner to the browser security holy wars (yet);&nbsp;depending on the browser <em>and </em>the OS, the correct answer differs!&nbsp;When we measure these features, it becomes readily apparent as to which browser is more difficult for an adversary to newly exploit. &nbsp;Perhaps one of the browser developers will use the information we will be producing to become the clear leader across all available platforms.</p><p>This leads us to one of the questions we get asked a lot, which is how often will we reevaluate products? &nbsp;Will we update our reports each time a patch is issued, for example? &nbsp;We could do this, and in fact we have during our development process, but it is not our current plan.&nbsp;Extracting the hundreds of build features, complexity measurements, and artifacts of developer hygiene for the static portion of our risk analysis only takes, on average, a few seconds per target and it is easily distributed and performed in parallel. However, it turns out that in practice we really do not need to re-evaluate for every minor revision,&nbsp;because a single minor patch usually doesn't change enough to matter.&nbsp; For organizations and consumers who provide funding for such services we could do this, and for the fine grained feature analysis that we described in the BlackHat and Defcon talks this can be meaningful,&nbsp;but in general we plan on focusing our public reports on each major release of a product.&nbsp;Major revisions have shown significant changes for better and worse in the products we have analyzed, but minor changes from patch to patch seldom move the needle much. &nbsp;As an example,&nbsp;looking at several versions of Chrome [48.0.2564 to 50.0.2657]&nbsp;showed precisely the same overall score.&nbsp; After all, a patch typically only touches a small fraction of an application's total lines of code. &nbsp;The purpose of the patch is to fix a specific bug or vulnerability instance,&nbsp;not address whole classes of vulnerabilities or change fundamental design elements (unfortunately). &nbsp;</p><p>Our next category of reviewed software is office suites. &nbsp;Office suites (typically word processing, spreadsheet, and presentation software), are a significant target in phishing and spearphishing attacks. If a user opens an attachment in an office suite application it is largely up to that application to prevent malicious activity and execution.&nbsp;While traditionally there has always been one dominant suite that everyone uses by default, there are options available here. &nbsp;On an environment like OS X there are even multiple commercial-quality options. &nbsp;We do appreciate that people have a more difficult time switching between suites, though, because office suites vary more in their features and capabilities, so security usually is not a sole driving factor in decision-making. &nbsp;The average consumer might not be aware, however, of the options that are now available to them, or how much the security might vary from one offering to another within OS X solutions. &nbsp;In the following chart we overlay Microsoft Office 2011, iWork, and open source office offerings (LibreOffice 5.1.0 and Apache's OpenOffice 4.1.2)&nbsp;on the existing continuum that we just populated with the browsers above.</p>
 
-</p>
-									<a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/our-static-analysis-metrics-and-features.html">Our Static Analysis Metrics and Features</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>If you've seen <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">our post</a> about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.
+<img src="/assets/images/blog/a-closer-look-at-the-osx-continuum-1.png" alt="" />
 
-</p>
-									<a href="/2016/09/01/our-static-analysis-metrics-and-features.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html">Other Industries that Inspired Us</a></h3>
-									<time datetime=" 2016-08-15 00:00:00 -0700" class="label-sans">Aug 15, 2016</time>
-									<p>Evaluating the risk profile of software is a technically complex task, but there are lots of other industries where consumers have to engage in complex decision-making. 
 
-</p>
-									<a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html">CITL's Reception at Black Hat and Defcon</a></h3>
-									<time datetime=" 2016-08-11 00:00:00 -0700" class="label-sans">Aug 11, 2016</time>
-									<p>So, first off, thank you! &nbsp;We've been thrilled so far by the media coverage and security community reaction we received.
+<p>Each office suite's software is based on the average of the scores for their main applications - their text editor, spreadsheet tool, and presentation application. For each of these applications the score is made from the core application, all of the libraries it loads, the libraries they load, and so on, as evaluated for the features described in our prior post.&nbsp;So, the average of Word, Excel, and Powerpoint in Microsoft's office suite, or Pages, Numbers, and Keynote for the Apple office suite. &nbsp;</p><p>Take a moment to reconsider the <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">previous blog post</a>&nbsp;where we showed the histogram scores for Windows 10, OS X, and Linux.&nbsp;The histogram of scores for the base Windows 10 install showed that Microsoft was putting in a fair amount of effort to consistently use application armoring and good developer hygiene. &nbsp;It is interesting, and disconcerting, to see how different that picture looks when you see Microsoft's offerings as built for a competitors' environment. &nbsp;Microsoft's Office for OSX suite is all 32 bit binaries with executable heaps and no source fortification. &nbsp;The vast majority of OSX 32 bit binaries had non-executable heaps, which means that the build environment for this office suite is either very out of date and/or idiosyncratic, or that this particular safety feature was specifically disabled. &nbsp;Either explanation doesn't reflect very well on Microsoft. &nbsp;</p><p>The other office suites do better, all landing around where Safari was. &nbsp;We looked at both OpenOffice and LibreOffice, but they had enough code, build, and hygiene features in common that they are essentially interchangeable from a perspective of static binary scores, so they only have one data point on our chart. &nbsp;The native Apple office suite does the best, although not by a huge margin. &nbsp;These tools at least applied the default application armoring features that most applications had, and were 64 bit binaries, which is why they end up in the middle of the overall distribution. &nbsp;These are all relatively soft targets, though it still makes sense to choose the one that introduces more work to the adversary from a security and safety perspective. It is unsurprising that new zero days continue to target these applications in this environment.</p><p>Finally, we looked at Auto Update software. &nbsp;This isn't a category of software that consumers specifically choose to run, but rather something that they get as a side effect of other purchasing decisions. &nbsp;Still, Auto Updaters are a major security target, and their security contributes to the overall cost of ownership for the products they're a part of. &nbsp;After all, they accept some form of input from remote sources and they are often in a position of privilege within the operating system for installs and upgrades. The following chart adds Microsoft and Apple's update software to the continuum. One of the results is... disturbing.&nbsp;</p>
 
-</p>
-									<a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/30/citl-at-black-hat-and-def-con.html">CITL at Black Hat and Def Con!</a></h3>
-									<time datetime=" 2016-07-30 00:00:00 -0700" class="label-sans">Jul 30, 2016</time>
-									<p>The first public talks about CITL, including details about our metrics and preliminary data, will be at this year's Black Hat and Def Con!
+<img src="/assets/images/blog/a-closer-look-at-the-osx-continuum-1.png" alt="" />
 
-</p>
-									<a href="/2016/07/30/citl-at-black-hat-and-def-con.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/14/problem-with-standards-and-certifications.html">The Problem With Standards and Certifications</a></h3>
-									<time datetime=" 2016-07-14 00:00:00 -0700" class="label-sans">Jul 14, 2016</time>
-									<p>One of the common misconceptions about our work at CITL is that we’re certifying software products, or in some way asserting that they meet a particular standard.
 
-</p>
-									<a href="/2016/07/14/problem-with-standards-and-certifications.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-			  </div>
-	  </div>
-    </section>
-  </main>
+<p>We always look across all of the binaries to identify the very best and very worst applications in any run, to see if anything of interest pops out. &nbsp;We were dismayed to see that Microsoft AutoUpdate (the update software that ships with their office suite) had one of the worst 10 scores out of all 38k+ binaries we evaluated. &nbsp;It's a 32 bit application with no ASLR, an executable heap, unfortified source, and no stack guards. &nbsp;In the office suite scores from the prior histogram, we did not include this update software. If we change the score of the office suite to include all the software it comes with, this pulls the score down significantly. It should be pointed out that this updater is related to Microsoft's DRM (digital rights management - anti software piracy) component that is listening on the network on your OS X system if you have MS Office installed.&nbsp;</p><p>In contrast, the native OSX Auto Update software does quite well, scoring slightly better than Google Chrome did. &nbsp;Given what a target auto updaters are for attackers, this is more along the lines of what we would like to see for this sort of software. &nbsp;</p><p>It is clear that there is a variety of products available to consumers, with a lot of variation in their security and design quality. &nbsp;And, as we see with the Microsoft products for OSX, a vendor that does well in one environment might do quite poorly in another. &nbsp;There is no guarantee of consistency of development practices across a large organization. &nbsp;However, with information such as this we are hoping to arm and inform consumers to help them make better and safer choices for their particular environments.</p>
+
+			</div>
+			<div class="container post-nav">
+				<div>
+					 
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">&laquo; Score Distributions in OSX, Win10, and Linux</a>
+  
+					</div>
+				<div class="text-right">
+					
+				<h5 class="label-sans">Next Post:</h5>			 
+    <a class="next" href="/2016/11/15/revisiting-the-linux-score-distribution.html">Revisiting the Linux Score Distribution &raquo;</a>
+  
+					</div>
+			</div>
+		</section>
+	</main>
         </div>
     </main>	<footer>
 	<div class="footer-top">

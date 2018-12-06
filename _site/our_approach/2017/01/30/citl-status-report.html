@@ -3,17 +3,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Cyber Independent Testing Lab | The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</title>
+<title>CITL Status Report | Cyber Independent Testing Lab</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="Cyber Independent Testing Lab" />
+<meta property="og:title" content="CITL Status Report" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<meta property="og:description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<link rel="canonical" href="http://localhost:4000/news/blog/" />
-<meta property="og:url" content="http://localhost:4000/news/blog/" />
+<meta name="description" content="Some people have been asking when they&#39;re going to get to see all the great output and data we&#39;re generating, so this seemed like a good time to explain where we&#39;re at right now." />
+<meta property="og:description" content="Some people have been asking when they&#39;re going to get to see all the great output and data we&#39;re generating, so this seemed like a good time to explain where we&#39;re at right now." />
+<link rel="canonical" href="http://localhost:4000/our_approach/2017/01/30/citl-status-report.html" />
+<meta property="og:url" content="http://localhost:4000/our_approach/2017/01/30/citl-status-report.html" />
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-01-30T00:00:00-08:00" />
 <script type="application/ld+json">
-{"description":"The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.","headline":"Cyber Independent Testing Lab","@type":"WebPage","url":"http://localhost:4000/news/blog/","@context":"http://schema.org"}</script>
+{"description":"Some people have been asking when they&#39;re going to get to see all the great output and data we&#39;re generating, so this seemed like a good time to explain where we&#39;re at right now.","headline":"CITL Status Report","@type":"BlogPosting","datePublished":"2017-01-30T00:00:00-08:00","dateModified":"2017-01-30T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/our_approach/2017/01/30/citl-status-report.html"},"url":"http://localhost:4000/our_approach/2017/01/30/citl-status-report.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -250,164 +252,40 @@
 </header>
 <main class="page-content" aria-label="Content">
         <div class="wrapper">
-            <main id="blog" class="sub-page blog-page">
-  <section class="hero dark-section">
-	  <div class="container">
-		  <h1>Blog</h1>
-	  </div>
-  </section>
-  <section>
-		  <div class="container">
-								  <div class="row">
-							 
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">Building on research success, CITL grows and focuses on scale</a></h3>
-									<time datetime=" 2017-05-01 00:00:00 -0700" class="label-sans">May 1, 2017</time>
-									<p>In the past year a lot has happened at CITL
+            	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>CITL Status Report</h1>
+				<time datetime=" 2017-01-30 00:00:00 -0800" class="h5-mono">Jan 30, 2017
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   <p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.<!--more--> &nbsp;We've realized that while we're busy executing on this plan, maybe other people would like to know more about the behind the scenes also. &nbsp;In order to have automatically generated reports and software scores available at scale, here's what needs to happen:&nbsp;</p><p>1. Automate Static Analysis measurement collection - This part is done for Windows, OSX, and Linux/ELF environments (Intel and ARM). &nbsp;It takes ~1 second per binary and we're confident in the accuracy of the results we're collecting. &nbsp;</p><p>2. Collect a lot of fuzzing and crash test data - Well underway, but still ongoing. &nbsp;We've got about 100 cores chugging away, and enough results now to be moving on to the next step.</p>
+  
+      <img src="/assets/images/blog/citl-status-report-1.jpg" alt=""/>
+  
 
-</p>
-									<a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2017/01/30/citl-status-report.html">CITL Status Report</a></h3>
-									<time datetime=" 2017-01-30 00:00:00 -0800" class="label-sans">Jan 30, 2017</time>
-									<p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.
+<p>3. Correlate dynamic analysis results (2) with static analysis results (1) to finalize score calculations. &nbsp;This is what we're working on now, and it's the main thing that has to happen before we're happy with releasing reports at scale. &nbsp;</p><p>4. (Reach Goal) Gain enough confidence in our mathematical model to successfully predict dynamic results based on static results. &nbsp;This will allow us to present estimated crash test results based on easily automated analysis. &nbsp;</p><p>Why is this third step so important? &nbsp;While we know that some things make software safer (ASLR, stack guards, DEP, source fortification, etc) and that some things make software weaker (using historically unsafe functions, high complexity, etc), the industry needs better data on how much they impact software safety. &nbsp;If a perfect score is 100, how many points is having ASLR worth? &nbsp;Linking to insecure libraries certainly introduces risk, but how much should it impact the overall score? &nbsp;We want to have a better answer to questions like these before we publish our first official software safety reports. &nbsp;Having a strong model to support our risk assessments will provide our ratings with the credibility they need in order to influence consumers, developers, the security community, and the commercial world. &nbsp;</p><p>In the meantime, here's an <a href="//2016/09/01/our-static-analysis-metrics-and-features.html">overview</a>&nbsp;of the sorts of software properties we're measuring with our static analysis. &nbsp;Also, stay tuned! &nbsp;We're hoping to have some exciting new partnerships and efforts to announce in the coming months. &nbsp;</p>
 
-</p>
-									<a href="/our_approach/2017/01/30/citl-status-report.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">To Upgrade or not?  A look at Office 2016 for OSX</a></h3>
-									<time datetime=" 2017-01-04 00:00:00 -0800" class="label-sans">Jan 4, 2017</time>
-									<p>When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.
-
-</p>
-									<a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</a></h3>
-									<time datetime=" 2016-11-21 00:00:00 -0800" class="label-sans">Nov 21, 2016</time>
-									<p>Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions
-
-</p>
-									<a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/11/15/revisiting-the-linux-score-distribution.html">Revisiting the Linux Score Distribution</a></h3>
-									<time datetime=" 2016-11-15 00:00:00 -0800" class="label-sans">Nov 15, 2016</time>
-									<p>A while back, we showed what the score distributions were for base installs of three major platforms.
-
-</p>
-									<a href="/2016/11/15/revisiting-the-linux-score-distribution.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">Software Application Risks on the OSX Continuum</a></h3>
-									<time datetime=" 2016-09-15 00:00:00 -0700" class="label-sans">Sep 15, 2016</time>
-									<p>In our <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">previous post</a> about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.
-
-</p>
-									<a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">Score Distributions in OSX, Win10, and Linux</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>The data we're sharing first is the data from what we refer to as our <a href="/2016/09/01/our-static-analysis-metrics-and-features.html">static analysis</a>. &nbsp;(Fuzzing and dynamic analysis data will be described later).
-
-</p>
-									<a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/our-static-analysis-metrics-and-features.html">Our Static Analysis Metrics and Features</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>If you've seen <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">our post</a> about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.
-
-</p>
-									<a href="/2016/09/01/our-static-analysis-metrics-and-features.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html">Other Industries that Inspired Us</a></h3>
-									<time datetime=" 2016-08-15 00:00:00 -0700" class="label-sans">Aug 15, 2016</time>
-									<p>Evaluating the risk profile of software is a technically complex task, but there are lots of other industries where consumers have to engage in complex decision-making. 
-
-</p>
-									<a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html">CITL's Reception at Black Hat and Defcon</a></h3>
-									<time datetime=" 2016-08-11 00:00:00 -0700" class="label-sans">Aug 11, 2016</time>
-									<p>So, first off, thank you! &nbsp;We've been thrilled so far by the media coverage and security community reaction we received.
-
-</p>
-									<a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/30/citl-at-black-hat-and-def-con.html">CITL at Black Hat and Def Con!</a></h3>
-									<time datetime=" 2016-07-30 00:00:00 -0700" class="label-sans">Jul 30, 2016</time>
-									<p>The first public talks about CITL, including details about our metrics and preliminary data, will be at this year's Black Hat and Def Con!
-
-</p>
-									<a href="/2016/07/30/citl-at-black-hat-and-def-con.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/14/problem-with-standards-and-certifications.html">The Problem With Standards and Certifications</a></h3>
-									<time datetime=" 2016-07-14 00:00:00 -0700" class="label-sans">Jul 14, 2016</time>
-									<p>One of the common misconceptions about our work at CITL is that we’re certifying software products, or in some way asserting that they meet a particular standard.
-
-</p>
-									<a href="/2016/07/14/problem-with-standards-and-certifications.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-			  </div>
-	  </div>
-    </section>
-  </main>
+			</div>
+			<div class="container post-nav">
+				<div>
+					 
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">&laquo; To Upgrade or not?  A look at Office 2016 for OSX</a>
+  
+					</div>
+				<div class="text-right">
+					
+				<h5 class="label-sans">Next Post:</h5>			 
+    <a class="next" href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">Building on research success, CITL grows and focuses on scale &raquo;</a>
+  
+					</div>
+			</div>
+		</section>
+	</main>
         </div>
     </main>	<footer>
 	<div class="footer-top">

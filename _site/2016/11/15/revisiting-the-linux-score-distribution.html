@@ -3,17 +3,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Cyber Independent Testing Lab | The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</title>
+<title>Revisiting the Linux Score Distribution | Cyber Independent Testing Lab</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="Cyber Independent Testing Lab" />
+<meta property="og:title" content="Revisiting the Linux Score Distribution" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<meta property="og:description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<link rel="canonical" href="http://localhost:4000/news/blog/" />
-<meta property="og:url" content="http://localhost:4000/news/blog/" />
+<meta name="description" content="A while back, we showed what the score distributions were for base installs of three major platforms." />
+<meta property="og:description" content="A while back, we showed what the score distributions were for base installs of three major platforms." />
+<link rel="canonical" href="http://localhost:4000/2016/11/15/revisiting-the-linux-score-distribution.html" />
+<meta property="og:url" content="http://localhost:4000/2016/11/15/revisiting-the-linux-score-distribution.html" />
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-11-15T00:00:00-08:00" />
 <script type="application/ld+json">
-{"description":"The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.","headline":"Cyber Independent Testing Lab","@type":"WebPage","url":"http://localhost:4000/news/blog/","@context":"http://schema.org"}</script>
+{"description":"A while back, we showed what the score distributions were for base installs of three major platforms.","headline":"Revisiting the Linux Score Distribution","@type":"BlogPosting","datePublished":"2016-11-15T00:00:00-08:00","dateModified":"2016-11-15T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2016/11/15/revisiting-the-linux-score-distribution.html"},"url":"http://localhost:4000/2016/11/15/revisiting-the-linux-score-distribution.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -250,164 +252,45 @@
 </header>
 <main class="page-content" aria-label="Content">
         <div class="wrapper">
-            <main id="blog" class="sub-page blog-page">
-  <section class="hero dark-section">
-	  <div class="container">
-		  <h1>Blog</h1>
-	  </div>
-  </section>
-  <section>
-		  <div class="container">
-								  <div class="row">
-							 
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">Building on research success, CITL grows and focuses on scale</a></h3>
-									<time datetime=" 2017-05-01 00:00:00 -0700" class="label-sans">May 1, 2017</time>
-									<p>In the past year a lot has happened at CITL
+            	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>Revisiting the Linux Score Distribution</h1>
+				<time datetime=" 2016-11-15 00:00:00 -0800" class="h5-mono">Nov 15, 2016
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   <p>A while back, we showed what the score distributions were for base installs of three major platforms.<!--more--> &nbsp;Here, we're going to compare that base install view of Linux with the score distribution for a custom, hardened instance of Linux. &nbsp;To refresh memories, here was the original Linux distribution:&nbsp;</p>
+  
+      <img src="/assets/images/blog/revisiting-the-linux-score-distribution-1.png" alt=""/>
+  
 
-</p>
-									<a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2017/01/30/citl-status-report.html">CITL Status Report</a></h3>
-									<time datetime=" 2017-01-30 00:00:00 -0800" class="label-sans">Jan 30, 2017</time>
-									<p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.
+<p>And here is the score distribution for our customized, hardened version of Linux:&nbsp;</p>
+  
+<img src="/assets/images/blog/revisiting-the-linux-score-distribution-2.png" alt="" />
+  
 
-</p>
-									<a href="/our_approach/2017/01/30/citl-status-report.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">To Upgrade or not?  A look at Office 2016 for OSX</a></h3>
-									<time datetime=" 2017-01-04 00:00:00 -0800" class="label-sans">Jan 4, 2017</time>
-									<p>When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.
+<p>There are no longer any negative scores, and the overall score distribution has greatly improved. &nbsp;These numbers can be compared directly, because they're both from environments with the same set of possible safety features, and all features are weighted the same.&nbsp;</p><p>As we saw with Windows, you can tell from the histogram of the hardened Linux instance that the build practices were more uniform because the binaries are much more clustered than before. &nbsp;This customization largely consisted of re-compiling all of the binaries with all possible application armoring features enabled to reasonable degrees. &nbsp;Bad functions or programming errors in the source code were not addressed, because the source code was not changed, but all available safety features are now being applied across the board. &nbsp;It should be noted that this hardened Linux build still lacks certain Kernel safety features &nbsp;(e.g. not all of the PAX/GRSec Kernel mods were enabled)&nbsp;as some would have interfered with necessary operations. &nbsp;This is just a reasonably hardened, but entirely usable Linux instance. &nbsp;</p><p>The ability to easily customize and harden the default distribution of Open Source Operating Systems should be a big draw for organizations that want to improve their security stance. &nbsp;With closed source software, the consumer has to hope that the vendor in question knows what they're doing when it comes to build environment and settings (Microsoft Windows 10 did well in this regard when compared with default OS X and Linux builds).&nbsp;The results usually end up being mixed and somewhat mediocre. &nbsp;The off the shelf quality of open source build practices isn't much better, as shown by the distribution for Ubuntu above, but then at least the consumer can redo it on their own and know it was done right. &nbsp;This sort of customization may be out of scope for many smaller businesses, unless they are security conscious and technically capable. &nbsp;It is, however,&nbsp;a completely reasonable behavior for larger organizations.&nbsp; So, why is it that most large corporations are not engaging in this security practice? After all, doing this measurably increases the difficulty and cost for an adversary to exploit the more uniform (hardened) environment.&nbsp;</p><p>We believe that there are two major contributing factors that prevent organizations from engaging in the practice of customizing and hardening their builds of open source distributions. &nbsp;First, of course, they might not know or think to do so. &nbsp;After all, there is a lot of ignorance and learned helplessness out there, and consumers of all types and sizes have been conditioned to just accept the software they are given, and not think of tinkering or customizing it for their needs. &nbsp;</p><p>Second, though, most corporations do not have any significant incentive to engage in this practice. &nbsp;It might improve their security, but it is viewed as a cost in the short term to put in the effort. &nbsp;If the weaker security stance results in a breach, well, that is why they have insurance... right? &nbsp;</p><p>This wouldn't fly for most other types of risk management. &nbsp;High value insurance policies can get pretty specific about what actions and levels of effort need to be taken by the insured to protect their property and prevent loss or damage. &nbsp;The insurance company knows, for example, the TL-ratings for the safes used in high-value environments.&nbsp;If the safe's rating says that it should last for about 30 minutes (TL-30) against common attacks, then the policy may require that a security guard pass by at least every 25 minutes. &nbsp;</p><p>This sort of system incentivizes companies to protect themselves as much as reasonably possible. &nbsp;It is one of the reasons why large organizations also have large physical security infrastructures that are customized for their business and environment. &nbsp;A large multinational corporation doesn't just put a "Secured by ___ Home Security" sticker in their window and call it a day. &nbsp;But, when it comes to cyber security practices, many corporations are frequently doing the equivalent, because cyber insurance policies are not requiring that they do more. &nbsp;&nbsp;</p><p>With these measurements and analytics, and the more detailed static, dynamic, and predictive ones to come, we hope to help address this issue.</p>
 
-</p>
-									<a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</a></h3>
-									<time datetime=" 2016-11-21 00:00:00 -0800" class="label-sans">Nov 21, 2016</time>
-									<p>Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions
-
-</p>
-									<a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/11/15/revisiting-the-linux-score-distribution.html">Revisiting the Linux Score Distribution</a></h3>
-									<time datetime=" 2016-11-15 00:00:00 -0800" class="label-sans">Nov 15, 2016</time>
-									<p>A while back, we showed what the score distributions were for base installs of three major platforms.
-
-</p>
-									<a href="/2016/11/15/revisiting-the-linux-score-distribution.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">Software Application Risks on the OSX Continuum</a></h3>
-									<time datetime=" 2016-09-15 00:00:00 -0700" class="label-sans">Sep 15, 2016</time>
-									<p>In our <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">previous post</a> about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.
-
-</p>
-									<a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">Score Distributions in OSX, Win10, and Linux</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>The data we're sharing first is the data from what we refer to as our <a href="/2016/09/01/our-static-analysis-metrics-and-features.html">static analysis</a>. &nbsp;(Fuzzing and dynamic analysis data will be described later).
-
-</p>
-									<a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/our-static-analysis-metrics-and-features.html">Our Static Analysis Metrics and Features</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>If you've seen <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">our post</a> about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.
-
-</p>
-									<a href="/2016/09/01/our-static-analysis-metrics-and-features.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html">Other Industries that Inspired Us</a></h3>
-									<time datetime=" 2016-08-15 00:00:00 -0700" class="label-sans">Aug 15, 2016</time>
-									<p>Evaluating the risk profile of software is a technically complex task, but there are lots of other industries where consumers have to engage in complex decision-making. 
-
-</p>
-									<a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html">CITL's Reception at Black Hat and Defcon</a></h3>
-									<time datetime=" 2016-08-11 00:00:00 -0700" class="label-sans">Aug 11, 2016</time>
-									<p>So, first off, thank you! &nbsp;We've been thrilled so far by the media coverage and security community reaction we received.
-
-</p>
-									<a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/30/citl-at-black-hat-and-def-con.html">CITL at Black Hat and Def Con!</a></h3>
-									<time datetime=" 2016-07-30 00:00:00 -0700" class="label-sans">Jul 30, 2016</time>
-									<p>The first public talks about CITL, including details about our metrics and preliminary data, will be at this year's Black Hat and Def Con!
-
-</p>
-									<a href="/2016/07/30/citl-at-black-hat-and-def-con.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/14/problem-with-standards-and-certifications.html">The Problem With Standards and Certifications</a></h3>
-									<time datetime=" 2016-07-14 00:00:00 -0700" class="label-sans">Jul 14, 2016</time>
-									<p>One of the common misconceptions about our work at CITL is that we’re certifying software products, or in some way asserting that they meet a particular standard.
-
-</p>
-									<a href="/2016/07/14/problem-with-standards-and-certifications.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-			  </div>
-	  </div>
-    </section>
-  </main>
+			</div>
+			<div class="container post-nav">
+				<div>
+					 
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">&laquo; Software Application Risks on the OSX Continuum</a>
+  
+					</div>
+				<div class="text-right">
+					
+				<h5 class="label-sans">Next Post:</h5>			 
+    <a class="next" href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X &raquo;</a>
+  
+					</div>
+			</div>
+		</section>
+	</main>
         </div>
     </main>	<footer>
 	<div class="footer-top">

@@ -3,17 +3,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Cyber Independent Testing Lab | The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</title>
+<title>Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X | Cyber Independent Testing Lab</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="Cyber Independent Testing Lab" />
+<meta property="og:title" content="Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<meta property="og:description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<link rel="canonical" href="http://localhost:4000/news/blog/" />
-<meta property="og:url" content="http://localhost:4000/news/blog/" />
+<meta name="description" content="Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions" />
+<meta property="og:description" content="Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions" />
+<link rel="canonical" href="http://localhost:4000/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" />
+<meta property="og:url" content="http://localhost:4000/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" />
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-11-21T00:00:00-08:00" />
 <script type="application/ld+json">
-{"description":"The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.","headline":"Cyber Independent Testing Lab","@type":"WebPage","url":"http://localhost:4000/news/blog/","@context":"http://schema.org"}</script>
+{"description":"Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions","headline":"Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X","@type":"BlogPosting","datePublished":"2016-11-21T00:00:00-08:00","dateModified":"2016-11-21T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html"},"url":"http://localhost:4000/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -250,164 +252,55 @@
 </header>
 <main class="page-content" aria-label="Content">
         <div class="wrapper">
-            <main id="blog" class="sub-page blog-page">
-  <section class="hero dark-section">
-	  <div class="container">
-		  <h1>Blog</h1>
-	  </div>
-  </section>
-  <section>
-		  <div class="container">
-								  <div class="row">
-							 
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">Building on research success, CITL grows and focuses on scale</a></h3>
-									<time datetime=" 2017-05-01 00:00:00 -0700" class="label-sans">May 1, 2017</time>
-									<p>In the past year a lot has happened at CITL
+            	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</h1>
+				<time datetime=" 2016-11-21 00:00:00 -0800" class="h5-mono">Nov 21, 2016
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   <p>Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions<!--more--> with safer, better-bounded versions. &nbsp;Of course, the compiler can only do that if it can figure out what those bounds should be, which isn't always easy. &nbsp;The developer does not get much feedback as to the success rate of this process, though. &nbsp;The developer knows that they may have enabled source code fortification (-D_FORTIFY_SOURCE), but they do not get a readout on how many of their memcpy instances are now replaced with the safer memcpy_chk function, for example. This is important to the consumer because just looking to see that a good software build practice was intended does not reveal whether the practice actually improved the safety in the resulting application. That made us really curious to dig into the data on source fortification and its efficacy.&nbsp;</p><p>We first looked at the fortification statistics on Linux. &nbsp;The following numbers only deal with the 25% of Linux binaries (2631 files) where fortification was enabled. &nbsp;Linux compilers, at the time we performed our initial analysis,&nbsp;have 72 functions that they inspect for potential fortification, and the binaries we inspected had a total of almost 2 million instances of those 72 functions.&nbsp;&nbsp;Of those 2 million instances with functions that could potentially made safer, 91.7% were fortified! &nbsp;Well done, Linux. Of course, those 165,000+ functions that remain in their less secure form warrant some concern and the there's still further good and bad news when you look at all of this more closely. &nbsp;We viewed this data two different ways. &nbsp;First we looked at it broken out by binary, then by function. &nbsp;</p><p>This chart shows the percent fortification for all binary files on our default base install of Ubuntu Linux. &nbsp;31% of files were 95-100% fortified. &nbsp;Many of these had large function counts, with some as high as 25k fortified function instances. &nbsp;The rest of the files were evenly distributed from 0 to 95%. &nbsp;While these binaries generally had lower function counts, there were exceptions to this rule. &nbsp;Most notable was /lib/systemd/systemd, which had over 42k unfortified pread instances.&nbsp;</p>
 
-</p>
-									<a href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2017/01/30/citl-status-report.html">CITL Status Report</a></h3>
-									<time datetime=" 2017-01-30 00:00:00 -0800" class="label-sans">Jan 30, 2017</time>
-									<p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.
+<figure><img src="/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-1.png" alt=" Fortification by binary on Ubuntu Linux. &nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &nbsp;This chart excludes /lib/systemd/systemd for readability, as it had 43,212 functions, but was 0.7% fortified. " />  <figcaption>Fortification by binary on Ubuntu Linux. &nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &nbsp;This chart excludes /lib/systemd/systemd for readability, as it had 43,212 functions, but was 0.7% fortified.</figcaption></figure>
 
-</p>
-									<a href="/our_approach/2017/01/30/citl-status-report.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">To Upgrade or not?  A look at Office 2016 for OSX</a></h3>
-									<time datetime=" 2017-01-04 00:00:00 -0800" class="label-sans">Jan 4, 2017</time>
-									<p>When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.
 
-</p>
-									<a href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</a></h3>
-									<time datetime=" 2016-11-21 00:00:00 -0800" class="label-sans">Nov 21, 2016</time>
-									<p>Source fortification is a powerful tool in modern compilers. &nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions
+<p>&nbsp;When we view the fortification data by function, as shown in the graphic below, we see that most functions are at one extreme or the other. &nbsp;15 are 95-100% fortified, while 39 were 0-5% fortified. &nbsp;Of those 39 functions, 28 of them were *never* fortified. &nbsp;Many of these totally unfortified functions are less common, with an average of 302 total instances across the 2,631 Ubuntu files we examined. &nbsp;On the other hand, the highly fortified functions had an average of 104k total instances. &nbsp;The most common function overall was sprintf, which had 1.3 million instances and was over 99.9% fortified. &nbsp;</p>
 
-</p>
-									<a href="/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/11/15/revisiting-the-linux-score-distribution.html">Revisiting the Linux Score Distribution</a></h3>
-									<time datetime=" 2016-11-15 00:00:00 -0800" class="label-sans">Nov 15, 2016</time>
-									<p>A while back, we showed what the score distributions were for base installs of three major platforms.
+<figure>
+    <img src="/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-2.png" alt=" Fortification by function in Ubuntu Linux. &nbsp;The x axis shows percent fortification broken up into bins that are 5 points wide. &nbsp;The y axis shows how many functions fall in each bin. &nbsp; " />  <figcaption>Fortification by function in Ubuntu Linux. &nbsp;The x axis shows percent fortification broken up into bins that are 5 points wide. &nbsp;The y axis shows how many functions fall in each bin. </figcaption>
+</figure>
 
-</p>
-									<a href="/2016/11/15/revisiting-the-linux-score-distribution.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">Software Application Risks on the OSX Continuum</a></h3>
-									<time datetime=" 2016-09-15 00:00:00 -0700" class="label-sans">Sep 15, 2016</time>
-									<p>In our <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">previous post</a> about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.
 
-</p>
-									<a href="/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">Score Distributions in OSX, Win10, and Linux</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>The data we're sharing first is the data from what we refer to as our <a href="/2016/09/01/our-static-analysis-metrics-and-features.html">static analysis</a>. &nbsp;(Fuzzing and dynamic analysis data will be described later).
+<p>So, function fortification is a fairly mature feature on Linux, although imperfect. &nbsp;It does well on many commonly used risky functions, and fortifies 91% of files overall. &nbsp;Still, over 2/3 of the binaries that are intended to be fortified end up being less than 95% fortified, and the developer gets no feedback as to the success rate for their particular case.&nbsp;&nbsp;</p><p>On OSX, however, we see that this security feature is much less mature. &nbsp;For OSX we had more software installed, so we had almost 7 million function instances observed. &nbsp;21.4% of these were fortified, which is fairly dismal, especially when compared to Linux's 91.7%. &nbsp;</p><p>In fact, while Linux had many binaries with high function counts that were almost entirely fortified, no OSX binaries with high function counts got high fortification scores. &nbsp;The most fortified functions in a 100% fortified file was 121. &nbsp;</p>
 
-</p>
-									<a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/09/01/our-static-analysis-metrics-and-features.html">Our Static Analysis Metrics and Features</a></h3>
-									<time datetime=" 2016-09-01 00:00:00 -0700" class="label-sans">Sep 1, 2016</time>
-									<p>If you've seen <a href="/2016/09/01/score-distributions-in-osx-win10-and-linux.html">our post</a> about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.
+<figure><img src="/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-3.png" alt=" Fortification by binary on OSX (El Capitan).&nbsp;&nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &nbsp; " />  <figcaption>Fortification by binary on OSX (El Capitan).&nbsp;&nbsp;Each dot is a binary. &nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. </figcaption></figure>
 
-</p>
-									<a href="/2016/09/01/our-static-analysis-metrics-and-features.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html">Other Industries that Inspired Us</a></h3>
-									<time datetime=" 2016-08-15 00:00:00 -0700" class="label-sans">Aug 15, 2016</time>
-									<p>Evaluating the risk profile of software is a technically complex task, but there are lots of other industries where consumers have to engage in complex decision-making. 
 
-</p>
-									<a href="/our_approach/2016/08/15/other-industries-that-inspired-us.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html">CITL's Reception at Black Hat and Defcon</a></h3>
-									<time datetime=" 2016-08-11 00:00:00 -0700" class="label-sans">Aug 11, 2016</time>
-									<p>So, first off, thank you! &nbsp;We've been thrilled so far by the media coverage and security community reaction we received.
+<p>The picture is similar when OSX fortification is viewed by function. &nbsp;52 functions are never fortified. &nbsp;The most successful function is strcat, with 93% fortification, followed by strncat and sprintf (83% and 82%, respectively). &nbsp;Interestingly, we found that a couple functions had higher fortification rates in OSX than they did in Linux. &nbsp;&nbsp;</p><p>In both Linux and OSX, we observed that string functions like these had higher success rates than functions dealing with (dynamic) memory pointers.</p>
 
-</p>
-									<a href="/media/2016/08/11/citls-reception-at-black-hat-and-defcon.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/30/citl-at-black-hat-and-def-con.html">CITL at Black Hat and Def Con!</a></h3>
-									<time datetime=" 2016-07-30 00:00:00 -0700" class="label-sans">Jul 30, 2016</time>
-									<p>The first public talks about CITL, including details about our metrics and preliminary data, will be at this year's Black Hat and Def Con!
+<figure><img src="/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-4.png" alt=" Histogram of fortification by function on OSX. &nbsp;The x axis shows percentage fortified, with a bin width of 5. &nbsp;The y axis shows how many functions fell into each bin. &nbsp;Nothing was 95-100% fortified. " /><figcaption>Histogram of fortification by function on OSX. &nbsp;The x axis shows percentage fortified, with a bin width of 5. &nbsp;The y axis shows how many functions fell into each bin. &nbsp;Nothing was 95-100% fortified.</figcaption></figure>
+<p>So, OSX has some catching up to do, compared to their Linux equivalent. This was a relatively unexpected result,&nbsp;but that's why this sort of data analysis is important. &nbsp;</p>
 
-</p>
-									<a href="/2016/07/30/citl-at-black-hat-and-def-con.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-								<div class="col-12 col-lg-6 col-xl-4">
-								<article class="beige-bg">
-									
-									<h3><a href="/2016/07/14/problem-with-standards-and-certifications.html">The Problem With Standards and Certifications</a></h3>
-									<time datetime=" 2016-07-14 00:00:00 -0700" class="label-sans">Jul 14, 2016</time>
-									<p>One of the common misconceptions about our work at CITL is that we’re certifying software products, or in some way asserting that they meet a particular standard.
-
-</p>
-									<a href="/2016/07/14/problem-with-standards-and-certifications.html" class="btn btn-red">Read</a>
-								</article>
-						</div>
-						
-			  </div>
-	  </div>
-    </section>
-  </main>
+			</div>
+			<div class="container post-nav">
+				<div>
+					 
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="/2016/11/15/revisiting-the-linux-score-distribution.html">&laquo; Revisiting the Linux Score Distribution</a>
+  
+					</div>
+				<div class="text-right">
+					
+				<h5 class="label-sans">Next Post:</h5>			 
+    <a class="next" href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">To Upgrade or not?  A look at Office 2016 for OSX &raquo;</a>
+  
+					</div>
+			</div>
+		</section>
+	</main>
         </div>
     </main>	<footer>
 	<div class="footer-top">
