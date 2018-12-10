@@ -78,7 +78,7 @@ custom_js:
                 <p class="width-small">We are including a desktop operating system here for comparison purposes, as both smart tvs were running Linux variants. Rather than comparing to off the shelf Linux, we are comparing to a version where a modest hardening effort ($500 paid to a consultant) has been made, as we would expect a tv vendor to spend at least the cost of one tv on hardening their firmware. While neither tv was up to the safety standards of the hardened Linux, Visio had a clear security and safety advantage over LG, which did surprisingly poorly.</p>
                 <!--/ko-->
                 <!--ko if: comparisonTypeMSOffice-->
-                <p class="width-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                <p class="width-small">Here we consider two versions of Microsoft Office for OS X. How does the newer release compare to the old?</p>
                 <!--/ko-->
                 </div>
                 <a href="#safety-features" class="explore-link">Explore</a>
@@ -87,7 +87,7 @@ custom_js:
     <div style="display: none;" data-bind="visible: true">
         <section class="safety-features" id="safety-features">
             <div class="container">
-                <div class="section-icon"><img src="{{ site.url }}/assets/images/safety-features.svg" alt=""></div>
+                <div class="section-icon"><img src="/assets/images/safety-features.svg" alt=""></div>
                 <h2>Safety Features</h2>
                 <div class="score-boxes">
                     <span class="label">Score Totals</span>
@@ -99,31 +99,31 @@ custom_js:
                         </div>
                         <!-- /ko -->
                     </div>
-                    <a href="{{ site.url }}/about/methodology/#safety-features">View Methodology</a>
+                    <a href="/about/methodology/#safety-features">View Methodology</a>
                 </div>
                 <!--ko if: comparisonTypeOS-->
                 <p class="width-small">
-                    Of the three operating systems reviewed, Windows 10 has the most consistent use of safety features, and is the only one to broadly deploy <a href="{{ site.url }}/about/glossary/#c">CFI</a>. Linux is well behind MacOS and Windows when it comes to its use of <a href="{{ site.url }}/about/glossary/#a">ASLR</a>. MacOS takes a hit because of its diminishing use of the <a href="{{ site.url }}/about/glossary/#h">heap protection</a> flag, and because it lags behind Linux in the use of source fortification.
+                    Of the three operating systems reviewed, Windows 10 has the most consistent use of safety features, and is the only one to broadly deploy <a href="/about/glossary/#c">CFI</a>. Linux is well behind MacOS and Windows when it comes to its use of <a href="/about/glossary/#a">ASLR</a>. MacOS takes a hit because of its diminishing use of the <a href="/about/glossary/#h">heap protection</a> flag, and because it lags behind Linux in the use of source fortification.
                 </p><p class="width-small">
-                    Directly comparing scores across different operating systems is tricky in this category, because each OS has different safety capabilities and liabilities. Some safety features are only available or applicable in one operating system, which is why some OSes are absent entirely from some sets. <a href="{{ site.url }}/about/glossary/#s">Safe SEH</a> and <a href="{{ site.url }}/about/glossary/#r">RELRO</a>, for example, are addressing security concerns specific to their operating systems, so they are only applicable for one OS each. Others, like <a href="{{ site.url }}/about/glossary/#c">CFI</a>, are newer features that are available in some OSes and not others.
+                    Directly comparing scores across different operating systems is tricky in this category, because each OS has different safety capabilities and liabilities. Some safety features are only available or applicable in one operating system, which is why some OSes are absent entirely from some sets. <a href="/about/glossary/#s">Safe SEH</a> and <a href="/about/glossary/#r">RELRO</a>, for example, are addressing security concerns specific to their operating systems, so they are only applicable for one OS each. Others, like <a href="/about/glossary/#c">CFI</a>, are newer features that are available in some OSes and not others.
                 </p>
                 <!--/ko-->
                 <!--ko if: comparisonTypeBrowser-->
                 <!--ko if: osWindows-->
-                <p class="width-small">Use of <a href="{{ site.url }}/about/glossary/#d">DEP</a> and <a href="{{ site.url }}/about/glossary/#a">ASLR</a> was consistent across the board, but Edge far outstripped the other browsers in terms of <a href="{{ site.url }}/about/glossary/#c">CFI</a>, with Opera in second place. Firefox's use of <a href="{{ site.url }}/about/glossary/#s">stack guards</a> lagged a bit behind the others, and Chrome didn't have as many 64 bit binaries as expected.</p>
+                <p class="width-small">Use of <a href="/about/glossary/#d">DEP</a> and <a href="/about/glossary/#a">ASLR</a> was consistent across the board, but Edge far outstripped the other browsers in terms of <a href="/about/glossary/#c">CFI</a>, with Opera in second place. Firefox's use of <a href="/about/glossary/#s">stack guards</a> lagged a bit behind the others, and Chrome didn't have as many 64 bit binaries as expected.</p>
                 <!--/ko-->
                 <!--ko if: osMac-->
-                <p class="width-small">Chrome is the only one of the browsers to use the <a href="{{ site.url }}/about/glossary/#h">heap protection</a> flag, but it loses that advantage due to the slightly lower values for use of <a href="{{ site.url }}/about/glossary/#num">64 bit</a> binaries, <a href="{{ site.url }}/about/glossary/#d">DEP</a>, and <a href="{{ site.url }}/about/glossary/#a">ASLR</a>. Firefox does the best in terms of <a href="{{ site.url }}/about/glossary/#f">fortification</a>, and Opera does the best for <a href="{{ site.url }}/about/glossary/#s">stack guard</a> usage. Safari is the worst in both of these categories, getting it the worst safety feature score overall.</p>
+                <p class="width-small">Chrome is the only one of the browsers to use the <a href="/about/glossary/#h">heap protection</a> flag, but it loses that advantage due to the slightly lower values for use of <a href="/about/glossary/#num">64 bit</a> binaries, <a href="/about/glossary/#d">DEP</a>, and <a href="/about/glossary/#a">ASLR</a>. Firefox does the best in terms of <a href="/about/glossary/#f">fortification</a>, and Opera does the best for <a href="/about/glossary/#s">stack guard</a> usage. Safari is the worst in both of these categories, getting it the worst safety feature score overall.</p>
                 <!--/ko-->
                 <!--ko if: osLinux-->
-                <p class="width-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                <p class="width-small">Firefox leads the group, showing strong usage of build safety features.</p>
                 <!--/ko-->
                 <!--/ko-->
                 <!--ko if: comparisonTypeSmartTv-->
-                <p class="width-small">Both of the smart tvs were entirely 32 bit, but Visio did much better than LG in terms of safety features. Where Visio's scores were comparable to hardened Linux for all categories (aside from being 32 bit), LG had no <a href="{{ site.url }}/about/glossary/#a">ASLR</a>, and almost no use of source <a href="{{ site.url }}/about/glossary/#f">fortification</a> or <a href="{{ site.url }}/about/glossary/#s">stack guards</a>.</p>
+                <p class="width-small">Both of the smart tvs were entirely 32 bit, but Visio did much better than LG in terms of safety features. Where Visio's scores were comparable to hardened Linux for all categories (aside from being 32 bit), LG had no <a href="/about/glossary/#a">ASLR</a>, and almost no use of source <a href="/about/glossary/#f">fortification</a> or <a href="/about/glossary/#s">stack guards</a>.</p>
                 <!--/ko-->
                 <!--ko if: comparisonTypeMSOffice-->
-                <p class="width-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                <p class="width-small">In terms of safety features, the 2016 release showed significant improvement over Office 2011.</p>
                 <!--/ko-->
                 <div id="safety-features-chart"></div>
                 <!--ko if: hasSafeSEH-->
@@ -133,7 +133,7 @@ custom_js:
         </section>
         <section class="code-hygiene alt-bg">
             <div class="container">
-                <div class="section-icon"><img src="{{ site.url }}/assets/images/code-hygiene.svg" alt=""></div>
+                <div class="section-icon"><img src="/assets/images/code-hygiene.svg" alt=""></div>
                 <h2>Code Hygiene</h2>
                 <div class="score-boxes">
                     <span class="label">Score Totals</span>
@@ -145,7 +145,7 @@ custom_js:
                         </div>
                         <!-- /ko -->
                     </div>
-                    <a href="{{ site.url }}/about/methodology/#code-hygiene">View Methodology</a>
+                    <a href="/about/methodology/#code-hygiene">View Methodology</a>
                 </div>
                 <!--ko if: comparisonTypeOS-->
                 <p class="width-small">
@@ -161,14 +161,14 @@ custom_js:
                 <p class="width-small">Firefox was the only browser to show significant use of good functions, but looses that advantage and then some by having the most "very risky" functions as well, by a significant margin. Chrome and Opera end up being nearly identical in their ratios, and Safari ends up being the best of the pack.</p>
                 <!--/ko-->
                 <!--ko if: osLinux-->
-                <p class="width-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit..</p>
+                <p class="width-small">When looking at code hygiene, all three browsers performed similarly.</p>
                 <!--/ko-->
                 <!--/ko-->
                 <!--ko if: comparisonTypeSmartTv-->
                 <p class="width-small">Neither tv used many good functions, and both used more extremely risky functions than we generally expect to see in commercial code. LG had the largest ratio of very risky functions.</p>
                 <!--/ko-->
                 <!--ko if: comparisonTypeMSOffice-->
-                <p class="width-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                <p class="width-small">In terms of code hygiene, Office 2016 saw an increased ratio of "good" functions, resulting in a slightly improved score.</p>
                 <!--/ko-->
             </div>
             <div class="container function-ratios">
@@ -197,7 +197,7 @@ custom_js:
         </section>
         <section class="code-complexity">
             <div class="container">
-                <div class="section-icon"><img src="{{ site.url }}/assets/images/code-complexity.svg" alt=""></div>
+                <div class="section-icon"><img src="/assets/images/code-complexity.svg" alt=""></div>
                 <h2>Code Complexity</h2>
                 <div class="score-boxes">
                     <span class="label">Score Totals</span>
@@ -209,29 +209,29 @@ custom_js:
                         </div>
                         <!-- /ko -->
                     </div>
-                    <a href="{{ site.url }}/about/methodology/#code-complexity">View Methodology</a>
+                    <a href="/about/methodology/#code-complexity">View Methodology</a>
                 </div>
                 <!--ko if: comparisonTypeOS-->
                 <p class="width-small">
-                    Linux links to fewer <a href="{{ site.url }}/about/glossary/#l">libraries</a> than either of its competitor OSes, and has a much smaller code base, so it scores much better than either in terms of complexity. Windows has fewer linked libraries than MacOS, but a larger overall code base by far, so it gets the worst complexity score.
+                    Linux links to fewer <a href="/about/glossary/#l">libraries</a> than either of its competitor OSes, and has a much smaller code base, so it scores much better than either in terms of complexity. Windows has fewer linked libraries than MacOS, but a larger overall code base by far, so it gets the worst complexity score.
                 </p>
                 <!--/ko-->
                 <!--ko if: comparisonTypeBrowser-->
                 <!--ko if: osWindows-->
-                <p class="width-small">The browsers with the largest <a href="{{ site.url }}/about/glossary/#c">code sizes</a> tended to use the least <a href="{{ site.url }}/about/glossary/#l">libraries</a>, and vice versa, which resulted in these scores all averaging out to being very close, with Opera having the advantage.</p>
+                <p class="width-small">The browsers with the largest <a href="/about/glossary/#c">code sizes</a> tended to use the least <a href="/about/glossary/#l">libraries</a>, and vice versa, which resulted in these scores all averaging out to being very close, with Opera having the advantage.</p>
                 <!--/ko-->
                 <!--ko if: osMac-->
-                <p class="width-small">Safari has the smallest <a href="{{ site.url }}/about/glossary/#c">code base</a>, but the most linked <a href="{{ site.url }}/about/glossary/#l">libraries</a> by far. Firefox had the fewest linked libraries, and was the smallest of the other three, so it gets the best complexity score.</p>
+                <p class="width-small">Safari has the smallest <a href="/about/glossary/#c">code base</a>, but the most linked <a href="/about/glossary/#l">libraries</a> by far. Firefox had the fewest linked libraries, and was the smallest of the other three, so it gets the best complexity score.</p>
                 <!--/ko-->
                 <!--ko if: osLinux-->
-                <p class="width-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                <p class="width-small">On the whole, all three browsers weigh in with similar code sizes.</p>
                 <!--/ko-->
                 <!--/ko-->
                 <!--ko if: comparisonTypeSmartTv-->
-                <p class="width-small">We expect the desktop operating system to be much more complex than the one on a smart tv, and when it comes to <a href="{{ site.url }}/about/glossary/#c">code size</a>, that turns out to be true. When it comes to linked <a href="{{ site.url }}/about/glossary/#l">libraries</a>, though, LG uses almost as many libraries as a full deployment of Linux. Visio had the smallest code size and used the fewest libraries.</p>
+                <p class="width-small">We expect the desktop operating system to be much more complex than the one on a smart tv, and when it comes to <a href="/about/glossary/#c">code size</a>, that turns out to be true. When it comes to linked <a href="/about/glossary/#l">libraries</a>, though, LG uses almost as many libraries as a full deployment of Linux. Visio had the smallest code size and used the fewest libraries.</p>
                 <!--/ko-->
                 <!--ko if: comparisonTypeMSOffice-->
-                <p class="width-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+                <p class="width-small">With the upgrade to Office 2016, one notable change is the increase in code size.</p>
                 <!--/ko-->
             </div>
             <div class="container">
@@ -239,7 +239,7 @@ custom_js:
                     <div class="col-12 col-xl-6">
                         <h3 class="h3-mono">
                             Code Size<button type="button" class="no-btn-style" data-toggle="popover" data-placement="auto" data-trigger="hover" data-content="The more code there is, the more mistakes get made in writing it. This increases the overall number of vulnerabilities, and the surface area for attack.">
-                                <img src="{{ site.url }}/assets/images/help.svg" alt="help" />
+                                <img src="/assets/images/help.svg" alt="help" />
                             </button>
                         </h3>
                         <div id="waffle">
@@ -250,7 +250,7 @@ custom_js:
                     <div class="col-12 col-xl-6">
                         <h3 class="h3-mono">
                             # of Libraries<button type="button" class="no-btn-style" data-toggle="popover" data-placement="auto" data-trigger="hover" data-content="Even if a developer only needed to use a tiny bit of code from a particular library, the whole library is brought into memory at run time, and that whole library then becomes part of the attack surface for attach methods like return oriented programming (ROP). Developers should weigh the risk and expense of reimplementing something that already exists against the risk of importing large libraries for just a tiny fraction of their functionality. The security and quality of libraries is also highly variable, so the quality of the library itself should also be considered.">
-                                <img src="{{ site.url }}/assets/images/help.svg" alt="help" />
+                                <img src="/assets/images/help.svg" alt="help" />
                             </button>
                         </h3>
                         <div id="libraries-chart">
@@ -263,7 +263,7 @@ custom_js:
             <div class="container">
                 <div class="section-icon"><img src="{{ '/assets/images/security-aids.svg' | relative_url }}" alt=""></div>
                 <h2>Security Aids</h2>
-                <p class="width-small">Some product features aren't currently captured in our scores (usually because we can't automatedly measure them), but could be relevant to decision-making. If a tool or operating system is <a href="{{ site.url }}/about/glossary/#o">open source</a>, then it's possible to fix some of its security flaws yourself, and create a customized version for your personal or organizational use (eg, recompile with safer settings than the off the shelf version). If an application engages in <a href="{{ site.url }}/about/glossary/#s">sandboxing</a>, then while parts of the software might be vulnerable, attacks on those parts could be contained within a designated "sandbox".</p>
+                <p class="width-small">Some product features aren't currently captured in our scores (usually because we can't automatedly measure them), but could be relevant to decision-making. If a tool or operating system is <a href="/about/glossary/#o">open source</a>, then it's possible to fix some of its security flaws yourself, and create a customized version for your personal or organizational use (eg, recompile with safer settings than the off the shelf version). If an application engages in <a href="/about/glossary/#s">sandboxing</a>, then while parts of the software might be vulnerable, attacks on those parts could be contained within a designated "sandbox".</p>
                 <table class="width-small">
                     <thead>
                         <tr>
@@ -278,7 +278,7 @@ custom_js:
                         <tr>
                             <th>
                                 Is Open Source?<button type="button" class="no-btn-style" data-toggle="popover" data-trigger="hover" data-placement="auto" data-content="If source code is available for an application, then you can recompile it with whatever safety features it was missing. A larger organization can even make their own security-focused changes to the code. The fact that the code is available for review does mean, of course, that attackers can also review the code for mistakes or vulnerabilities.">
-                                    <img src="{{ site.url }}/assets/images/help.svg" alt="help" />
+                                    <img src="/assets/images/help.svg" alt="help" />
                                 </button>
                             </th>
                             <!-- ko foreach: devices -->
@@ -298,7 +298,7 @@ custom_js:
                         <tr>
                             <th>
                                 Has Sandboxing?<button type="button" class="no-btn-style" data-toggle="popover" data-placement="auto" data-trigger="hover" data-content="Sandboxing refers to security mechanisms that are designed to mitigate and contain exploits, rather than outright prevent them from happening in the first place.">
-                                    <img src="{{ site.url }}/assets/images/help.svg" alt="help" />
+                                    <img src="/assets/images/help.svg" alt="help" />
                                 </button>
                             </th>
                             <!-- ko foreach: devices -->

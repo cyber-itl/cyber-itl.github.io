@@ -18,7 +18,7 @@ email: contact@cyber-itl.org
 description: >- # this means to ignore newlines until "baseurl:"
   The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://cyber-itl.org" # the base hostname & protocol for your site, e.g. http://example.com
 exclude: [.vs]
 
 # Build settings

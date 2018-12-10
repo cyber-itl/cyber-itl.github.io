@@ -3,19 +3,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>CITL Status Report | Cyber Independent Testing Lab</title>
+<title>A look at home routers, and a surprising bug in Linux/MIPS | Cyber Independent Testing Lab</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="CITL Status Report" />
+<meta property="og:title" content="A look at home routers, and a surprising bug in Linux/MIPS" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Some people have been asking when they&#39;re going to get to see all the great output and data we&#39;re generating, so this seemed like a good time to explain where we&#39;re at right now." />
-<meta property="og:description" content="Some people have been asking when they&#39;re going to get to see all the great output and data we&#39;re generating, so this seemed like a good time to explain where we&#39;re at right now." />
-<link rel="canonical" href="http://localhost:4000/our_approach/2017/01/30/citl-status-report.html" />
-<meta property="og:url" content="http://localhost:4000/our_approach/2017/01/30/citl-status-report.html" />
+<meta name="description" content="We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture." />
+<meta property="og:description" content="We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture." />
+<link rel="canonical" href="http://localhost:4000/2018/12/07/a-look-at-home-routers-and-linux-mips.html" />
+<meta property="og:url" content="http://localhost:4000/2018/12/07/a-look-at-home-routers-and-linux-mips.html" />
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-01-30T00:00:00-08:00" />
+<meta property="article:published_time" content="2018-12-07T00:00:00-08:00" />
 <script type="application/ld+json">
-{"description":"Some people have been asking when they&#39;re going to get to see all the great output and data we&#39;re generating, so this seemed like a good time to explain where we&#39;re at right now.","headline":"CITL Status Report","@type":"BlogPosting","datePublished":"2017-01-30T00:00:00-08:00","dateModified":"2017-01-30T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/our_approach/2017/01/30/citl-status-report.html"},"url":"http://localhost:4000/our_approach/2017/01/30/citl-status-report.html","@context":"http://schema.org"}</script>
+{"description":"We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.","headline":"A look at home routers, and a surprising bug in Linux/MIPS","@type":"BlogPosting","datePublished":"2018-12-07T00:00:00-08:00","dateModified":"2018-12-07T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/12/07/a-look-at-home-routers-and-linux-mips.html"},"url":"http://localhost:4000/2018/12/07/a-look-at-home-routers-and-linux-mips.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -255,33 +255,46 @@
             	<main id="post" class="sub-page blog-page">
 		<section class="hero dark-section">
 			<div class="container width-mid">
-				<h1>CITL Status Report</h1>
-				<time datetime=" 2017-01-30 00:00:00 -0800" class="h5-mono">Jan 30, 2017
+				<h1>A look at home routers, and a surprising bug in Linux/MIPS</h1>
+				<time datetime=" 2018-12-07 00:00:00 -0800" class="h5-mono">Dec 7, 2018
 				</time>
 			</div>
 		</section>
 		<section class="post-content">
 				<div class="container post-container">
-					   <p>Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.<!--more--> &nbsp;We've realized that while we're busy executing on this plan, maybe other people would like to know more about the behind the scenes also. &nbsp;In order to have automatically generated reports and software scores available at scale, here's what needs to happen:&nbsp;</p><p>1. Automate Static Analysis measurement collection - This part is done for Windows, OSX, and Linux/ELF environments (Intel and ARM). &nbsp;It takes ~1 second per binary and we're confident in the accuracy of the results we're collecting. &nbsp;</p><p>2. Collect a lot of fuzzing and crash test data - Well underway, but still ongoing. &nbsp;We've got about 100 cores chugging away, and enough results now to be moving on to the next step.</p>
-  
-      <img src="/assets/images/blog/citl-status-report-1.jpg" alt=""/>
-  
+					   <p>We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.<!--more--></p>
 
-<p>3. Correlate dynamic analysis results (2) with static analysis results (1) to finalize score calculations. &nbsp;This is what we're working on now, and it's the main thing that has to happen before we're happy with releasing reports at scale. &nbsp;</p><p>4. (Reach Goal) Gain enough confidence in our mathematical model to successfully predict dynamic results based on static results. &nbsp;This will allow us to present estimated crash test results based on easily automated analysis. &nbsp;</p><p>Why is this third step so important? &nbsp;While we know that some things make software safer (ASLR, stack guards, DEP, source fortification, etc) and that some things make software weaker (using historically unsafe functions, high complexity, etc), the industry needs better data on how much they impact software safety. &nbsp;If a perfect score is 100, how many points is having ASLR worth? &nbsp;Linking to insecure libraries certainly introduces risk, but how much should it impact the overall score? &nbsp;We want to have a better answer to questions like these before we publish our first official software safety reports. &nbsp;Having a strong model to support our risk assessments will provide our ratings with the credibility they need in order to influence consumers, developers, the security community, and the commercial world. &nbsp;</p><p>In the meantime, here's an <a href="/2016/09/01/our-static-analysis-metrics-and-features.html">overview</a>&nbsp;of the sorts of software properties we're measuring with our static analysis. &nbsp;Also, stay tuned! &nbsp;We're hoping to have some exciting new partnerships and efforts to announce in the coming months. &nbsp;</p>
+<hr>
+
+<p>Today we're pleased to announce the release of two papers:</p>
+
+<ul>
+<li><i><a href="/assets/papers/2018/build_safety_of_software_in_28_popular_home_routers.pdf">Build Safety of Software in 28 Popular Home Routers</a></i>, by Parker Thompson and Sarah Zatko</li>
+<li><i><a href="/assets/papers/2018/Linux_MIPS_missing_foundations.pdf">Linux MIPS - A soft target: past, present, and future</a></i>, by Parker Thompson and Mudge Zatko</li>
+</ul>
+
+<p>
+In the first paper, we analyze the firmware images of 28 popular home routers, checking for basic code hygiene and software safety features. What we found was disappointing: none of the routers made consistent use of basic <a href="/about/methodology/#safety-features">software safety features</a> like <a href="/about/glossary/#a">ASLR</a>, <a href="/about/glossary/#s">stack guards</a>, and <a href="/about/glossary/#d">DEP</a> - features which have been standard in desktop environments for over 15 years.
+</p>
+
+<p>
+Given the role these devices play in consumers' homes, and the ease with which these issues could be resolved, we believe the absence of these features is reckless and negligent. We strongly urge vendors to review their software build practices and adopt practices which ensure these basic security features are present prior to product release.
+</p>
+
+<p>
+But that's not all. In the second paper, we describe an unfortunate bug in the Linux/MIPS architecture which we encountered in the course of our reporting on routers. This bug, whose origins date back to 2001, prevents most Linux/MIPS binaries from enjoying the full protections of DEP and ASLR. Given the popularity of Linux/MIPS in embedded devices (such as IoT, consumer and enterprise network equipment, etc), and the enormous diversity of threat models for such devices, we believe this bug represents a significant risk to a large segment of Internet-connected devices.
+</p>
 
 			</div>
 			<div class="container post-nav">
 				<div>
 					 
 				<h5 class="label-sans">Previous Post:</h5>
-    <a class="prev" href="/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">&laquo; To Upgrade or not?  A look at Office 2016 for OSX</a>
+    <a class="prev" href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">&laquo; Building on research success, CITL grows and focuses on scale</a>
   
 					</div>
 				<div class="text-right">
 					
-				<h5 class="label-sans">Next Post:</h5>			 
-    <a class="next" href="/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">Building on research success, CITL grows and focuses on scale &raquo;</a>
-  
 					</div>
 			</div>
 		</section>

@@ -16,7 +16,7 @@ custom_js:
         <div class="container">
             <div class="header-group">
                 <h2 class="h3-mono">Latest Posts</h2>
-                <a href="{{ site.url }}{% link news/blog.html %}" class="d-none d-lg-block">More Posts</a>
+                <a href="/news/blog/" class="d-none d-lg-block">More Posts</a>
             </div>
             <div class="row">
 
@@ -24,7 +24,7 @@ custom_js:
                 <div class="col-12 col-lg-6 col-xl-4">
                     <article class="beige-bg">
                         {% if post.img %}
-                        <img src="{{ site.url }}/assets/images/blog/{{ post.img }}" alt="" />
+                        <img src="/assets/images/blog/{{ post.img }}" alt="" />
                         {% endif %}
                         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
                         <time datetime=" {{ post.date }}" class="label-sans">
@@ -42,7 +42,7 @@ custom_js:
 
             </div>
             <div class="d-lg-none text-center">
-                <a href="{{ site.url }}{% link news/blog.html %}" class="btn">More Posts</a>
+                <a href="/news/blog.html" class="btn">More Posts</a>
             </div>
         </div>
     </section>
@@ -71,7 +71,7 @@ custom_js:
                 </div>
             </div>
             <div class="text-center">
-                <a class="btn" href="{{ site.url }}{% link news/press.html %}">More Press</a>
+                <a class="btn" href="/news/press.html">More Press</a>
             </div>
         </div>
     </section>
@@ -97,7 +97,7 @@ custom_js:
                         <h5 class="h5-mono"><span>{{ item.date }}</span> / {{ item.location }}</h5>
                     </div>
                     <div class="d-none d-lg-block">
-                        <a href="{{ site.url }}{% link news/appearances.html %}" class="btn btn-red">More Appearances</a>
+                        <a href="news/appearances.html" class="btn btn-red">More Appearances</a>
                     </div>
                 </div>
                 {% if forloop.index == 1 %}
@@ -110,7 +110,7 @@ custom_js:
                 <iframe src="{{ item.videoSrc }}" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
             </div>
             <div class="d-lg-none btn-wrapper">
-                <a href="{{ site.url }}{% link news/appearances.html %}" class="btn btn-red">More Appearances</a>
+                <a href="news/appearances.html" class="btn btn-red">More Appearances</a>
             </div>
             {% if forloop.index == 1 %}
             {% break %}

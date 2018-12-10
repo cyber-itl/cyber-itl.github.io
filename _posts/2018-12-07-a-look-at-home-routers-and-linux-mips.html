@@ -1,0 +1,33 @@
+---
+layout: post
+title: A look at home routers, and a surprising bug in Linux/MIPS
+categories: []
+tags: []
+status: publish
+type: post
+published: true
+meta: {}
+excerpt_separator: <!--more-->
+---
+<p>We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.<!--more--></p>
+
+<hr>
+
+<p>Today we're pleased to announce the release of two papers:</p>
+
+<ul>
+<li><i><a href="/assets/papers/2018/build_safety_of_software_in_28_popular_home_routers.pdf">Build Safety of Software in 28 Popular Home Routers</a></i>, by Parker Thompson and Sarah Zatko</li>
+<li><i><a href="/assets/papers/2018/Linux_MIPS_missing_foundations.pdf">Linux MIPS - A soft target: past, present, and future</a></i>, by Parker Thompson and Mudge Zatko</li>
+</ul>
+
+<p>
+In the first paper, we analyze the firmware images of 28 popular home routers, checking for basic code hygiene and software safety features. What we found was disappointing: none of the routers made consistent use of basic <a href="/about/methodology/#safety-features">software safety features</a> like <a href="/about/glossary/#a">ASLR</a>, <a href="/about/glossary/#s">stack guards</a>, and <a href="/about/glossary/#d">DEP</a> - features which have been standard in desktop environments for over 15 years.
+</p>
+
+<p>
+Given the role these devices play in consumers' homes, and the ease with which these issues could be resolved, we believe the absence of these features is reckless and negligent. We strongly urge vendors to review their software build practices and adopt practices which ensure these basic security features are present prior to product release.
+</p>
+
+<p>
+But that's not all. In the second paper, we describe an unfortunate bug in the Linux/MIPS architecture which we encountered in the course of our reporting on routers. This bug, whose origins date back to 2001, prevents most Linux/MIPS binaries from enjoying the full protections of DEP and ASLR. Given the popularity of Linux/MIPS in embedded devices (such as IoT, consumer and enterprise network equipment, etc), and the enormous diversity of threat models for such devices, we believe this bug represents a significant risk to a large segment of Internet-connected devices.
+</p>
