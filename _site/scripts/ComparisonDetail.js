@@ -333,7 +333,7 @@ function OSOptionModel(osKey, osDispalyName, browser) {
     this.name = ko.observable(osDispalyName);
     this.isSelected = ko.observable(true);
     this.navigationUrl = ko.computed(function () {
-        return `ComparisonDetail.html?comparisonType=browser&device=${browser}&operatingSystem=${osKey}`;
+        return `comparisonDetail.html?comparisonType=browser&device=${browser}&operatingSystem=${osKey}`;
     });
 }
 
