@@ -1,4 +1,702 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://cyber-itl.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cyber-itl.org/" rel="alternate" type="text/html" /><updated>2019-01-25T15:30:59-08:00</updated><id>https://cyber-itl.org/</id><title type="html">Cyber Independent Testing Lab</title><subtitle>The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</subtitle><entry><title type="html">A look at home routers, and a surprising bug in Linux/MIPS</title><link href="https://cyber-itl.org/2018/12/07/a-look-at-home-routers-and-linux-mips.html" rel="alternate" type="text/html" title="A look at home routers, and a surprising bug in Linux/MIPS" /><published>2018-12-07T00:00:00-08:00</published><updated>2018-12-07T00:00:00-08:00</updated><id>https://cyber-itl.org/2018/12/07/a-look-at-home-routers-and-linux-mips</id><content type="html" xml:base="https://cyber-itl.org/2018/12/07/a-look-at-home-routers-and-linux-mips.html">&lt;p&gt;We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.&lt;!--more--&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2019-08-25T15:20:18-07:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Cyber Independent Testing Lab</title><subtitle>The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</subtitle><entry><title type="html">Binary Hardening in IoT products</title><link href="http://0.0.0.0:4000/2019/08/26/iot-data-writeup.html" rel="alternate" type="text/html" title="Binary Hardening in IoT products" /><published>2019-08-26T00:00:00-07:00</published><updated>2019-08-26T00:00:00-07:00</updated><id>http://0.0.0.0:4000/2019/08/26/iot-data-writeup</id><content type="html" xml:base="http://0.0.0.0:4000/2019/08/26/iot-data-writeup.html">&lt;p&gt;Last year, the team at CITL looked into the state of binary hardening features in IoT firmware.&lt;/p&gt;
+
+&lt;p&gt;Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;We built a corpus by collecting firmware updates published by vendors on their websites. To analyze this corpus, we wrote a pipeline to extract any Linux root filesystems we could find in the images. Filesystems in hand, the pipeline then fed every binary it could find into our analytic toolset.&lt;/p&gt;
+
+&lt;p&gt;You may have seen us present our initial findings on this corpus at HushCon (Seattle 2018) or &lt;a href=&quot;https://www.youtube.com/watch?v=PLXmPgN6wVs&quot;&gt;ShmooCon 2019 (video link)&lt;/a&gt;. This post updates and expands those findings.&lt;/p&gt;
+
+&lt;h2 id=&quot;key-findings&quot;&gt;Key Findings&lt;/h2&gt;
+
+&lt;p&gt;CITL identified a number of important takeaways from this study:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;On average, updates were more likely to remove hardening features than add them.&lt;/li&gt;
+  &lt;li&gt;Within our 15 year data set, there have been no positive trends from any one vendor.&lt;/li&gt;
+  &lt;li&gt;MIPS is both the most common CPU architecture and least hardened on average.&lt;/li&gt;
+  &lt;li&gt;There are a large number of duplicate binaries across multiple vendors, indicating a common build system or toolchain.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;data-collected&quot;&gt;Data Collected&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;22 Vendors&lt;/li&gt;
+  &lt;li&gt;1,294 Products&lt;/li&gt;
+  &lt;li&gt;4,956 Firmware versions&lt;/li&gt;
+  &lt;li&gt;3,333,411 Binaries analyzed&lt;/li&gt;
+  &lt;li&gt;Date range of data: 2003-03-24 to 2019-01-24 (varies by vendor, most up to 2018 releases)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Not all firmware images were able to be tagged with a release date so any time-series or time based analysis we show will be a subset of the total data.&lt;/p&gt;
+
+&lt;h2 id=&quot;iot-landscape&quot;&gt;IoT landscape&lt;/h2&gt;
+
+&lt;h3 id=&quot;vendor-distribution&quot;&gt;Vendor Distribution&lt;/h3&gt;
+&lt;p&gt;In our corpus, Ubiquiti and Asus had the largest number of firmware releases followed by DD-WRT and D-link.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/vendor-pie-chart.png&quot; alt=&quot;pie-chart&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vendor binary counts were slightly different, with Synology holding the largest share of binaries in the corpus.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/vendor-bin-pie-chart.png&quot; alt=&quot;vendor-bin-pie-chart&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;cpu-architecture&quot;&gt;CPU Architecture&lt;/h3&gt;
+
+&lt;p&gt;Surprisingly, for all the talk about ARM, MIPS is still an extremely popular architecture. At least within our corpus, MIPS beats out ARM even well into 2018 as being the most common CPU architecture.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/cpu-arch-ts.png&quot; alt=&quot;cpu-arch-ts&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;cpu-architecture-and-citl-score&quot;&gt;CPU Architecture and CITL Score&lt;/h2&gt;
+
+&lt;p&gt;At CITL we use a aggregate score to normalize all the different hardening features a binary can have. This score is on a 0 - 100 range and can be thought of as ‘out of all possible features how many did a binary enable?’. It also takes into account the prevalence of riskier functions like &lt;code class=&quot;highlighter-rouge&quot;&gt;system()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;strcpy()&lt;/code&gt; and other common poor hygiene indicator functions. A higher score means the binary has more hardening features enabled and thus higher scores are better.&lt;/p&gt;
+
+&lt;p&gt;Here we compare CPU architecture prevalence with their average (mean) score.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/cpu-arch-vs-score.png&quot; alt=&quot;cpu-arch-vs-score&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this chart we can see the number of binaries in orange with the average score in red. On the far left we see &lt;code class=&quot;highlighter-rouge&quot;&gt;aarch64&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;arm64&lt;/code&gt;) being the highest average scoring, but least common. At third from the left is &lt;code class=&quot;highlighter-rouge&quot;&gt;mips&lt;/code&gt; with the highest binary count and lowest average score.&lt;/p&gt;
+
+&lt;h2 id=&quot;measuring-changes&quot;&gt;Measuring Changes&lt;/h2&gt;
+
+&lt;h3 id=&quot;vendor-summaries-2012-vs-2018&quot;&gt;Vendor Summaries 2012 vs 2018&lt;/h3&gt;
+
+&lt;p&gt;To better understand how vendors have evolved their practices over time, we selected two years (2012 and 2018) that both saw a large number of releases by different vendors. How do the big-picture numbers vary between these two years?&lt;/p&gt;
+
+&lt;p&gt;Let’s compare. The following tables shows the degree to which different vendors applied different build-hardening features in the given years. Each row represents a different vendor, with each column indicating the percentage of binaries shipped by that vendor with the given feature.&lt;/p&gt;
+
+&lt;h4 id=&quot;2012&quot;&gt;2012&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Vendor&lt;/th&gt;
+      &lt;th&gt;non-exec Stack&lt;/th&gt;
+      &lt;th&gt;ASLR&lt;/th&gt;
+      &lt;th&gt;Stack Guards&lt;/th&gt;
+      &lt;th&gt;Fortify&lt;/th&gt;
+      &lt;th&gt;RELRO&lt;/th&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;asus&lt;/td&gt;
+      &lt;td&gt;0.56&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;3.36&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;belkin&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;1.36&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.76&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;dlink&lt;/td&gt;
+      &lt;td&gt;56.37&lt;/td&gt;
+      &lt;td&gt;0.10&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;2.83&lt;/td&gt;
+      &lt;td&gt;28.82&lt;/td&gt;
+      &lt;td&gt;32&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;linksys&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;2.71&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.90&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;moxa&lt;/td&gt;
+      &lt;td&gt;16.55&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.64&lt;/td&gt;
+      &lt;td&gt;10.75&lt;/td&gt;
+      &lt;td&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;tenda&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;4.64&lt;/td&gt;
+      &lt;td&gt;12&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;trendnet&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ubiquiti&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;4.05&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+      &lt;td&gt;1.87&lt;/td&gt;
+      &lt;td&gt;25.34&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;2018&quot;&gt;2018&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Vendor&lt;/th&gt;
+      &lt;th&gt;non-exec Stack&lt;/th&gt;
+      &lt;th&gt;ASLR&lt;/th&gt;
+      &lt;th&gt;Stack Guards&lt;/th&gt;
+      &lt;th&gt;Fortify&lt;/th&gt;
+      &lt;th&gt;RELRO&lt;/th&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;asus&lt;/td&gt;
+      &lt;td&gt;49.70&lt;/td&gt;
+      &lt;td&gt;1.76&lt;/td&gt;
+      &lt;td&gt;2.40&lt;/td&gt;
+      &lt;td&gt;0.08&lt;/td&gt;
+      &lt;td&gt;2.96&lt;/td&gt;
+      &lt;td&gt;234&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;belkin&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.75&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;1.76&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;buffalo&lt;/td&gt;
+      &lt;td&gt;65.56&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;2.20&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;65.08&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ddwrt&lt;/td&gt;
+      &lt;td&gt;98.94&lt;/td&gt;
+      &lt;td&gt;1.17&lt;/td&gt;
+      &lt;td&gt;3.04&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;58.10&lt;/td&gt;
+      &lt;td&gt;208&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;dlink&lt;/td&gt;
+      &lt;td&gt;42.84&lt;/td&gt;
+      &lt;td&gt;0.65&lt;/td&gt;
+      &lt;td&gt;0.08&lt;/td&gt;
+      &lt;td&gt;0.86&lt;/td&gt;
+      &lt;td&gt;7.42&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;linksys&lt;/td&gt;
+      &lt;td&gt;39.98&lt;/td&gt;
+      &lt;td&gt;1.53&lt;/td&gt;
+      &lt;td&gt;16.22&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;22.05&lt;/td&gt;
+      &lt;td&gt;10&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mikrotik&lt;/td&gt;
+      &lt;td&gt;45.76&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;2.88&lt;/td&gt;
+      &lt;td&gt;24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;moxa&lt;/td&gt;
+      &lt;td&gt;78.12&lt;/td&gt;
+      &lt;td&gt;11.98&lt;/td&gt;
+      &lt;td&gt;9.86&lt;/td&gt;
+      &lt;td&gt;6.64&lt;/td&gt;
+      &lt;td&gt;19.43&lt;/td&gt;
+      &lt;td&gt;57&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;openwrt&lt;/td&gt;
+      &lt;td&gt;99.59&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;32.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;98.72&lt;/td&gt;
+      &lt;td&gt;14&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;phicomm&lt;/td&gt;
+      &lt;td&gt;59.62&lt;/td&gt;
+      &lt;td&gt;3.58&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;11.44&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;qnap&lt;/td&gt;
+      &lt;td&gt;99.59&lt;/td&gt;
+      &lt;td&gt;7.48&lt;/td&gt;
+      &lt;td&gt;68.29&lt;/td&gt;
+      &lt;td&gt;1.23&lt;/td&gt;
+      &lt;td&gt;1.56&lt;/td&gt;
+      &lt;td&gt;22&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;tenda&lt;/td&gt;
+      &lt;td&gt;24.95&lt;/td&gt;
+      &lt;td&gt;0.60&lt;/td&gt;
+      &lt;td&gt;0.95&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;7.13&lt;/td&gt;
+      &lt;td&gt;16&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;tp-link&lt;/td&gt;
+      &lt;td&gt;16.52&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.86&lt;/td&gt;
+      &lt;td&gt;0.05&lt;/td&gt;
+      &lt;td&gt;6.19&lt;/td&gt;
+      &lt;td&gt;12&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;trendnet&lt;/td&gt;
+      &lt;td&gt;30.61&lt;/td&gt;
+      &lt;td&gt;8.70&lt;/td&gt;
+      &lt;td&gt;18.09&lt;/td&gt;
+      &lt;td&gt;0.39&lt;/td&gt;
+      &lt;td&gt;27.81&lt;/td&gt;
+      &lt;td&gt;23&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ubiquiti&lt;/td&gt;
+      &lt;td&gt;24.74&lt;/td&gt;
+      &lt;td&gt;0.34&lt;/td&gt;
+      &lt;td&gt;1.68&lt;/td&gt;
+      &lt;td&gt;5.88&lt;/td&gt;
+      &lt;td&gt;20.30&lt;/td&gt;
+      &lt;td&gt;298&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;changes-between-2012-and-2018&quot;&gt;Changes Between 2012 and 2018&lt;/h3&gt;
+
+&lt;p&gt;The following table summarizes the changes from 2012 to 2018. Looking at the changes between the two years a few things stand out:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DLINK lost most hardening coverage from 2012 to 2018&lt;/li&gt;
+  &lt;li&gt;While most changes from 2012 to 2018 are positive, the amount of change tends to be small.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;non-exec Stack&lt;/code&gt; was the only feature that showed notably-increased adoption.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;change-between-2012---2018-by-vendor&quot;&gt;Change Between 2012 - 2018 by Vendor&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Vendor&lt;/th&gt;
+      &lt;th&gt;non-exec Stack&lt;/th&gt;
+      &lt;th&gt;ASLR&lt;/th&gt;
+      &lt;th&gt;Stack Guards&lt;/th&gt;
+      &lt;th&gt;Fortify&lt;/th&gt;
+      &lt;th&gt;RELRO&lt;/th&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;asus&lt;/td&gt;
+      &lt;td&gt;49.14&lt;/td&gt;
+      &lt;td&gt;1.76&lt;/td&gt;
+      &lt;td&gt;2.40&lt;/td&gt;
+      &lt;td&gt;0.08&lt;/td&gt;
+      &lt;td&gt;-0.40&lt;/td&gt;
+      &lt;td&gt;230.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;belkin&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;-0.61&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;1.00&lt;/td&gt;
+      &lt;td&gt;0.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;dlink&lt;/td&gt;
+      &lt;td&gt;-13.53&lt;/td&gt;
+      &lt;td&gt;0.55&lt;/td&gt;
+      &lt;td&gt;0.08&lt;/td&gt;
+      &lt;td&gt;-1.97&lt;/td&gt;
+      &lt;td&gt;-21.40&lt;/td&gt;
+      &lt;td&gt;-18.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;linksys&lt;/td&gt;
+      &lt;td&gt;39.98&lt;/td&gt;
+      &lt;td&gt;-1.18&lt;/td&gt;
+      &lt;td&gt;16.22&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;21.15&lt;/td&gt;
+      &lt;td&gt;6.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;moxa&lt;/td&gt;
+      &lt;td&gt;61.57&lt;/td&gt;
+      &lt;td&gt;11.98&lt;/td&gt;
+      &lt;td&gt;9.86&lt;/td&gt;
+      &lt;td&gt;6.00&lt;/td&gt;
+      &lt;td&gt;8.68&lt;/td&gt;
+      &lt;td&gt;51.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;tenda&lt;/td&gt;
+      &lt;td&gt;24.95&lt;/td&gt;
+      &lt;td&gt;0.60&lt;/td&gt;
+      &lt;td&gt;0.95&lt;/td&gt;
+      &lt;td&gt;0.00&lt;/td&gt;
+      &lt;td&gt;2.49&lt;/td&gt;
+      &lt;td&gt;4.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;trendnet&lt;/td&gt;
+      &lt;td&gt;30.61&lt;/td&gt;
+      &lt;td&gt;8.70&lt;/td&gt;
+      &lt;td&gt;18.09&lt;/td&gt;
+      &lt;td&gt;0.39&lt;/td&gt;
+      &lt;td&gt;27.81&lt;/td&gt;
+      &lt;td&gt;22.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ubiquiti&lt;/td&gt;
+      &lt;td&gt;24.74&lt;/td&gt;
+      &lt;td&gt;-3.71&lt;/td&gt;
+      &lt;td&gt;1.68&lt;/td&gt;
+      &lt;td&gt;4.01&lt;/td&gt;
+      &lt;td&gt;-5.04&lt;/td&gt;
+      &lt;td&gt;297.0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;do-update-improve-hardening-coverage&quot;&gt;Do Update Improve Hardening Coverage?&lt;/h3&gt;
+
+&lt;p&gt;We were very interested in measuring how updating a single product can effect the coverage of hardening features.&lt;/p&gt;
+
+&lt;p&gt;In order to do this, we took the difference in hardening coverage between the first release and the last release of a firmware and compare their changes. A histogram of the deltas can be seen below. As can be seen, for most products the change in score was approximately &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/score-delta-hist.png&quot; alt=&quot;score-delta-hist&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now consider the histogram’s tails (the regions to the left- and right- of &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;). Comparing just the positive changes and negative changes, we found that is was more common for updates to reduce overall hardening than increase it.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Positive Score Change&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Negative Score Change&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;156&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;282&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;insecure-updates-case-study-ubiquiti&quot;&gt;Insecure Updates Case Study: Ubiquiti&lt;/h3&gt;
+
+&lt;p&gt;Ubiquiti has the dubious distinction of shipping one of the most regressive update in our corpus, affecting the Ubiquiti UAP-HD family of products.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/ubi-score-ts.png&quot; alt=&quot;ubi-score-ts&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The update released in September of 2017 drastically reduced the overall score of the UAP-HD product line.&lt;/p&gt;
+
+&lt;p&gt;In order to narrow down on the root cause, we split the data apart and plotted the various hardening features side-by-side. The following chart depicts, for each firmware release, the percentage of binaries defended by various hardening features, together with the length of time that release was ‘current’.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/ubi-gantt.png&quot; alt=&quot;ubi-gantt&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Using this chart we can see that, towards the end of summer 2017, &lt;code class=&quot;highlighter-rouge&quot;&gt;relro&lt;/code&gt; dropped from ~80% coverage to below 10%, &lt;code class=&quot;highlighter-rouge&quot;&gt;stack_guards&lt;/code&gt; dropped from ~70% to nearly zero, and &lt;code class=&quot;highlighter-rouge&quot;&gt;aslr&lt;/code&gt; was completely removed.&lt;/p&gt;
+
+&lt;p&gt;At the time of publishing, we do not have data for 2019 builds available. However, the observed trend of removing hardening features shows that Ubiquiti most likely did not have any form of regression testing to validate their builds for binary hardening prior to release.&lt;/p&gt;
+
+&lt;h4 id=&quot;all-ubiquiti-products-scores-over-time&quot;&gt;All Ubiquiti Product’s Scores Over Time&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/ubi-all-prod.png&quot; alt=&quot;ubi-all-prod&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When looking at a time series of all Ubiquiti products we can see a few interesting trends.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The UAP-HD stands out as an extreme example of regressive updates.&lt;/li&gt;
+  &lt;li&gt;Most products don’t change their score over their life cycle.&lt;/li&gt;
+  &lt;li&gt;There is a large range of scores, indicating a lack of centralized build/testing for harding features.&lt;/li&gt;
+  &lt;li&gt;In 2018 Ubiquiti released both one of the most hardened products and least hardened products, which shows that their security practices are becoming more divergent over time.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;vendor-radar-charts&quot;&gt;Vendor Radar Charts&lt;/h2&gt;
+
+&lt;p&gt;Below is a complete list of average (mean) hardening coverage, grouped by vendor. CITL uses radar charts to visualize this because it give a very clear coverage map: the more area covered, the better the binary hardening (on average).&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, with few exceptions (notably Synology) we see there is very little coverage, and even Synology struggles to adopt basic hardening features like ASLR and stack guards.&lt;/p&gt;
+
+&lt;p&gt;A perfect score, where all binaries had all 5 basic safety features, would result in a chart that looks like a regular pentagon. Instead, in most vendors’ cases, they struggle to achieve polygon status at all.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/vendor-radars.png&quot; alt=&quot;vendor-radars&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;duplicate-binaries&quot;&gt;Duplicate Binaries&lt;/h2&gt;
+
+&lt;p&gt;With the large number of binaries for different vendor firmwares CITL was interested in how common duplicate binaries were between different vendors. We measured this by looking at how often the SHA-256 hash of a binary was found in 2 or more vendors.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-08-iot-data-writeup/heatmap.png&quot; alt=&quot;heatmap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Surprisingly, we found that 3,704 binaries were duplicated between at least two vendors. Some binaries were found in 9 different vendors.&lt;/p&gt;
+
+&lt;p&gt;Duplication between products was also very common; some binaries were duplicated between 109 different products.&lt;/p&gt;
+
+&lt;h3 id=&quot;why-is-this-happening&quot;&gt;Why Is This Happening?&lt;/h3&gt;
+
+&lt;p&gt;When manually exploring some of the binaries, one of the binaries duplicated across the largest number of different products was found to be built by &lt;a href=&quot;https://buildroot.org/&quot;&gt;Buildroot&lt;/a&gt;, an open source Linux userspace generation framework. We posit that the use of frameworks like this explains the appearance of identical binaries between vendors.&lt;/p&gt;
+
+&lt;p&gt;Regardless the cause, the fact that there is a large number of duplicated binaries presents both a problem and a solution.&lt;/p&gt;
+
+&lt;p&gt;The problem: these duplicated binaries present a lucrative target for attackers. A vulnerability in one of the more common binaries could be exploited across large number of vendors and products.&lt;/p&gt;
+
+&lt;p&gt;The solution: the fact that so many of the products share a common source and/or build system means that improving hardening could have a outsized impact. For example, in the case of Buildroot, adding binary hardening could impact a large portion of the IoT industry.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+
+&lt;p&gt;Our research paints a grim picture of binary hardening in the IoT ecosystem.&lt;/p&gt;
+
+&lt;p&gt;Vendors are failing to implement basic hardening features, including decades-old best practices.&lt;/p&gt;
+
+&lt;p&gt;Even more concerning is the obvious lack of testing for these features. If a vendor is able to remove most of the exploit mitigation from their product line, it undermines the value of asking customers to apply software updates.&lt;/p&gt;
+
+&lt;p&gt;Luckily, we think one of the most important takeaways is that there are low-effort paths that can be taken to improve the situation.&lt;/p&gt;
+
+&lt;p&gt;Many of these devices are low cost/high volume. They are given the minimal amount of development time to get a new product out the door. This means that security likely finds itself low on the list of priorities.&lt;/p&gt;
+
+&lt;p&gt;In the case of home routers and IoT devices, these devices sit in a location of privilege within the users’ home networks. Regardless of whether or not the device’s owner is an intended target, as “set it and forget it” appliances, these devices are an ideal hiding spot for botnets and other attacker-infrastructure. In short, it is a Good Idea for these devices to be reasonably secure.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, if the trend of minimal hardening does not change, these devices will continue to be a soft target for these types of activity.&lt;/p&gt;
+
+&lt;p&gt;That said, we conclude with two points which make us optimistic about the future.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;More data and insight on these devices will hopefully drive behavior changes within the vendors.&lt;/li&gt;
+  &lt;li&gt;The prevalence of duplicate binaries indicates that it might be possible to fix some issues at a single point. In the case of Buildroot, this can even be done by the community through pull requests.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-data&quot;&gt;The Data&lt;/h2&gt;
+
+&lt;p&gt;One of CITL’s goals has been to distribute data to researchers and the wider community. Linked below is a CSV of all data we used for this research.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1aThJ_OZXB_TX4TyiL_2WRzQmyMMETAt7/view&quot;&gt;iot-data.csv.gz (372M)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This dataset contains products such as home routers, enterprise equipment, smart cameras, security devices, and more.  It represents a wide range of either found in the home, enterprise or government deployments.&lt;/p&gt;
+
+&lt;h3 id=&quot;about-the-data&quot;&gt;About the Data&lt;/h3&gt;
+
+&lt;p&gt;Below is a list of columns, their meaning, and possible data types.&lt;/p&gt;
+
+&lt;p&gt;Some columns optionally have numpy.NaN values. Hardening features are normally expressed as either an integer or a NaN value.&lt;/p&gt;
+
+&lt;p&gt;NaN values occur when the given hardening feature isn’t generally applicable to the binary in question. This can occur, for instance, in the case of ELF libaries (&lt;code class=&quot;highlighter-rouge&quot;&gt;.so&lt;/code&gt; files), where the ASLR column is NaN because ELF libraries are &lt;em&gt;always&lt;/em&gt; relocatable (and thus there is no way for them to &lt;em&gt;not&lt;/em&gt; support ASLR).&lt;/p&gt;
+
+&lt;p&gt;We invite anyone with questions to reach out to us &lt;a href=&quot;mailto:contact@cyber-itl.org&quot;&gt;online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Column Name&lt;/th&gt;
+      &lt;th&gt;Data Type&lt;/th&gt;
+      &lt;th&gt;Meaning&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sha_hash&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;SHA-256 of input binary&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;filetype&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;File type of the binary: (ELF/PE/MachO)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;architecture&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;CPU Architecture of the binary: (x86/mips/arm/..)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;bitness&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;CPU bitness of the binary: (32/64)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;vendor&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;Vendor name&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;product&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;Product name&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;input_file&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;Binary path within firmware rootfs&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;release_date&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;datetime timestamp (Can be None)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;firmware_version&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;firmware version&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;norm_score&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;normalized CITL score, range 0 - 100&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;text_size&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;size of text segment in bytes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;data_size&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;size of data segment in bytes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;functions&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;count of functions within analysis CFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;blocks&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;count of basic block within analysis CFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;is_driver&lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;Is the binary a kernel module&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;is_library&lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;Is the binary a library&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;aslr&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable ASLR: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;non-exec-stack&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary have a non-exec stack:  0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;stack_guards&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable stack guards: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;fortify&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable fortify source: NAN = None, UNKNOWN_FORT = 0, NOT_FORT = 1, MIXED_FORT = 2, FULL_FORT = 3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;relro&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable RELRO: NAN = None, NONE = 0, PARTIAL = 1, FULL = 2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;seh&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable Windows SEH: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cfi&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable Windows CFI: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;heap&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable the MacOs HEAP protection: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;extern_funcs_calls&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;Count of external function calls (library calls) within the CFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;libs&lt;/td&gt;
+      &lt;td&gt;list&lt;/td&gt;
+      &lt;td&gt;List of linked library&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;good&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘good’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;bad&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘bad’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;risky&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘risky’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ick&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘ick’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name></name></author><summary type="html">Last year, the team at CITL looked into the state of binary hardening features in IoT firmware. Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.</summary></entry><entry><title type="html">A look at home routers, and a surprising bug in Linux/MIPS</title><link href="http://0.0.0.0:4000/2018/12/07/a-look-at-home-routers-and-linux-mips.html" rel="alternate" type="text/html" title="A look at home routers, and a surprising bug in Linux/MIPS" /><published>2018-12-07T00:00:00-08:00</published><updated>2018-12-07T00:00:00-08:00</updated><id>http://0.0.0.0:4000/2018/12/07/a-look-at-home-routers-and-linux-mips</id><content type="html" xml:base="http://0.0.0.0:4000/2018/12/07/a-look-at-home-routers-and-linux-mips.html">&lt;p&gt;We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -19,12 +717,12 @@ Given the role these devices play in consumers' homes, and the ease with which t
 
 &lt;p&gt;
 But that's not all. In the second paper, we describe an unfortunate bug in the Linux/MIPS architecture which we encountered in the course of our reporting on routers. This bug, whose origins date back to 2001, prevents most Linux/MIPS binaries from enjoying the full protections of DEP and ASLR. Given the popularity of Linux/MIPS in embedded devices (such as IoT, consumer and enterprise network equipment, etc), and the enormous diversity of threat models for such devices, we believe this bug represents a significant risk to a large segment of Internet-connected devices.
-&lt;/p&gt;</content><author><name></name></author><summary type="html">We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.</summary></entry><entry><title type="html">Building on research success, CITL grows and focuses on scale</title><link href="https://cyber-itl.org/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html" rel="alternate" type="text/html" title="Building on research success, CITL grows and focuses on scale" /><published>2017-05-01T00:00:00-07:00</published><updated>2017-05-01T00:00:00-07:00</updated><id>https://cyber-itl.org/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale</id><content type="html" xml:base="https://cyber-itl.org/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">&lt;p&gt;In the past year a lot has happened at CITL&lt;!--more--&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;We compared the utilization of application armoring techniques across thousands of applications within Windows 10, Linux Ubuntu and Linux Gentoo, and Mac OS X.&lt;/li&gt;&lt;!--more--&gt;&lt;li&gt;We hacked up a proof-of-concept of our toolchain and looked under the hood at IoT applications and operating systems in use on “Smart” TVs.&amp;nbsp;&lt;/li&gt;&lt;li&gt;We found safety issues that seemed to have gone unnoticed for years in popular applications (e.g. Firefox and Office 2011 on OS X).&amp;nbsp;&lt;/li&gt;&lt;li&gt;We provided both high level and detailed results of our findings and approaches in our presentations at BlackHat and Defcon.&amp;nbsp;&lt;/li&gt;&lt;li&gt;We collaborated with Consumer Reports and other public interest organizations to codify how to assess security risks to consumers in the products they buy.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;We're proud of these achievements, but we're hungry for more. Today we're happy to make several announcements on that front.&lt;/p&gt;&lt;p&gt;First, having established the success of CITL's analytic methodology, Director Peiter &quot;Mudge&quot; Zatko will transition to a board position, where he will continue to provide vision and strategic insight.&lt;/p&gt;&lt;p&gt;Now that we have a proof of concept in hand it is time for us to grow and focus on scale, operations, and getting more information out to the public and industry.&amp;nbsp;&lt;/p&gt;&lt;p&gt;To help CITL expand its methodology to larger studies, we are pleased to welcome Tim Carstens as Acting Director. Though a mathematician by training, Carstens joins CITL with over a decade of experience in computer security, having reviewed systems in use by hundreds of millions of people and businesses. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Carstens will assist Chief Scientist Sarah Zatko as CITL continues to expand our methodology to larger studies at greater scale.&lt;/p&gt;&lt;p&gt;Speaking of larger studies, we are very excited about our third announcement: in light of our success applying the CITL methodology to desktop applications, DARPA has provided further funding toexpand our methodology to software running in embedded devices and IoT.&lt;/p&gt;&lt;p&gt;The ubiquity of such devices, together with the difficulty of detecting when one has been hacked, makes them ideal targets for attackers. Even those devices which seem completely mundane can still be useful as a node in a botnet. Thus, the poor security of such devices effects us all. As always, we look forward to sharing with you our progress as we study and compare the software that runs on these devices.&lt;/p&gt;&lt;p&gt;Fourth, we are thankful to announce that we've recently received a large charitable donation from a company in the financial sector. Their donation in support of the CITL mission will allow us to expand our team and perform larger, more in-depth reports on more classes of software. We are truly appreciative of their vote of confidence.&lt;/p&gt;&lt;p&gt;We look forward to continuing our relationship with our partners, including Consumer Reports and the Ford Foundation, and to new partnerships to come.&lt;/p&gt;</content><author><name></name></author><summary type="html">In the past year a lot has happened at CITL</summary></entry><entry><title type="html">CITL Status Report</title><link href="https://cyber-itl.org/our_approach/2017/01/30/citl-status-report.html" rel="alternate" type="text/html" title="CITL Status Report" /><published>2017-01-30T00:00:00-08:00</published><updated>2017-01-30T00:00:00-08:00</updated><id>https://cyber-itl.org/our_approach/2017/01/30/citl-status-report</id><content type="html" xml:base="https://cyber-itl.org/our_approach/2017/01/30/citl-status-report.html">&lt;p&gt;Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.&lt;!--more--&gt; &amp;nbsp;We've realized that while we're busy executing on this plan, maybe other people would like to know more about the behind the scenes also. &amp;nbsp;In order to have automatically generated reports and software scores available at scale, here's what needs to happen:&amp;nbsp;&lt;/p&gt;&lt;p&gt;1. Automate Static Analysis measurement collection - This part is done for Windows, OSX, and Linux/ELF environments (Intel and ARM). &amp;nbsp;It takes ~1 second per binary and we're confident in the accuracy of the results we're collecting. &amp;nbsp;&lt;/p&gt;&lt;p&gt;2. Collect a lot of fuzzing and crash test data - Well underway, but still ongoing. &amp;nbsp;We've got about 100 cores chugging away, and enough results now to be moving on to the next step.&lt;/p&gt;
+&lt;/p&gt;</content><author><name></name></author><summary type="html">We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.</summary></entry><entry><title type="html">Building on research success, CITL grows and focuses on scale</title><link href="http://0.0.0.0:4000/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html" rel="alternate" type="text/html" title="Building on research success, CITL grows and focuses on scale" /><published>2017-05-01T00:00:00-07:00</published><updated>2017-05-01T00:00:00-07:00</updated><id>http://0.0.0.0:4000/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale</id><content type="html" xml:base="http://0.0.0.0:4000/2017/05/01/building-on-research-success-citl-grows-and-focuses-on-scale.html">&lt;p&gt;In the past year a lot has happened at CITL&lt;!--more--&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;We compared the utilization of application armoring techniques across thousands of applications within Windows 10, Linux Ubuntu and Linux Gentoo, and Mac OS X.&lt;/li&gt;&lt;!--more--&gt;&lt;li&gt;We hacked up a proof-of-concept of our toolchain and looked under the hood at IoT applications and operating systems in use on “Smart” TVs.&amp;nbsp;&lt;/li&gt;&lt;li&gt;We found safety issues that seemed to have gone unnoticed for years in popular applications (e.g. Firefox and Office 2011 on OS X).&amp;nbsp;&lt;/li&gt;&lt;li&gt;We provided both high level and detailed results of our findings and approaches in our presentations at BlackHat and Defcon.&amp;nbsp;&lt;/li&gt;&lt;li&gt;We collaborated with Consumer Reports and other public interest organizations to codify how to assess security risks to consumers in the products they buy.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;We're proud of these achievements, but we're hungry for more. Today we're happy to make several announcements on that front.&lt;/p&gt;&lt;p&gt;First, having established the success of CITL's analytic methodology, Director Peiter &quot;Mudge&quot; Zatko will transition to a board position, where he will continue to provide vision and strategic insight.&lt;/p&gt;&lt;p&gt;Now that we have a proof of concept in hand it is time for us to grow and focus on scale, operations, and getting more information out to the public and industry.&amp;nbsp;&lt;/p&gt;&lt;p&gt;To help CITL expand its methodology to larger studies, we are pleased to welcome Tim Carstens as Acting Director. Though a mathematician by training, Carstens joins CITL with over a decade of experience in computer security, having reviewed systems in use by hundreds of millions of people and businesses. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Carstens will assist Chief Scientist Sarah Zatko as CITL continues to expand our methodology to larger studies at greater scale.&lt;/p&gt;&lt;p&gt;Speaking of larger studies, we are very excited about our third announcement: in light of our success applying the CITL methodology to desktop applications, DARPA has provided further funding toexpand our methodology to software running in embedded devices and IoT.&lt;/p&gt;&lt;p&gt;The ubiquity of such devices, together with the difficulty of detecting when one has been hacked, makes them ideal targets for attackers. Even those devices which seem completely mundane can still be useful as a node in a botnet. Thus, the poor security of such devices effects us all. As always, we look forward to sharing with you our progress as we study and compare the software that runs on these devices.&lt;/p&gt;&lt;p&gt;Fourth, we are thankful to announce that we've recently received a large charitable donation from a company in the financial sector. Their donation in support of the CITL mission will allow us to expand our team and perform larger, more in-depth reports on more classes of software. We are truly appreciative of their vote of confidence.&lt;/p&gt;&lt;p&gt;We look forward to continuing our relationship with our partners, including Consumer Reports and the Ford Foundation, and to new partnerships to come.&lt;/p&gt;</content><author><name></name></author><summary type="html">In the past year a lot has happened at CITL</summary></entry><entry><title type="html">CITL Status Report</title><link href="http://0.0.0.0:4000/our_approach/2017/01/30/citl-status-report.html" rel="alternate" type="text/html" title="CITL Status Report" /><published>2017-01-30T00:00:00-08:00</published><updated>2017-01-30T00:00:00-08:00</updated><id>http://0.0.0.0:4000/our_approach/2017/01/30/citl-status-report</id><content type="html" xml:base="http://0.0.0.0:4000/our_approach/2017/01/30/citl-status-report.html">&lt;p&gt;Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.&lt;!--more--&gt; &amp;nbsp;We've realized that while we're busy executing on this plan, maybe other people would like to know more about the behind the scenes also. &amp;nbsp;In order to have automatically generated reports and software scores available at scale, here's what needs to happen:&amp;nbsp;&lt;/p&gt;&lt;p&gt;1. Automate Static Analysis measurement collection - This part is done for Windows, OSX, and Linux/ELF environments (Intel and ARM). &amp;nbsp;It takes ~1 second per binary and we're confident in the accuracy of the results we're collecting. &amp;nbsp;&lt;/p&gt;&lt;p&gt;2. Collect a lot of fuzzing and crash test data - Well underway, but still ongoing. &amp;nbsp;We've got about 100 cores chugging away, and enough results now to be moving on to the next step.&lt;/p&gt;
   
       &lt;img src=&quot;/assets/images/blog/citl-status-report-1.jpg&quot; alt=&quot;&quot;/&gt;
   
 
-&lt;p&gt;3. Correlate dynamic analysis results (2) with static analysis results (1) to finalize score calculations. &amp;nbsp;This is what we're working on now, and it's the main thing that has to happen before we're happy with releasing reports at scale. &amp;nbsp;&lt;/p&gt;&lt;p&gt;4. (Reach Goal) Gain enough confidence in our mathematical model to successfully predict dynamic results based on static results. &amp;nbsp;This will allow us to present estimated crash test results based on easily automated analysis. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Why is this third step so important? &amp;nbsp;While we know that some things make software safer (ASLR, stack guards, DEP, source fortification, etc) and that some things make software weaker (using historically unsafe functions, high complexity, etc), the industry needs better data on how much they impact software safety. &amp;nbsp;If a perfect score is 100, how many points is having ASLR worth? &amp;nbsp;Linking to insecure libraries certainly introduces risk, but how much should it impact the overall score? &amp;nbsp;We want to have a better answer to questions like these before we publish our first official software safety reports. &amp;nbsp;Having a strong model to support our risk assessments will provide our ratings with the credibility they need in order to influence consumers, developers, the security community, and the commercial world. &amp;nbsp;&lt;/p&gt;&lt;p&gt;In the meantime, here's an &lt;a href=&quot;/2016/09/01/our-static-analysis-metrics-and-features.html&quot;&gt;overview&lt;/a&gt;&amp;nbsp;of the sorts of software properties we're measuring with our static analysis. &amp;nbsp;Also, stay tuned! &amp;nbsp;We're hoping to have some exciting new partnerships and efforts to announce in the coming months. &amp;nbsp;&lt;/p&gt;</content><author><name></name></author><summary type="html">Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.</summary></entry><entry><title type="html">To Upgrade or not? A look at Office 2016 for OSX</title><link href="https://cyber-itl.org/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html" rel="alternate" type="text/html" title="To Upgrade or not?  A look at Office 2016 for OSX" /><published>2017-01-04T00:00:00-08:00</published><updated>2017-01-04T00:00:00-08:00</updated><id>https://cyber-itl.org/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx</id><content type="html" xml:base="https://cyber-itl.org/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">&lt;p&gt;When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.&lt;!--more--&gt; &amp;nbsp;Sometimes there's a long-awaited feature, and you can't wait to get the latest and greatest, and sometimes it looks an awful lot like what you've already got, so it doesn't really seem worth the bother. &amp;nbsp;The security and software risk profiles of the old vs new versions are another factor that should be part of this consideration. &amp;nbsp;&lt;/p&gt;&lt;p&gt;When we looked at &lt;a href=&quot;/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html&quot;&gt;scores for OSX applications&lt;/a&gt;, the Microsoft Office 2011 suite was at the bottom of its category, and the accompanying Microsoft AutoUpdate application was at the bottom of the whole OSX environment. &amp;nbsp;Since then we've been asked how Office 2016 stacks up in comparison, and it provides an excellent example of hidden benefits of an upgrade, as it has a much better risk profile than the 2011 suite. &amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-left:0in; margin-right:0in&quot;&gt;Where the 2011 suite was mostly 32 bit files, largely without ASLR, the 2016 had all 64 bit files, all with ASLR.&amp;nbsp; Stack guards are now consistently employed, and function fortification is used in 58% of the files, as compared to 5% before.&amp;nbsp; The main applications (e.g. Word.app, Excel.app, etc.) were at the bottom of the pack in the 2016 suite, meaning that these had not improved by much, but the overall score distributions, which take into account all of the binary applications and the libraries against which they are linked,&amp;nbsp;improved greatly.&amp;nbsp;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;3. Correlate dynamic analysis results (2) with static analysis results (1) to finalize score calculations. &amp;nbsp;This is what we're working on now, and it's the main thing that has to happen before we're happy with releasing reports at scale. &amp;nbsp;&lt;/p&gt;&lt;p&gt;4. (Reach Goal) Gain enough confidence in our mathematical model to successfully predict dynamic results based on static results. &amp;nbsp;This will allow us to present estimated crash test results based on easily automated analysis. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Why is this third step so important? &amp;nbsp;While we know that some things make software safer (ASLR, stack guards, DEP, source fortification, etc) and that some things make software weaker (using historically unsafe functions, high complexity, etc), the industry needs better data on how much they impact software safety. &amp;nbsp;If a perfect score is 100, how many points is having ASLR worth? &amp;nbsp;Linking to insecure libraries certainly introduces risk, but how much should it impact the overall score? &amp;nbsp;We want to have a better answer to questions like these before we publish our first official software safety reports. &amp;nbsp;Having a strong model to support our risk assessments will provide our ratings with the credibility they need in order to influence consumers, developers, the security community, and the commercial world. &amp;nbsp;&lt;/p&gt;&lt;p&gt;In the meantime, here's an &lt;a href=&quot;/2016/09/01/our-static-analysis-metrics-and-features.html&quot;&gt;overview&lt;/a&gt;&amp;nbsp;of the sorts of software properties we're measuring with our static analysis. &amp;nbsp;Also, stay tuned! &amp;nbsp;We're hoping to have some exciting new partnerships and efforts to announce in the coming months. &amp;nbsp;&lt;/p&gt;</content><author><name></name></author><summary type="html">Some people have been asking when they're going to get to see all the great output and data we're generating, so this seemed like a good time to explain where we're at right now.</summary></entry><entry><title type="html">To Upgrade or not? A look at Office 2016 for OSX</title><link href="http://0.0.0.0:4000/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html" rel="alternate" type="text/html" title="To Upgrade or not?  A look at Office 2016 for OSX" /><published>2017-01-04T00:00:00-08:00</published><updated>2017-01-04T00:00:00-08:00</updated><id>http://0.0.0.0:4000/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx</id><content type="html" xml:base="http://0.0.0.0:4000/2017/01/04/to-upgrade-or-not-a-look-at-office-2016-for-osx.html">&lt;p&gt;When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.&lt;!--more--&gt; &amp;nbsp;Sometimes there's a long-awaited feature, and you can't wait to get the latest and greatest, and sometimes it looks an awful lot like what you've already got, so it doesn't really seem worth the bother. &amp;nbsp;The security and software risk profiles of the old vs new versions are another factor that should be part of this consideration. &amp;nbsp;&lt;/p&gt;&lt;p&gt;When we looked at &lt;a href=&quot;/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html&quot;&gt;scores for OSX applications&lt;/a&gt;, the Microsoft Office 2011 suite was at the bottom of its category, and the accompanying Microsoft AutoUpdate application was at the bottom of the whole OSX environment. &amp;nbsp;Since then we've been asked how Office 2016 stacks up in comparison, and it provides an excellent example of hidden benefits of an upgrade, as it has a much better risk profile than the 2011 suite. &amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin-left:0in; margin-right:0in&quot;&gt;Where the 2011 suite was mostly 32 bit files, largely without ASLR, the 2016 had all 64 bit files, all with ASLR.&amp;nbsp; Stack guards are now consistently employed, and function fortification is used in 58% of the files, as compared to 5% before.&amp;nbsp; The main applications (e.g. Word.app, Excel.app, etc.) were at the bottom of the pack in the 2016 suite, meaning that these had not improved by much, but the overall score distributions, which take into account all of the binary applications and the libraries against which they are linked,&amp;nbsp;improved greatly.&amp;nbsp;&amp;nbsp;&lt;/p&gt;
   
        &lt;figure&gt;&lt;img src=&quot;/assets/images/blog/to-upgrade-or-not-a-look-at-office-2016-for-osx-1.png&quot; alt=&quot; The histogram shows the score distributions for a base install of OSX (El Capitan), with the 5th, 50th, and 95th percentile scores called out. &amp;nbsp;Each triangle corresponds to one of the scores called out on the hardening line below. &amp;nbsp;We're comparing the Average score, the score for the AutoUpdate binary, and the scores for the main applications (Word, Excel, and PowerPoint) between Office 2011 and Office 2016. &amp;nbsp; &quot;/&gt;&lt;figcaption&gt;The histogram shows the score distributions for a base install of OSX (El Capitan), with the 5th, 50th, and 95th percentile scores called out. &amp;nbsp;Each triangle corresponds to one of the scores called out on the hardening line below. &amp;nbsp;We're comparing the Average score, the score for the AutoUpdate binary, and the scores for the main applications (Word, Excel, and PowerPoint) between Office 2011 and Office 2016.&lt;/figcaption&gt;&lt;/figure&gt;
   
@@ -52,7 +750,7 @@ But that's not all. In the second paper, we describe an unfortunate bug in the L
     &lt;td data-preserve-html-node=&quot;true&quot; align=&quot;right&quot;&gt;92.5&lt;/td&gt;
   &lt;/tr&gt;
 
-&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;The Microsoft AutoUpdate file that was such an egregious offender also improved significantly, with a new score of 64.&amp;nbsp; It still has risky and ick functions (two calls to system(), which should make anyone in the security field a bit nervous about general hygiene here...), but now has stack guards, ASLR, partial fortification, good functions, and is 64 bit.&amp;nbsp;&lt;/p&gt;&lt;p&gt;The story wasn’t 100% positive, however – the Microsoft Error Reporting (MERP) application had a call to an ick function, system(),&amp;nbsp;that hadn’t been present in the 2011 MERP files.&amp;nbsp; These sorts of bad and ick functions weren’t seen in Microsoft products for Windows, which implies that they might still be less strict about developer practices for OSX products.&amp;nbsp; Both suites had risky functions in most their files.&amp;nbsp; 2016 had slightly more, but this could be because our risky function list was expanded to be more complete in its ANSI v POSIX coverage between the two data collections. [As a reminder:&amp;nbsp;when we reveal our dynamic runtime analysis scores later this year we hope to share more information on our function lists and the math behind their weightings!]&lt;/p&gt;&lt;p&gt;Overall, the 2016 security stance was much improved, with much more consistent use of application armoring features, and much better overall static feature scores. &amp;nbsp;Perhaps most importantly, the AutoUpdate liability was significantly decreased. &amp;nbsp;This isn't a security feature that would be heavily advertised by the vendor, but it might be attractive to someone making the decision on whether to upgrade their corporate environment or not. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Looking at changes in software packages in this way helps quantify and prioritize which upgrades may significantly decrease your security exposure, and which ones are more simply designed as feature enhancements aimed at selling you incremental revisions of the same tool. In the case of Office for OSX, removing Office 2011 and replacing it with Office 2016 is a measurable reduction in risk to your environment. However, we still do not see sandboxing, strict hygiene regarding bad and risky functions, and other advanced safety features in their OS X products (e.g. CFI and ShadowStacks) they way we do in their Windows 10 offerings.&lt;/p&gt;</content><author><name></name></author><summary type="html">When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.</summary></entry><entry><title type="html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</title><link href="https://cyber-itl.org/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" rel="alternate" type="text/html" title="Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X" /><published>2016-11-21T00:00:00-08:00</published><updated>2016-11-21T00:00:00-08:00</updated><id>https://cyber-itl.org/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data</id><content type="html" xml:base="https://cyber-itl.org/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">&lt;p&gt;Source fortification is a powerful tool in modern compilers. &amp;nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions&lt;!--more--&gt; with safer, better-bounded versions. &amp;nbsp;Of course, the compiler can only do that if it can figure out what those bounds should be, which isn't always easy. &amp;nbsp;The developer does not get much feedback as to the success rate of this process, though. &amp;nbsp;The developer knows that they may have enabled source code fortification (-D_FORTIFY_SOURCE), but they do not get a readout on how many of their memcpy instances are now replaced with the safer memcpy_chk function, for example. This is important to the consumer because just looking to see that a good software build practice was intended does not reveal whether the practice actually improved the safety in the resulting application. That made us really curious to dig into the data on source fortification and its efficacy.&amp;nbsp;&lt;/p&gt;&lt;p&gt;We first looked at the fortification statistics on Linux. &amp;nbsp;The following numbers only deal with the 25% of Linux binaries (2631 files) where fortification was enabled. &amp;nbsp;Linux compilers, at the time we performed our initial analysis,&amp;nbsp;have 72 functions that they inspect for potential fortification, and the binaries we inspected had a total of almost 2 million instances of those 72 functions.&amp;nbsp;&amp;nbsp;Of those 2 million instances with functions that could potentially made safer, 91.7% were fortified! &amp;nbsp;Well done, Linux. Of course, those 165,000+ functions that remain in their less secure form warrant some concern and the there's still further good and bad news when you look at all of this more closely. &amp;nbsp;We viewed this data two different ways. &amp;nbsp;First we looked at it broken out by binary, then by function. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This chart shows the percent fortification for all binary files on our default base install of Ubuntu Linux. &amp;nbsp;31% of files were 95-100% fortified. &amp;nbsp;Many of these had large function counts, with some as high as 25k fortified function instances. &amp;nbsp;The rest of the files were evenly distributed from 0 to 95%. &amp;nbsp;While these binaries generally had lower function counts, there were exceptions to this rule. &amp;nbsp;Most notable was /lib/systemd/systemd, which had over 42k unfortified pread instances.&amp;nbsp;&lt;/p&gt;
+&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;The Microsoft AutoUpdate file that was such an egregious offender also improved significantly, with a new score of 64.&amp;nbsp; It still has risky and ick functions (two calls to system(), which should make anyone in the security field a bit nervous about general hygiene here...), but now has stack guards, ASLR, partial fortification, good functions, and is 64 bit.&amp;nbsp;&lt;/p&gt;&lt;p&gt;The story wasn’t 100% positive, however – the Microsoft Error Reporting (MERP) application had a call to an ick function, system(),&amp;nbsp;that hadn’t been present in the 2011 MERP files.&amp;nbsp; These sorts of bad and ick functions weren’t seen in Microsoft products for Windows, which implies that they might still be less strict about developer practices for OSX products.&amp;nbsp; Both suites had risky functions in most their files.&amp;nbsp; 2016 had slightly more, but this could be because our risky function list was expanded to be more complete in its ANSI v POSIX coverage between the two data collections. [As a reminder:&amp;nbsp;when we reveal our dynamic runtime analysis scores later this year we hope to share more information on our function lists and the math behind their weightings!]&lt;/p&gt;&lt;p&gt;Overall, the 2016 security stance was much improved, with much more consistent use of application armoring features, and much better overall static feature scores. &amp;nbsp;Perhaps most importantly, the AutoUpdate liability was significantly decreased. &amp;nbsp;This isn't a security feature that would be heavily advertised by the vendor, but it might be attractive to someone making the decision on whether to upgrade their corporate environment or not. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Looking at changes in software packages in this way helps quantify and prioritize which upgrades may significantly decrease your security exposure, and which ones are more simply designed as feature enhancements aimed at selling you incremental revisions of the same tool. In the case of Office for OSX, removing Office 2011 and replacing it with Office 2016 is a measurable reduction in risk to your environment. However, we still do not see sandboxing, strict hygiene regarding bad and risky functions, and other advanced safety features in their OS X products (e.g. CFI and ShadowStacks) they way we do in their Windows 10 offerings.&lt;/p&gt;</content><author><name></name></author><summary type="html">When a new suite of a familiar piece of software comes out, you have to decide if you want to upgrade or not.</summary></entry><entry><title type="html">Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X</title><link href="http://0.0.0.0:4000/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html" rel="alternate" type="text/html" title="Fortify Source: A Deeper Dive into Function Hardening on Linux and OS X" /><published>2016-11-21T00:00:00-08:00</published><updated>2016-11-21T00:00:00-08:00</updated><id>http://0.0.0.0:4000/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data</id><content type="html" xml:base="http://0.0.0.0:4000/data/2016/11/21/fortify-source-a-deeper-dive-into-the-data.html">&lt;p&gt;Source fortification is a powerful tool in modern compilers. &amp;nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions&lt;!--more--&gt; with safer, better-bounded versions. &amp;nbsp;Of course, the compiler can only do that if it can figure out what those bounds should be, which isn't always easy. &amp;nbsp;The developer does not get much feedback as to the success rate of this process, though. &amp;nbsp;The developer knows that they may have enabled source code fortification (-D_FORTIFY_SOURCE), but they do not get a readout on how many of their memcpy instances are now replaced with the safer memcpy_chk function, for example. This is important to the consumer because just looking to see that a good software build practice was intended does not reveal whether the practice actually improved the safety in the resulting application. That made us really curious to dig into the data on source fortification and its efficacy.&amp;nbsp;&lt;/p&gt;&lt;p&gt;We first looked at the fortification statistics on Linux. &amp;nbsp;The following numbers only deal with the 25% of Linux binaries (2631 files) where fortification was enabled. &amp;nbsp;Linux compilers, at the time we performed our initial analysis,&amp;nbsp;have 72 functions that they inspect for potential fortification, and the binaries we inspected had a total of almost 2 million instances of those 72 functions.&amp;nbsp;&amp;nbsp;Of those 2 million instances with functions that could potentially made safer, 91.7% were fortified! &amp;nbsp;Well done, Linux. Of course, those 165,000+ functions that remain in their less secure form warrant some concern and the there's still further good and bad news when you look at all of this more closely. &amp;nbsp;We viewed this data two different ways. &amp;nbsp;First we looked at it broken out by binary, then by function. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This chart shows the percent fortification for all binary files on our default base install of Ubuntu Linux. &amp;nbsp;31% of files were 95-100% fortified. &amp;nbsp;Many of these had large function counts, with some as high as 25k fortified function instances. &amp;nbsp;The rest of the files were evenly distributed from 0 to 95%. &amp;nbsp;While these binaries generally had lower function counts, there were exceptions to this rule. &amp;nbsp;Most notable was /lib/systemd/systemd, which had over 42k unfortified pread instances.&amp;nbsp;&lt;/p&gt;
 
 &lt;figure&gt;&lt;img src=&quot;/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-1.png&quot; alt=&quot; Fortification by binary on Ubuntu Linux. &amp;nbsp;Each dot is a binary. &amp;nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &amp;nbsp;This chart excludes /lib/systemd/systemd for readability, as it had 43,212 functions, but was 0.7% fortified. &quot; /&gt;  &lt;figcaption&gt;Fortification by binary on Ubuntu Linux. &amp;nbsp;Each dot is a binary. &amp;nbsp;The x axis shows what percent of its relevant functions were fortified, and the y axis shows how many fortifiable functions the binary had overall. &amp;nbsp;This chart excludes /lib/systemd/systemd for readability, as it had 43,212 functions, but was 0.7% fortified.&lt;/figcaption&gt;&lt;/figure&gt;
 
@@ -72,7 +770,7 @@ But that's not all. In the second paper, we describe an unfortunate bug in the L
 &lt;p&gt;The picture is similar when OSX fortification is viewed by function. &amp;nbsp;52 functions are never fortified. &amp;nbsp;The most successful function is strcat, with 93% fortification, followed by strncat and sprintf (83% and 82%, respectively). &amp;nbsp;Interestingly, we found that a couple functions had higher fortification rates in OSX than they did in Linux. &amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p&gt;In both Linux and OSX, we observed that string functions like these had higher success rates than functions dealing with (dynamic) memory pointers.&lt;/p&gt;
 
 &lt;figure&gt;&lt;img src=&quot;/assets/images/blog/fortify-source-a-deeper-dive-into-the-data-4.png&quot; alt=&quot; Histogram of fortification by function on OSX. &amp;nbsp;The x axis shows percentage fortified, with a bin width of 5. &amp;nbsp;The y axis shows how many functions fell into each bin. &amp;nbsp;Nothing was 95-100% fortified. &quot; /&gt;&lt;figcaption&gt;Histogram of fortification by function on OSX. &amp;nbsp;The x axis shows percentage fortified, with a bin width of 5. &amp;nbsp;The y axis shows how many functions fell into each bin. &amp;nbsp;Nothing was 95-100% fortified.&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;So, OSX has some catching up to do, compared to their Linux equivalent. This was a relatively unexpected result,&amp;nbsp;but that's why this sort of data analysis is important. &amp;nbsp;&lt;/p&gt;</content><author><name></name></author><category term="fortify-source" /><category term="static-analysis" /><category term="data" /><category term="linux" /><category term="osx" /><summary type="html">Source fortification is a powerful tool in modern compilers. &amp;nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions</summary></entry><entry><title type="html">Revisiting the Linux Score Distribution</title><link href="https://cyber-itl.org/2016/11/15/revisiting-the-linux-score-distribution.html" rel="alternate" type="text/html" title="Revisiting the Linux Score Distribution" /><published>2016-11-15T00:00:00-08:00</published><updated>2016-11-15T00:00:00-08:00</updated><id>https://cyber-itl.org/2016/11/15/revisiting-the-linux-score-distribution</id><content type="html" xml:base="https://cyber-itl.org/2016/11/15/revisiting-the-linux-score-distribution.html">&lt;p&gt;A while back, we showed what the score distributions were for base installs of three major platforms.&lt;!--more--&gt; &amp;nbsp;Here, we're going to compare that base install view of Linux with the score distribution for a custom, hardened instance of Linux. &amp;nbsp;To refresh memories, here was the original Linux distribution:&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;So, OSX has some catching up to do, compared to their Linux equivalent. This was a relatively unexpected result,&amp;nbsp;but that's why this sort of data analysis is important. &amp;nbsp;&lt;/p&gt;</content><author><name></name></author><category term="fortify-source" /><category term="static-analysis" /><category term="data" /><category term="linux" /><category term="osx" /><summary type="html">Source fortification is a powerful tool in modern compilers. &amp;nbsp;When enabled, the compiler will inspect the code and attempt to automatically replace risky functions</summary></entry><entry><title type="html">Revisiting the Linux Score Distribution</title><link href="http://0.0.0.0:4000/2016/11/15/revisiting-the-linux-score-distribution.html" rel="alternate" type="text/html" title="Revisiting the Linux Score Distribution" /><published>2016-11-15T00:00:00-08:00</published><updated>2016-11-15T00:00:00-08:00</updated><id>http://0.0.0.0:4000/2016/11/15/revisiting-the-linux-score-distribution</id><content type="html" xml:base="http://0.0.0.0:4000/2016/11/15/revisiting-the-linux-score-distribution.html">&lt;p&gt;A while back, we showed what the score distributions were for base installs of three major platforms.&lt;!--more--&gt; &amp;nbsp;Here, we're going to compare that base install view of Linux with the score distribution for a custom, hardened instance of Linux. &amp;nbsp;To refresh memories, here was the original Linux distribution:&amp;nbsp;&lt;/p&gt;
   
       &lt;img src=&quot;/assets/images/blog/revisiting-the-linux-score-distribution-1.png&quot; alt=&quot;&quot;/&gt;
   
@@ -82,7 +780,7 @@ But that's not all. In the second paper, we describe an unfortunate bug in the L
 &lt;img src=&quot;/assets/images/blog/revisiting-the-linux-score-distribution-2.png&quot; alt=&quot;&quot; /&gt;
   
 
-&lt;p&gt;There are no longer any negative scores, and the overall score distribution has greatly improved. &amp;nbsp;These numbers can be compared directly, because they're both from environments with the same set of possible safety features, and all features are weighted the same.&amp;nbsp;&lt;/p&gt;&lt;p&gt;As we saw with Windows, you can tell from the histogram of the hardened Linux instance that the build practices were more uniform because the binaries are much more clustered than before. &amp;nbsp;This customization largely consisted of re-compiling all of the binaries with all possible application armoring features enabled to reasonable degrees. &amp;nbsp;Bad functions or programming errors in the source code were not addressed, because the source code was not changed, but all available safety features are now being applied across the board. &amp;nbsp;It should be noted that this hardened Linux build still lacks certain Kernel safety features &amp;nbsp;(e.g. not all of the PAX/GRSec Kernel mods were enabled)&amp;nbsp;as some would have interfered with necessary operations. &amp;nbsp;This is just a reasonably hardened, but entirely usable Linux instance. &amp;nbsp;&lt;/p&gt;&lt;p&gt;The ability to easily customize and harden the default distribution of Open Source Operating Systems should be a big draw for organizations that want to improve their security stance. &amp;nbsp;With closed source software, the consumer has to hope that the vendor in question knows what they're doing when it comes to build environment and settings (Microsoft Windows 10 did well in this regard when compared with default OS X and Linux builds).&amp;nbsp;The results usually end up being mixed and somewhat mediocre. &amp;nbsp;The off the shelf quality of open source build practices isn't much better, as shown by the distribution for Ubuntu above, but then at least the consumer can redo it on their own and know it was done right. &amp;nbsp;This sort of customization may be out of scope for many smaller businesses, unless they are security conscious and technically capable. &amp;nbsp;It is, however,&amp;nbsp;a completely reasonable behavior for larger organizations.&amp;nbsp; So, why is it that most large corporations are not engaging in this security practice? After all, doing this measurably increases the difficulty and cost for an adversary to exploit the more uniform (hardened) environment.&amp;nbsp;&lt;/p&gt;&lt;p&gt;We believe that there are two major contributing factors that prevent organizations from engaging in the practice of customizing and hardening their builds of open source distributions. &amp;nbsp;First, of course, they might not know or think to do so. &amp;nbsp;After all, there is a lot of ignorance and learned helplessness out there, and consumers of all types and sizes have been conditioned to just accept the software they are given, and not think of tinkering or customizing it for their needs. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Second, though, most corporations do not have any significant incentive to engage in this practice. &amp;nbsp;It might improve their security, but it is viewed as a cost in the short term to put in the effort. &amp;nbsp;If the weaker security stance results in a breach, well, that is why they have insurance... right? &amp;nbsp;&lt;/p&gt;&lt;p&gt;This wouldn't fly for most other types of risk management. &amp;nbsp;High value insurance policies can get pretty specific about what actions and levels of effort need to be taken by the insured to protect their property and prevent loss or damage. &amp;nbsp;The insurance company knows, for example, the TL-ratings for the safes used in high-value environments.&amp;nbsp;If the safe's rating says that it should last for about 30 minutes (TL-30) against common attacks, then the policy may require that a security guard pass by at least every 25 minutes. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This sort of system incentivizes companies to protect themselves as much as reasonably possible. &amp;nbsp;It is one of the reasons why large organizations also have large physical security infrastructures that are customized for their business and environment. &amp;nbsp;A large multinational corporation doesn't just put a &quot;Secured by ___ Home Security&quot; sticker in their window and call it a day. &amp;nbsp;But, when it comes to cyber security practices, many corporations are frequently doing the equivalent, because cyber insurance policies are not requiring that they do more. &amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p&gt;With these measurements and analytics, and the more detailed static, dynamic, and predictive ones to come, we hope to help address this issue.&lt;/p&gt;</content><author><name></name></author><summary type="html">A while back, we showed what the score distributions were for base installs of three major platforms.</summary></entry><entry><title type="html">Software Application Risks on the OSX Continuum</title><link href="https://cyber-itl.org/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" rel="alternate" type="text/html" title="Software Application Risks on the OSX Continuum" /><published>2016-09-15T00:00:00-07:00</published><updated>2016-09-15T00:00:00-07:00</updated><id>https://cyber-itl.org/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum</id><content type="html" xml:base="https://cyber-itl.org/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">&lt;p&gt;In our &lt;a href=&quot;/2016/09/01/score-distributions-in-osx-win10-and-linux.html&quot;&gt;previous post&lt;/a&gt; about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.&lt;!--more--&gt; We also noted interesting things about each continuum and reminded people that the real value is being able to compare risk present in various software within a single continuum.&amp;nbsp; No we will take our first look at where some applications of interest live on the score continuum for OSX. &amp;nbsp;We'll look at three categories of software here: browsers, office suites, and update software. &amp;nbsp;All of these are targets for attack, so security is a concern for all of them. &amp;nbsp;The extent to which security influences purchasing decisions in these categories likely varies a great deal, however. &amp;nbsp;We'll discuss this aspect in more detail for each group as they're introduced. [Note: As stated before, these articles are to familiarize people with the value and limitation of static measures of risk. Once we finish these blog posts we will begin describing our dynamic and predictive analysis values and how they work with our static measurements.]&lt;/p&gt;&lt;p&gt;First up are browsers. &amp;nbsp;Browsers are particularly interesting because it's easy to change which one you're using, and easier for security to be a main consideration in the choice of which to use. &amp;nbsp;After all, they all provide you access to the same web content, they're a major vector for infection, and most of them are free, so cost isn't usually a deciding factor. &amp;nbsp;For corporations it is often most efficient to pick a single browser to configure and support. So if you are an OS X based shop, how would you chose the browser with the strongest security build and developer hygiene characteristics?&lt;/p&gt;&lt;p&gt;You might remember that the histogram of all OSX El Captain scores looked like so (as of August 2016):&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;There are no longer any negative scores, and the overall score distribution has greatly improved. &amp;nbsp;These numbers can be compared directly, because they're both from environments with the same set of possible safety features, and all features are weighted the same.&amp;nbsp;&lt;/p&gt;&lt;p&gt;As we saw with Windows, you can tell from the histogram of the hardened Linux instance that the build practices were more uniform because the binaries are much more clustered than before. &amp;nbsp;This customization largely consisted of re-compiling all of the binaries with all possible application armoring features enabled to reasonable degrees. &amp;nbsp;Bad functions or programming errors in the source code were not addressed, because the source code was not changed, but all available safety features are now being applied across the board. &amp;nbsp;It should be noted that this hardened Linux build still lacks certain Kernel safety features &amp;nbsp;(e.g. not all of the PAX/GRSec Kernel mods were enabled)&amp;nbsp;as some would have interfered with necessary operations. &amp;nbsp;This is just a reasonably hardened, but entirely usable Linux instance. &amp;nbsp;&lt;/p&gt;&lt;p&gt;The ability to easily customize and harden the default distribution of Open Source Operating Systems should be a big draw for organizations that want to improve their security stance. &amp;nbsp;With closed source software, the consumer has to hope that the vendor in question knows what they're doing when it comes to build environment and settings (Microsoft Windows 10 did well in this regard when compared with default OS X and Linux builds).&amp;nbsp;The results usually end up being mixed and somewhat mediocre. &amp;nbsp;The off the shelf quality of open source build practices isn't much better, as shown by the distribution for Ubuntu above, but then at least the consumer can redo it on their own and know it was done right. &amp;nbsp;This sort of customization may be out of scope for many smaller businesses, unless they are security conscious and technically capable. &amp;nbsp;It is, however,&amp;nbsp;a completely reasonable behavior for larger organizations.&amp;nbsp; So, why is it that most large corporations are not engaging in this security practice? After all, doing this measurably increases the difficulty and cost for an adversary to exploit the more uniform (hardened) environment.&amp;nbsp;&lt;/p&gt;&lt;p&gt;We believe that there are two major contributing factors that prevent organizations from engaging in the practice of customizing and hardening their builds of open source distributions. &amp;nbsp;First, of course, they might not know or think to do so. &amp;nbsp;After all, there is a lot of ignorance and learned helplessness out there, and consumers of all types and sizes have been conditioned to just accept the software they are given, and not think of tinkering or customizing it for their needs. &amp;nbsp;&lt;/p&gt;&lt;p&gt;Second, though, most corporations do not have any significant incentive to engage in this practice. &amp;nbsp;It might improve their security, but it is viewed as a cost in the short term to put in the effort. &amp;nbsp;If the weaker security stance results in a breach, well, that is why they have insurance... right? &amp;nbsp;&lt;/p&gt;&lt;p&gt;This wouldn't fly for most other types of risk management. &amp;nbsp;High value insurance policies can get pretty specific about what actions and levels of effort need to be taken by the insured to protect their property and prevent loss or damage. &amp;nbsp;The insurance company knows, for example, the TL-ratings for the safes used in high-value environments.&amp;nbsp;If the safe's rating says that it should last for about 30 minutes (TL-30) against common attacks, then the policy may require that a security guard pass by at least every 25 minutes. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This sort of system incentivizes companies to protect themselves as much as reasonably possible. &amp;nbsp;It is one of the reasons why large organizations also have large physical security infrastructures that are customized for their business and environment. &amp;nbsp;A large multinational corporation doesn't just put a &quot;Secured by ___ Home Security&quot; sticker in their window and call it a day. &amp;nbsp;But, when it comes to cyber security practices, many corporations are frequently doing the equivalent, because cyber insurance policies are not requiring that they do more. &amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p&gt;With these measurements and analytics, and the more detailed static, dynamic, and predictive ones to come, we hope to help address this issue.&lt;/p&gt;</content><author><name></name></author><summary type="html">A while back, we showed what the score distributions were for base installs of three major platforms.</summary></entry><entry><title type="html">Software Application Risks on the OSX Continuum</title><link href="http://0.0.0.0:4000/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html" rel="alternate" type="text/html" title="Software Application Risks on the OSX Continuum" /><published>2016-09-15T00:00:00-07:00</published><updated>2016-09-15T00:00:00-07:00</updated><id>http://0.0.0.0:4000/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum</id><content type="html" xml:base="http://0.0.0.0:4000/data/our_approach/2016/09/15/a-closer-look-at-the-osx-continuum.html">&lt;p&gt;In our &lt;a href=&quot;/2016/09/01/score-distributions-in-osx-win10-and-linux.html&quot;&gt;previous post&lt;/a&gt; about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.&lt;!--more--&gt; We also noted interesting things about each continuum and reminded people that the real value is being able to compare risk present in various software within a single continuum.&amp;nbsp; No we will take our first look at where some applications of interest live on the score continuum for OSX. &amp;nbsp;We'll look at three categories of software here: browsers, office suites, and update software. &amp;nbsp;All of these are targets for attack, so security is a concern for all of them. &amp;nbsp;The extent to which security influences purchasing decisions in these categories likely varies a great deal, however. &amp;nbsp;We'll discuss this aspect in more detail for each group as they're introduced. [Note: As stated before, these articles are to familiarize people with the value and limitation of static measures of risk. Once we finish these blog posts we will begin describing our dynamic and predictive analysis values and how they work with our static measurements.]&lt;/p&gt;&lt;p&gt;First up are browsers. &amp;nbsp;Browsers are particularly interesting because it's easy to change which one you're using, and easier for security to be a main consideration in the choice of which to use. &amp;nbsp;After all, they all provide you access to the same web content, they're a major vector for infection, and most of them are free, so cost isn't usually a deciding factor. &amp;nbsp;For corporations it is often most efficient to pick a single browser to configure and support. So if you are an OS X based shop, how would you chose the browser with the strongest security build and developer hygiene characteristics?&lt;/p&gt;&lt;p&gt;You might remember that the histogram of all OSX El Captain scores looked like so (as of August 2016):&amp;nbsp;&lt;/p&gt;
 
 &lt;img src=&quot;/assets/images/blog/a-closer-look-at-the-osx-continuum-1.png&quot; alt=&quot;&quot; /&gt;
 
@@ -102,7 +800,7 @@ But that's not all. In the second paper, we describe an unfortunate bug in the L
 &lt;img src=&quot;/assets/images/blog/a-closer-look-at-the-osx-continuum-1.png&quot; alt=&quot;&quot; /&gt;
 
 
-&lt;p&gt;We always look across all of the binaries to identify the very best and very worst applications in any run, to see if anything of interest pops out. &amp;nbsp;We were dismayed to see that Microsoft AutoUpdate (the update software that ships with their office suite) had one of the worst 10 scores out of all 38k+ binaries we evaluated. &amp;nbsp;It's a 32 bit application with no ASLR, an executable heap, unfortified source, and no stack guards. &amp;nbsp;In the office suite scores from the prior histogram, we did not include this update software. If we change the score of the office suite to include all the software it comes with, this pulls the score down significantly. It should be pointed out that this updater is related to Microsoft's DRM (digital rights management - anti software piracy) component that is listening on the network on your OS X system if you have MS Office installed.&amp;nbsp;&lt;/p&gt;&lt;p&gt;In contrast, the native OSX Auto Update software does quite well, scoring slightly better than Google Chrome did. &amp;nbsp;Given what a target auto updaters are for attackers, this is more along the lines of what we would like to see for this sort of software. &amp;nbsp;&lt;/p&gt;&lt;p&gt;It is clear that there is a variety of products available to consumers, with a lot of variation in their security and design quality. &amp;nbsp;And, as we see with the Microsoft products for OSX, a vendor that does well in one environment might do quite poorly in another. &amp;nbsp;There is no guarantee of consistency of development practices across a large organization. &amp;nbsp;However, with information such as this we are hoping to arm and inform consumers to help them make better and safer choices for their particular environments.&lt;/p&gt;</content><author><name></name></author><category term="osx" /><category term="browsers" /><category term="office suites" /><category term="autoupdate" /><category term="microsoft" /><category term="firefox" /><category term="static analysis" /><summary type="html">In our previous post about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.</summary></entry><entry><title type="html">Score Distributions in OSX, Win10, and Linux</title><link href="https://cyber-itl.org/2016/09/01/score-distributions-in-osx-win10-and-linux.html" rel="alternate" type="text/html" title="Score Distributions in OSX, Win10, and Linux" /><published>2016-09-01T00:00:00-07:00</published><updated>2016-09-01T00:00:00-07:00</updated><id>https://cyber-itl.org/2016/09/01/score-distributions-in-osx-win10-and-linux</id><content type="html" xml:base="https://cyber-itl.org/2016/09/01/score-distributions-in-osx-win10-and-linux.html">&lt;p&gt;The data we're sharing first is the data from what we refer to as our &lt;a href=&quot;/2016/09/01/our-static-analysis-metrics-and-features.html&quot;&gt;static analysis&lt;/a&gt;. &amp;nbsp;(Fuzzing and dynamic analysis data will be described later).&lt;!--more--&gt; This is the part of our data that is most similar to nutritional facts of software, as it focuses on features and contents of the binary. &amp;nbsp;In particular, what application armoring features are present (and how well were they done), how complex is it, and what does the developer hygiene look like? &amp;nbsp;Each binary gets a &quot;local score&quot;, based on just that binary, and a &quot;library score&quot;, based on the local scores for all libraries it depends on (directly or indirectly, through other libraries). &amp;nbsp;These two values are combined to produce the total score. &amp;nbsp;The charts below show histograms of the total scores for each of the tested environments. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We have static analysis data on the base installs on all 3 of our initial desktop environments: OSX (El Capitan 10.11), Windows 10, and Ubuntu Linux (16.04 LTS). &amp;nbsp;Since it had come to our attention as an interesting test case, these installs also include &lt;a href=&quot;https://www.continuum.io/&quot;&gt;Anaconda&lt;/a&gt;, the big data analytics package from Continuum. &amp;nbsp;It's important to note that scores don't compare directly between environments. &amp;nbsp;If the 50th percentile mark for Windows is higher than the one for Linux, for example, that doesn't necessarily mean anything. &amp;nbsp;Each environment has different sets of safety features available and different hazards for programmers to avoid, so the score values aren't apples to apples. This is important enough to bear repeating: consumers should compare the ratings we will be releasing of applications against each other *within*&amp;nbsp;a particular environment. What we're focusing on here is the overall distribution and range of scores, as this tells us something about how consistent the development process was for that operating system/environment. &amp;nbsp;So which company appears to have the better Security Development Life Cycle (SDLC)&amp;nbsp;process for their base OS?&lt;/p&gt;&lt;p&gt;We're still finalizing some data before we share reports or scores for specific software verticals, but we can share the overall landscape in each environment. &amp;nbsp;In a near-future blog post we'll add call-outs for specific applications to these charts, allowing comparisons between competing projects. &amp;nbsp;For now, we're just getting the lay of the land. &amp;nbsp;First off, here's the histogram of application scores for the base installation of OSX. &amp;nbsp;&lt;/p&gt;
+&lt;p&gt;We always look across all of the binaries to identify the very best and very worst applications in any run, to see if anything of interest pops out. &amp;nbsp;We were dismayed to see that Microsoft AutoUpdate (the update software that ships with their office suite) had one of the worst 10 scores out of all 38k+ binaries we evaluated. &amp;nbsp;It's a 32 bit application with no ASLR, an executable heap, unfortified source, and no stack guards. &amp;nbsp;In the office suite scores from the prior histogram, we did not include this update software. If we change the score of the office suite to include all the software it comes with, this pulls the score down significantly. It should be pointed out that this updater is related to Microsoft's DRM (digital rights management - anti software piracy) component that is listening on the network on your OS X system if you have MS Office installed.&amp;nbsp;&lt;/p&gt;&lt;p&gt;In contrast, the native OSX Auto Update software does quite well, scoring slightly better than Google Chrome did. &amp;nbsp;Given what a target auto updaters are for attackers, this is more along the lines of what we would like to see for this sort of software. &amp;nbsp;&lt;/p&gt;&lt;p&gt;It is clear that there is a variety of products available to consumers, with a lot of variation in their security and design quality. &amp;nbsp;And, as we see with the Microsoft products for OSX, a vendor that does well in one environment might do quite poorly in another. &amp;nbsp;There is no guarantee of consistency of development practices across a large organization. &amp;nbsp;However, with information such as this we are hoping to arm and inform consumers to help them make better and safer choices for their particular environments.&lt;/p&gt;</content><author><name></name></author><category term="osx" /><category term="browsers" /><category term="office suites" /><category term="autoupdate" /><category term="microsoft" /><category term="firefox" /><category term="static analysis" /><summary type="html">In our previous post about the score histograms for Windows, Linux, and OSX, we promised deeper dives to come.</summary></entry><entry><title type="html">Score Distributions in OSX, Win10, and Linux</title><link href="http://0.0.0.0:4000/2016/09/01/score-distributions-in-osx-win10-and-linux.html" rel="alternate" type="text/html" title="Score Distributions in OSX, Win10, and Linux" /><published>2016-09-01T00:00:00-07:00</published><updated>2016-09-01T00:00:00-07:00</updated><id>http://0.0.0.0:4000/2016/09/01/score-distributions-in-osx-win10-and-linux</id><content type="html" xml:base="http://0.0.0.0:4000/2016/09/01/score-distributions-in-osx-win10-and-linux.html">&lt;p&gt;The data we're sharing first is the data from what we refer to as our &lt;a href=&quot;/2016/09/01/our-static-analysis-metrics-and-features.html&quot;&gt;static analysis&lt;/a&gt;. &amp;nbsp;(Fuzzing and dynamic analysis data will be described later).&lt;!--more--&gt; This is the part of our data that is most similar to nutritional facts of software, as it focuses on features and contents of the binary. &amp;nbsp;In particular, what application armoring features are present (and how well were they done), how complex is it, and what does the developer hygiene look like? &amp;nbsp;Each binary gets a &quot;local score&quot;, based on just that binary, and a &quot;library score&quot;, based on the local scores for all libraries it depends on (directly or indirectly, through other libraries). &amp;nbsp;These two values are combined to produce the total score. &amp;nbsp;The charts below show histograms of the total scores for each of the tested environments. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We have static analysis data on the base installs on all 3 of our initial desktop environments: OSX (El Capitan 10.11), Windows 10, and Ubuntu Linux (16.04 LTS). &amp;nbsp;Since it had come to our attention as an interesting test case, these installs also include &lt;a href=&quot;https://www.continuum.io/&quot;&gt;Anaconda&lt;/a&gt;, the big data analytics package from Continuum. &amp;nbsp;It's important to note that scores don't compare directly between environments. &amp;nbsp;If the 50th percentile mark for Windows is higher than the one for Linux, for example, that doesn't necessarily mean anything. &amp;nbsp;Each environment has different sets of safety features available and different hazards for programmers to avoid, so the score values aren't apples to apples. This is important enough to bear repeating: consumers should compare the ratings we will be releasing of applications against each other *within*&amp;nbsp;a particular environment. What we're focusing on here is the overall distribution and range of scores, as this tells us something about how consistent the development process was for that operating system/environment. &amp;nbsp;So which company appears to have the better Security Development Life Cycle (SDLC)&amp;nbsp;process for their base OS?&lt;/p&gt;&lt;p&gt;We're still finalizing some data before we share reports or scores for specific software verticals, but we can share the overall landscape in each environment. &amp;nbsp;In a near-future blog post we'll add call-outs for specific applications to these charts, allowing comparisons between competing projects. &amp;nbsp;For now, we're just getting the lay of the land. &amp;nbsp;First off, here's the histogram of application scores for the base installation of OSX. &amp;nbsp;&lt;/p&gt;
   
 &lt;figure&gt;&lt;img src=&quot;/assets/images/blog/score-distributions-in-osx-win10-and-linux-1.png&quot; alt=&quot; Histogram of static analysis scores for base install of OSX El Capitan. &amp;nbsp; &quot; /&gt;&lt;figcaption&gt;Histogram of static analysis scores for base install of OSX El Capitan.&lt;/figcaption&gt;&lt;/figure&gt;
   
@@ -117,22 +815,4 @@ But that's not all. In the second paper, we describe an unfortunate bug in the L
 &lt;figure&gt;&lt;img src=&quot;/assets/images/blog/score-distributions-in-osx-win10-and-linux-3.png&quot; alt=&quot; Windows 10 score distribution. &amp;nbsp;All scores lower than -22 are from Anaconda. &amp;nbsp;Without Anaconda included the 5th percentile is a score of 53 (instead of 40). &amp;nbsp; &quot; /&gt;  &lt;figcaption&gt;Windows 10 score distribution. &amp;nbsp;All scores lower than -22 are from Anaconda. &amp;nbsp;Without Anaconda included the 5th percentile is a score of 53 (instead of 40). &lt;/figcaption&gt;&lt;/figure&gt; 
   
 
-&lt;p&gt;Windows shows a pretty different chart from the previous two. &amp;nbsp;The bin for scores from 65-70 has about 5500 files in it. &amp;nbsp;Even accounting for the increased number of files in the Windows base install, this is much higher than the biggest peaks on either of the other charts, indicating that application of armoring and security features is much more uniform for the Windows environment. &amp;nbsp;Windows also has many more files with a perfect or near-perfect score than OSX or Linux had. &amp;nbsp;While all three environments had the potential for a final score to be slightly over 100, this is the only environment to have any in practice. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This distribution will become a lot broader once we bring in third party applications. &amp;nbsp;This prediction is supported by what Anaconda's presence already does to the chart. &amp;nbsp;Namely, it contributes the lowest 450 or so scores to the chart, including everything scoring a -22 or lower. &amp;nbsp;[Note: Continuum, the company that packages Anaconda, is aware of these findings. Should they decide to move to a modern development with a full complement of safety features available (and frequently enabled by default), their scores will improve significantly. &amp;nbsp;We are hoping they do so, as their current product imposes significant risk on their customers, and it would be a great initial win if this got fixed. We will keep you posted on this topic.]&lt;/p&gt;&lt;p&gt;We are installing a wide variety of third party software onto our test systems. This will provide an understanding of the overall software ecosystem for each environment. &amp;nbsp;More importantly, though, it'll allow consumers to call out all members of a particular software category and compare them based on where they fall on this safety continuum. &amp;nbsp;&lt;/p&gt;&lt;p&gt;With this information it will become a straight forward process to choose and use software that increases the cost to the adversary, and thus measurably decreases the risk to yourself.&amp;nbsp;After all, who would want to install and run the easiest target software for no reason?&lt;/p&gt;</content><author><name></name></author><summary type="html">The data we're sharing first is the data from what we refer to as our static analysis. &amp;nbsp;(Fuzzing and dynamic analysis data will be described later).</summary></entry><entry><title type="html">Our Static Analysis Metrics and Features</title><link href="https://cyber-itl.org/2016/09/01/our-static-analysis-metrics-and-features.html" rel="alternate" type="text/html" title="Our Static Analysis Metrics and Features" /><published>2016-09-01T00:00:00-07:00</published><updated>2016-09-01T00:00:00-07:00</updated><id>https://cyber-itl.org/2016/09/01/our-static-analysis-metrics-and-features</id><content type="html" xml:base="https://cyber-itl.org/2016/09/01/our-static-analysis-metrics-and-features.html">&lt;p&gt;If you've seen &lt;a href=&quot;/2016/09/01/score-distributions-in-osx-win10-and-linux.html&quot;&gt;our post&lt;/a&gt; about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.&lt;!--more--&gt; &amp;nbsp;This post will provide some high level understanding of what factors we consider for those static analysis scores. &amp;nbsp;&lt;/p&gt;&lt;p&gt;The main question we're trying to find the answer to is, &quot;How difficult is it for an attacker to find a new exploit for this software?&quot;. &amp;nbsp;Attackers have limited resources, and just like anyone else, they don't like to waste their time doing something the hard way if an easier path is available. &amp;nbsp;They have tricks and heuristics they use to assess the relative difficulty to exploit software, so that they can focus on the easy targets and low hanging fruit. &amp;nbsp;Mudge has had a long career of doing just that (legally, and for research purposes), so he's developed his own personal toolkit of measurements to take when assessing software risk. &amp;nbsp;By consulting with other luminaries of the security field who have extensive exploit development experience, we've been able to build up the list of static analysis metrics and features which we currently assess.&lt;/p&gt;&lt;p&gt;There are three main categories of static analysis features that we look at for a software binary:&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Complexity&amp;nbsp;&lt;/li&gt;&lt;li&gt;Application Armoring&lt;/li&gt;&lt;li&gt;Developer Hygiene&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;For each of these, I'm going to list some of the main features and why these are important to have when estimating software risk. &amp;nbsp;&lt;/p&gt;&lt;h2&gt;Complexity&lt;/h2&gt;&lt;p&gt;First up, why does complexity matter? &amp;nbsp;Because more complex code is harder to review and maintain, and is more likely to contain bugs. &amp;nbsp;This is why &lt;a href=&quot;http://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf&quot;&gt;NASA/JPL&lt;/a&gt; put limits on things like function size for code that's going into critical systems. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We look at more complex measurements like cyclomatic complexity, but my favorite features are the simpler ones:&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Code Size&lt;/li&gt;&lt;li&gt;Number of Conditional Branches&lt;/li&gt;&lt;li&gt;Size &amp;amp; Number of Stack Adjusts&lt;/li&gt;&lt;li&gt;Function Size&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Measurements like code size, number of branches and stack adjusts have a roughly lognormal distribution. &amp;nbsp;In general, we expect the density of branches to be constant. &amp;nbsp;That is, as code size increases, the counts for branches or stack adjusts should increase correspondingly. &amp;nbsp;If the number of branches is highly disproportionate compared to the code size, giving the code a high branch density,&amp;nbsp;that indicates a high level of complexity (and thus a higher level of risk). &amp;nbsp;&lt;/p&gt;&lt;h2&gt;Application Armoring&lt;/h2&gt;&lt;p&gt;Modern compilers, linkers, and loaders come with lots of nifty safety features, but they won't do you any good if the software doesn't have them enabled. &amp;nbsp;These features are to software what airbags and seatbelts are to cars: things that are known and proven to improve safety, and whose use should be established by now as industry-standard. &amp;nbsp;If your car doesn't have airbags, you're entitled to know that before you buy it. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We've broken these features out by which part of the software lifecycle is responsible for implementing it.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Compiler&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Stack Guards&lt;/li&gt;&lt;li&gt;Function Fortification&lt;/li&gt;&lt;li&gt;Control Flow Integrity (CFI/CPI)&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Linker&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Address Space Layout Randomiziation (ASLR)&lt;/li&gt;&lt;li&gt;Segment and Section ordering&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Loader&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Section, Segment execution chars&lt;/li&gt;&lt;li&gt;Allocations and access&lt;/li&gt;&lt;li&gt;Code signing and/or verification&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Developer Hygiene&lt;/h2&gt;&lt;p&gt;There are things we can learn about a developer's security skill and knowledge based on what functions are used in the code they write. &amp;nbsp;Some functions, like strcpy and strcat, are hard to use without introducing vulnerabilities. &amp;nbsp;Less risky functions like strncpy and strncat are better, but still easy to use incorrectly. &amp;nbsp;On the other hand, there are functions like strlcpy and strlcat, which were written with security considerations in mind, and which are difficult to use &lt;em&gt;incorrectly&lt;/em&gt;. &amp;nbsp;Finally, there are a few functions, such as system or gets, that should never be used in commercial code, because they simply pose too great of a security risk. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We call these four categories of fuctions &quot;bad&quot;, &quot;risky&quot;, &quot;good&quot;, and &quot;ick&quot;. &amp;nbsp;We have about 500 POSIX and ANSI functions that fall into these categories, and by looking at the frequency, count, and consistency of the function categories used we can learn a lot about the developer practices of a particular software vendor. &amp;nbsp;&lt;/p&gt;&lt;p&gt; &lt;/p&gt;</content><author><name></name></author><summary type="html">If you've seen our post about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.</summary></entry><entry><title type="html">Other Industries that Inspired Us</title><link href="https://cyber-itl.org/our_approach/2016/08/15/other-industries-that-inspired-us.html" rel="alternate" type="text/html" title="Other Industries that Inspired Us" /><published>2016-08-15T00:00:00-07:00</published><updated>2016-08-15T00:00:00-07:00</updated><id>https://cyber-itl.org/our_approach/2016/08/15/other-industries-that-inspired-us</id><content type="html" xml:base="https://cyber-itl.org/our_approach/2016/08/15/other-industries-that-inspired-us.html">&lt;p&gt;Evaluating the risk profile of software is a technically complex task, but there are lots of other industries where consumers have to engage in complex decision-making. &lt;!--more--&gt;&amp;nbsp;Choosing which car is the best choice for you, or which food best fits your diet, or which new refrigerator to buy are all very technically complex decisions, but those industries have all developed (mandatory) labels to help consumers stay informed. &amp;nbsp;We're drawing upon these labels as inspiration for our own reports. &amp;nbsp;&lt;/p&gt;
-  
-&lt;figure&gt;&lt;img src=&quot;/assets/images/blog/other-industries-that-inspired-us-1.png&quot; alt=&quot; Nutritional facts label from nutritiondata.com. &quot; class=&quot;small-image&quot; /&gt;  &lt;figcaption&gt;Nutritional facts label from nutritiondata.com.&lt;/figcaption&gt; &lt;/figure&gt;
-  
-
-&lt;p&gt;We're going to have future posts that go into more detail on the types of data we collect about software, but here we'll look at broad categories and how they're similar to data captured in the labels from other industries. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We've already had &lt;a href=&quot;/2016/07/14/problem-with-standards-and-certifications.html&quot;&gt;a post&lt;/a&gt; where we compared our approach to nutritional facts labels. &amp;nbsp;The static analysis portion of our data, in particular, can be thought of as the &quot;nutritional facts of software&quot;. &amp;nbsp;It's where we talk about what went into making the software, good and bad - what safety features are present, and what things do we see that usually correlate with vulnerable code or risky programming practices. &amp;nbsp;These are things we can determine from inspecting the binary, without running it. &amp;nbsp;&lt;/p&gt;
-  
-                                                                                                                                                                                                                                             &lt;figure&gt;&lt;img src=&quot;/assets/images/blog/other-industries-that-inspired-us-2.png&quot; alt=&quot; That blue sticker you always see in the windows of new cars in the showroom. &quot; class=&quot;small-image&quot; /&gt; &lt;figcaption&gt;That blue sticker you always see in the windows of new cars in the showroom.&lt;/figcaption&gt;&lt;/figure&gt;
-  
-
-&lt;p&gt;We get our dynamic analysis data, on the other hand, from fuzzing and crash testing the software. &amp;nbsp;This is similar to the crash test, mileage per gallon, and environmental performance data that you find on the Monroney sticker. &amp;nbsp;While you might not be familiar with that name, if you've ever shopped for a new car in the US then you've seen this sticker displayed on all the cars in the dealership showroom. &amp;nbsp;These are all there to provide the buyer with information about the safety and cost of ownership of their prospective new car. &amp;nbsp;Interestingly, some of this data is based on mathematical modeling. &amp;nbsp;&lt;/p&gt;&lt;p&gt;While the crash test data is always based on actually crashing the car, the MPG data is frequently based on what the EPA &lt;em&gt;predicts&lt;/em&gt;&amp;nbsp;the MPG will be. &amp;nbsp;They've physically tested enough cars to be confident in predicting how other cars will do, based on other facts about that model. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This is our model for dynamic analysis as well - test enough software samples with actual fuzzing to be able to model and predict with high accuracy what categories and types of crashes we'd see for other software. &amp;nbsp;&lt;/p&gt;
-  &lt;figure&gt;
-      &lt;img src=&quot;/assets/images/blog/other-industries-that-inspired-us-3.png&quot; alt=&quot;&quot; class=&quot;small-image&quot;/&gt;
-      &lt;/figure&gt;
-  
-
-&lt;p&gt;Finally, the Energyguide label is required to be displayed on several types of new appliances. &amp;nbsp;It tells you the operating cost for the device, and puts it on a continuum relative to competing products. &amp;nbsp;Similarly, we'll place software scores onto a safety continuum. &amp;nbsp;This continuum will let you know how a given piece of software did compared to competing products, and compared to overall software in its environment. &amp;nbsp;For example, we'd tell you how Internet Explorer did compared to other Windows browsers such as Edge, Chrome, and Firefox, but also where it falls in the overall spectrum of Windows software. &amp;nbsp;&lt;/p&gt;&lt;p&gt;In the next posts, we'll be going into more detail on these different categories of data, describing what measurements fall into each, and sharing some examples of preliminary data from those groups. &amp;nbsp;All of these categories will play a role in our final, public-facing reports. &amp;nbsp;&lt;/p&gt;
-  
-      &lt;img src=&quot;/assets/images/blog/other-industries-that-inspired-us-4.png&quot; alt=&quot;&quot; class=&quot;small-image&quot;/&gt;</content><author><name></name></author><category term="reports" /><category term="labels" /><category term="energyguide" /><category term="monroney" /><category term="nutrition" /><summary type="html">Evaluating the risk profile of software is a technically complex task, but there are lots of other industries where consumers have to engage in complex decision-making.</summary></entry></feed>
+&lt;p&gt;Windows shows a pretty different chart from the previous two. &amp;nbsp;The bin for scores from 65-70 has about 5500 files in it. &amp;nbsp;Even accounting for the increased number of files in the Windows base install, this is much higher than the biggest peaks on either of the other charts, indicating that application of armoring and security features is much more uniform for the Windows environment. &amp;nbsp;Windows also has many more files with a perfect or near-perfect score than OSX or Linux had. &amp;nbsp;While all three environments had the potential for a final score to be slightly over 100, this is the only environment to have any in practice. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This distribution will become a lot broader once we bring in third party applications. &amp;nbsp;This prediction is supported by what Anaconda's presence already does to the chart. &amp;nbsp;Namely, it contributes the lowest 450 or so scores to the chart, including everything scoring a -22 or lower. &amp;nbsp;[Note: Continuum, the company that packages Anaconda, is aware of these findings. Should they decide to move to a modern development with a full complement of safety features available (and frequently enabled by default), their scores will improve significantly. &amp;nbsp;We are hoping they do so, as their current product imposes significant risk on their customers, and it would be a great initial win if this got fixed. We will keep you posted on this topic.]&lt;/p&gt;&lt;p&gt;We are installing a wide variety of third party software onto our test systems. This will provide an understanding of the overall software ecosystem for each environment. &amp;nbsp;More importantly, though, it'll allow consumers to call out all members of a particular software category and compare them based on where they fall on this safety continuum. &amp;nbsp;&lt;/p&gt;&lt;p&gt;With this information it will become a straight forward process to choose and use software that increases the cost to the adversary, and thus measurably decreases the risk to yourself.&amp;nbsp;After all, who would want to install and run the easiest target software for no reason?&lt;/p&gt;</content><author><name></name></author><summary type="html">The data we're sharing first is the data from what we refer to as our static analysis. &amp;nbsp;(Fuzzing and dynamic analysis data will be described later).</summary></entry><entry><title type="html">Our Static Analysis Metrics and Features</title><link href="http://0.0.0.0:4000/2016/09/01/our-static-analysis-metrics-and-features.html" rel="alternate" type="text/html" title="Our Static Analysis Metrics and Features" /><published>2016-09-01T00:00:00-07:00</published><updated>2016-09-01T00:00:00-07:00</updated><id>http://0.0.0.0:4000/2016/09/01/our-static-analysis-metrics-and-features</id><content type="html" xml:base="http://0.0.0.0:4000/2016/09/01/our-static-analysis-metrics-and-features.html">&lt;p&gt;If you've seen &lt;a href=&quot;/2016/09/01/score-distributions-in-osx-win10-and-linux.html&quot;&gt;our post&lt;/a&gt; about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.&lt;!--more--&gt; &amp;nbsp;This post will provide some high level understanding of what factors we consider for those static analysis scores. &amp;nbsp;&lt;/p&gt;&lt;p&gt;The main question we're trying to find the answer to is, &quot;How difficult is it for an attacker to find a new exploit for this software?&quot;. &amp;nbsp;Attackers have limited resources, and just like anyone else, they don't like to waste their time doing something the hard way if an easier path is available. &amp;nbsp;They have tricks and heuristics they use to assess the relative difficulty to exploit software, so that they can focus on the easy targets and low hanging fruit. &amp;nbsp;Mudge has had a long career of doing just that (legally, and for research purposes), so he's developed his own personal toolkit of measurements to take when assessing software risk. &amp;nbsp;By consulting with other luminaries of the security field who have extensive exploit development experience, we've been able to build up the list of static analysis metrics and features which we currently assess.&lt;/p&gt;&lt;p&gt;There are three main categories of static analysis features that we look at for a software binary:&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Complexity&amp;nbsp;&lt;/li&gt;&lt;li&gt;Application Armoring&lt;/li&gt;&lt;li&gt;Developer Hygiene&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;For each of these, I'm going to list some of the main features and why these are important to have when estimating software risk. &amp;nbsp;&lt;/p&gt;&lt;h2&gt;Complexity&lt;/h2&gt;&lt;p&gt;First up, why does complexity matter? &amp;nbsp;Because more complex code is harder to review and maintain, and is more likely to contain bugs. &amp;nbsp;This is why &lt;a href=&quot;http://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf&quot;&gt;NASA/JPL&lt;/a&gt; put limits on things like function size for code that's going into critical systems. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We look at more complex measurements like cyclomatic complexity, but my favorite features are the simpler ones:&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Code Size&lt;/li&gt;&lt;li&gt;Number of Conditional Branches&lt;/li&gt;&lt;li&gt;Size &amp;amp; Number of Stack Adjusts&lt;/li&gt;&lt;li&gt;Function Size&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Measurements like code size, number of branches and stack adjusts have a roughly lognormal distribution. &amp;nbsp;In general, we expect the density of branches to be constant. &amp;nbsp;That is, as code size increases, the counts for branches or stack adjusts should increase correspondingly. &amp;nbsp;If the number of branches is highly disproportionate compared to the code size, giving the code a high branch density,&amp;nbsp;that indicates a high level of complexity (and thus a higher level of risk). &amp;nbsp;&lt;/p&gt;&lt;h2&gt;Application Armoring&lt;/h2&gt;&lt;p&gt;Modern compilers, linkers, and loaders come with lots of nifty safety features, but they won't do you any good if the software doesn't have them enabled. &amp;nbsp;These features are to software what airbags and seatbelts are to cars: things that are known and proven to improve safety, and whose use should be established by now as industry-standard. &amp;nbsp;If your car doesn't have airbags, you're entitled to know that before you buy it. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We've broken these features out by which part of the software lifecycle is responsible for implementing it.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Compiler&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Stack Guards&lt;/li&gt;&lt;li&gt;Function Fortification&lt;/li&gt;&lt;li&gt;Control Flow Integrity (CFI/CPI)&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Linker&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Address Space Layout Randomiziation (ASLR)&lt;/li&gt;&lt;li&gt;Segment and Section ordering&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Loader&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Section, Segment execution chars&lt;/li&gt;&lt;li&gt;Allocations and access&lt;/li&gt;&lt;li&gt;Code signing and/or verification&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Developer Hygiene&lt;/h2&gt;&lt;p&gt;There are things we can learn about a developer's security skill and knowledge based on what functions are used in the code they write. &amp;nbsp;Some functions, like strcpy and strcat, are hard to use without introducing vulnerabilities. &amp;nbsp;Less risky functions like strncpy and strncat are better, but still easy to use incorrectly. &amp;nbsp;On the other hand, there are functions like strlcpy and strlcat, which were written with security considerations in mind, and which are difficult to use &lt;em&gt;incorrectly&lt;/em&gt;. &amp;nbsp;Finally, there are a few functions, such as system or gets, that should never be used in commercial code, because they simply pose too great of a security risk. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We call these four categories of fuctions &quot;bad&quot;, &quot;risky&quot;, &quot;good&quot;, and &quot;ick&quot;. &amp;nbsp;We have about 500 POSIX and ANSI functions that fall into these categories, and by looking at the frequency, count, and consistency of the function categories used we can learn a lot about the developer practices of a particular software vendor. &amp;nbsp;&lt;/p&gt;&lt;p&gt; &lt;/p&gt;</content><author><name></name></author><summary type="html">If you've seen our post about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.</summary></entry></feed>

@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Binary Hardening in IoT products | Cyber Independent Testing Lab</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="Binary Hardening in IoT products" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Last year, the team at CITL looked into the state of binary hardening features in IoT firmware. Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments." />
+<meta property="og:description" content="Last year, the team at CITL looked into the state of binary hardening features in IoT firmware. Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments." />
+<link rel="canonical" href="http://0.0.0.0:4000/2019/08/26/iot-data-writeup.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/2019/08/26/iot-data-writeup.html" />
+<meta property="og:site_name" content="Cyber Independent Testing Lab" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-26T00:00:00-07:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Binary Hardening in IoT products","dateModified":"2019-08-26T00:00:00-07:00","url":"http://0.0.0.0:4000/2019/08/26/iot-data-writeup.html","datePublished":"2019-08-26T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/2019/08/26/iot-data-writeup.html"},"description":"Last year, the team at CITL looked into the state of binary hardening features in IoT firmware. Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/bootstrap-grid.css">
+    <link rel="stylesheet" href="/styles.css">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130882800-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-130882800-1');
+    </script>
+</head>
+<body><header>
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div>
+                <a id="logo" href="/"><img alt="Cyber Independent Testing Lab" src="/assets/images/CyberITL_LogoHoriz_White.svg" /></a>
+            </div>
+            <div class="d-lg-none">
+                <button id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <nav class="d-none d-lg-block">
+                <ul>
+                    
+                    <li>
+                        <a href="/">Compare Software</a>
+                        
+                        <ul>
+                            
+                            <li>
+                                <a href="/comparisons/comparison.html?comparisonType=OS">Operating Systems</a>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows">Browsers</a>
+                                
+                                <ul>
+                                    
+                                    <li>
+                                        <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows">on Windows</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=OSX">on MacOS</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Linux">on Linux</a>
+                                    </li>
+                                    
+
+                                </ul>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/comparisons/comparison.html?comparisonType=smarttv">Smart TVs</a>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/comparisons/comparison.html?comparisonType=microsoftoffice">Office Updates</a>
+                                
+                            </li>
+                            
+                        </ul>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="/news/">News</a>
+                        
+                        <ul>
+                            
+                            <li>
+                                <a href="/news/blog/">Blog</a>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/news/press/">Press</a>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/news/appearances/">Appearances</a>
+                                
+                            </li>
+                            
+                        </ul>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="/about/company/">About</a>
+                        
+                        <ul>
+                            
+                            <li>
+                                <a href="/about/company/">Company</a>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/about/methodology/">Methodology</a>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/about/glossary/">Glossary</a>
+                                
+                            </li>
+                            
+                            <li>
+                                <a href="/about/partners/">Partners</a>
+                                
+                            </li>
+                            
+                        </ul>
+                        
+                    </li>
+                    
+                </ul>
+            </nav>
+        </div>
+
+        <nav id="mobile-nav" class="d-lg-none">
+            <ul>
+
+                
+                
+                <li class="open">
+                    <a href="/">Compare Software</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=OS">Operating Systems</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows">Browsers</a>
+                            
+                            <ul>
+                                
+                                <li>
+                                    <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows">on Windows</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=OSX">on MacOS</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Linux">on Linux</a>
+                                </li>
+                                
+
+                            </ul>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=smarttv">Smart TVs</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=microsoftoffice">Office Updates</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                
+                <li class="">
+                    <a href="/news/">News</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="/news/blog/">Blog</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/news/press/">Press</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/news/appearances/">Appearances</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                
+                <li class="">
+                    <a href="/about/company/">About</a>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="/about/company/">Company</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/about/methodology/">Methodology</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/about/glossary/">Glossary</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/about/partners/">Partners</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>Binary Hardening in IoT products</h1>
+				<time datetime=" 2019-08-26 00:00:00 -0700" class="h5-mono">Aug 26, 2019
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   <p>Last year, the team at CITL looked into the state of binary hardening features in IoT firmware.</p>
+
+<p>Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.</p>
+
+<!--more-->
+
+<h2 id="background">Background</h2>
+
+<p>We built a corpus by collecting firmware updates published by vendors on their websites. To analyze this corpus, we wrote a pipeline to extract any Linux root filesystems we could find in the images. Filesystems in hand, the pipeline then fed every binary it could find into our analytic toolset.</p>
+
+<p>You may have seen us present our initial findings on this corpus at HushCon (Seattle 2018) or <a href="https://www.youtube.com/watch?v=PLXmPgN6wVs">ShmooCon 2019 (video link)</a>. This post updates and expands those findings.</p>
+
+<h2 id="key-findings">Key Findings</h2>
+
+<p>CITL identified a number of important takeaways from this study:</p>
+
+<ul>
+  <li>On average, updates were more likely to remove hardening features than add them.</li>
+  <li>Within our 15 year data set, there have been no positive trends from any one vendor.</li>
+  <li>MIPS is both the most common CPU architecture and least hardened on average.</li>
+  <li>There are a large number of duplicate binaries across multiple vendors, indicating a common build system or toolchain.</li>
+</ul>
+
+<h2 id="data-collected">Data Collected</h2>
+
+<ul>
+  <li>22 Vendors</li>
+  <li>1,294 Products</li>
+  <li>4,956 Firmware versions</li>
+  <li>3,333,411 Binaries analyzed</li>
+  <li>Date range of data: 2003-03-24 to 2019-01-24 (varies by vendor, most up to 2018 releases)</li>
+</ul>
+
+<p><strong>Note:</strong> Not all firmware images were able to be tagged with a release date so any time-series or time based analysis we show will be a subset of the total data.</p>
+
+<h2 id="iot-landscape">IoT landscape</h2>
+
+<h3 id="vendor-distribution">Vendor Distribution</h3>
+<p>In our corpus, Ubiquiti and Asus had the largest number of firmware releases followed by DD-WRT and D-link.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/vendor-pie-chart.png" alt="pie-chart" /></p>
+
+<p>Vendor binary counts were slightly different, with Synology holding the largest share of binaries in the corpus.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/vendor-bin-pie-chart.png" alt="vendor-bin-pie-chart" /></p>
+
+<h3 id="cpu-architecture">CPU Architecture</h3>
+
+<p>Surprisingly, for all the talk about ARM, MIPS is still an extremely popular architecture. At least within our corpus, MIPS beats out ARM even well into 2018 as being the most common CPU architecture.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/cpu-arch-ts.png" alt="cpu-arch-ts" /></p>
+
+<h2 id="cpu-architecture-and-citl-score">CPU Architecture and CITL Score</h2>
+
+<p>At CITL we use a aggregate score to normalize all the different hardening features a binary can have. This score is on a 0 - 100 range and can be thought of as ‘out of all possible features how many did a binary enable?’. It also takes into account the prevalence of riskier functions like <code class="highlighter-rouge">system()</code>, <code class="highlighter-rouge">strcpy()</code> and other common poor hygiene indicator functions. A higher score means the binary has more hardening features enabled and thus higher scores are better.</p>
+
+<p>Here we compare CPU architecture prevalence with their average (mean) score.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/cpu-arch-vs-score.png" alt="cpu-arch-vs-score" /></p>
+
+<p>In this chart we can see the number of binaries in orange with the average score in red. On the far left we see <code class="highlighter-rouge">aarch64</code> (<code class="highlighter-rouge">arm64</code>) being the highest average scoring, but least common. At third from the left is <code class="highlighter-rouge">mips</code> with the highest binary count and lowest average score.</p>
+
+<h2 id="measuring-changes">Measuring Changes</h2>
+
+<h3 id="vendor-summaries-2012-vs-2018">Vendor Summaries 2012 vs 2018</h3>
+
+<p>To better understand how vendors have evolved their practices over time, we selected two years (2012 and 2018) that both saw a large number of releases by different vendors. How do the big-picture numbers vary between these two years?</p>
+
+<p>Let’s compare. The following tables shows the degree to which different vendors applied different build-hardening features in the given years. Each row represents a different vendor, with each column indicating the percentage of binaries shipped by that vendor with the given feature.</p>
+
+<h4 id="2012">2012</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>non-exec Stack</th>
+      <th>ASLR</th>
+      <th>Stack Guards</th>
+      <th>Fortify</th>
+      <th>RELRO</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>asus</td>
+      <td>0.56</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>3.36</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>belkin</td>
+      <td>0.00</td>
+      <td>1.36</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.76</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>dlink</td>
+      <td>56.37</td>
+      <td>0.10</td>
+      <td>0.0</td>
+      <td>2.83</td>
+      <td>28.82</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>linksys</td>
+      <td>0.00</td>
+      <td>2.71</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.90</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>moxa</td>
+      <td>16.55</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.64</td>
+      <td>10.75</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>tenda</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>4.64</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>trendnet</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>ubiquiti</td>
+      <td>0.00</td>
+      <td>4.05</td>
+      <td>0.0</td>
+      <td>1.87</td>
+      <td>25.34</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="2018">2018</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>non-exec Stack</th>
+      <th>ASLR</th>
+      <th>Stack Guards</th>
+      <th>Fortify</th>
+      <th>RELRO</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>asus</td>
+      <td>49.70</td>
+      <td>1.76</td>
+      <td>2.40</td>
+      <td>0.08</td>
+      <td>2.96</td>
+      <td>234</td>
+    </tr>
+    <tr>
+      <td>belkin</td>
+      <td>0.00</td>
+      <td>0.75</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.76</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>buffalo</td>
+      <td>65.56</td>
+      <td>0.00</td>
+      <td>2.20</td>
+      <td>0.00</td>
+      <td>65.08</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>ddwrt</td>
+      <td>98.94</td>
+      <td>1.17</td>
+      <td>3.04</td>
+      <td>0.00</td>
+      <td>58.10</td>
+      <td>208</td>
+    </tr>
+    <tr>
+      <td>dlink</td>
+      <td>42.84</td>
+      <td>0.65</td>
+      <td>0.08</td>
+      <td>0.86</td>
+      <td>7.42</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>linksys</td>
+      <td>39.98</td>
+      <td>1.53</td>
+      <td>16.22</td>
+      <td>0.00</td>
+      <td>22.05</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>mikrotik</td>
+      <td>45.76</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>2.88</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>moxa</td>
+      <td>78.12</td>
+      <td>11.98</td>
+      <td>9.86</td>
+      <td>6.64</td>
+      <td>19.43</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <td>openwrt</td>
+      <td>99.59</td>
+      <td>0.00</td>
+      <td>32.00</td>
+      <td>0.00</td>
+      <td>98.72</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>phicomm</td>
+      <td>59.62</td>
+      <td>3.58</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>11.44</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>qnap</td>
+      <td>99.59</td>
+      <td>7.48</td>
+      <td>68.29</td>
+      <td>1.23</td>
+      <td>1.56</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>tenda</td>
+      <td>24.95</td>
+      <td>0.60</td>
+      <td>0.95</td>
+      <td>0.00</td>
+      <td>7.13</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>tp-link</td>
+      <td>16.52</td>
+      <td>0.00</td>
+      <td>0.86</td>
+      <td>0.05</td>
+      <td>6.19</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>trendnet</td>
+      <td>30.61</td>
+      <td>8.70</td>
+      <td>18.09</td>
+      <td>0.39</td>
+      <td>27.81</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <td>ubiquiti</td>
+      <td>24.74</td>
+      <td>0.34</td>
+      <td>1.68</td>
+      <td>5.88</td>
+      <td>20.30</td>
+      <td>298</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="changes-between-2012-and-2018">Changes Between 2012 and 2018</h3>
+
+<p>The following table summarizes the changes from 2012 to 2018. Looking at the changes between the two years a few things stand out:</p>
+
+<ul>
+  <li>DLINK lost most hardening coverage from 2012 to 2018</li>
+  <li>While most changes from 2012 to 2018 are positive, the amount of change tends to be small.</li>
+  <li><code class="highlighter-rouge">non-exec Stack</code> was the only feature that showed notably-increased adoption.</li>
+</ul>
+
+<h4 id="change-between-2012---2018-by-vendor">Change Between 2012 - 2018 by Vendor</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>non-exec Stack</th>
+      <th>ASLR</th>
+      <th>Stack Guards</th>
+      <th>Fortify</th>
+      <th>RELRO</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>asus</td>
+      <td>49.14</td>
+      <td>1.76</td>
+      <td>2.40</td>
+      <td>0.08</td>
+      <td>-0.40</td>
+      <td>230.0</td>
+    </tr>
+    <tr>
+      <td>belkin</td>
+      <td>0.00</td>
+      <td>-0.61</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>dlink</td>
+      <td>-13.53</td>
+      <td>0.55</td>
+      <td>0.08</td>
+      <td>-1.97</td>
+      <td>-21.40</td>
+      <td>-18.0</td>
+    </tr>
+    <tr>
+      <td>linksys</td>
+      <td>39.98</td>
+      <td>-1.18</td>
+      <td>16.22</td>
+      <td>0.00</td>
+      <td>21.15</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <td>moxa</td>
+      <td>61.57</td>
+      <td>11.98</td>
+      <td>9.86</td>
+      <td>6.00</td>
+      <td>8.68</td>
+      <td>51.0</td>
+    </tr>
+    <tr>
+      <td>tenda</td>
+      <td>24.95</td>
+      <td>0.60</td>
+      <td>0.95</td>
+      <td>0.00</td>
+      <td>2.49</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <td>trendnet</td>
+      <td>30.61</td>
+      <td>8.70</td>
+      <td>18.09</td>
+      <td>0.39</td>
+      <td>27.81</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <td>ubiquiti</td>
+      <td>24.74</td>
+      <td>-3.71</td>
+      <td>1.68</td>
+      <td>4.01</td>
+      <td>-5.04</td>
+      <td>297.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="do-update-improve-hardening-coverage">Do Update Improve Hardening Coverage?</h3>
+
+<p>We were very interested in measuring how updating a single product can effect the coverage of hardening features.</p>
+
+<p>In order to do this, we took the difference in hardening coverage between the first release and the last release of a firmware and compare their changes. A histogram of the deltas can be seen below. As can be seen, for most products the change in score was approximately <code class="highlighter-rouge">0</code>.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/score-delta-hist.png" alt="score-delta-hist" /></p>
+
+<p>Now consider the histogram’s tails (the regions to the left- and right- of <code class="highlighter-rouge">0</code>). Comparing just the positive changes and negative changes, we found that is was more common for updates to reduce overall hardening than increase it.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Positive Score Change</th>
+      <th style="text-align: center">Negative Score Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">156</td>
+      <td style="text-align: center">282</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="insecure-updates-case-study-ubiquiti">Insecure Updates Case Study: Ubiquiti</h3>
+
+<p>Ubiquiti has the dubious distinction of shipping one of the most regressive update in our corpus, affecting the Ubiquiti UAP-HD family of products.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/ubi-score-ts.png" alt="ubi-score-ts" /></p>
+
+<p>The update released in September of 2017 drastically reduced the overall score of the UAP-HD product line.</p>
+
+<p>In order to narrow down on the root cause, we split the data apart and plotted the various hardening features side-by-side. The following chart depicts, for each firmware release, the percentage of binaries defended by various hardening features, together with the length of time that release was ‘current’.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/ubi-gantt.png" alt="ubi-gantt" /></p>
+
+<p>Using this chart we can see that, towards the end of summer 2017, <code class="highlighter-rouge">relro</code> dropped from ~80% coverage to below 10%, <code class="highlighter-rouge">stack_guards</code> dropped from ~70% to nearly zero, and <code class="highlighter-rouge">aslr</code> was completely removed.</p>
+
+<p>At the time of publishing, we do not have data for 2019 builds available. However, the observed trend of removing hardening features shows that Ubiquiti most likely did not have any form of regression testing to validate their builds for binary hardening prior to release.</p>
+
+<h4 id="all-ubiquiti-products-scores-over-time">All Ubiquiti Product’s Scores Over Time</h4>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/ubi-all-prod.png" alt="ubi-all-prod" /></p>
+
+<p>When looking at a time series of all Ubiquiti products we can see a few interesting trends.</p>
+
+<ul>
+  <li>The UAP-HD stands out as an extreme example of regressive updates.</li>
+  <li>Most products don’t change their score over their life cycle.</li>
+  <li>There is a large range of scores, indicating a lack of centralized build/testing for harding features.</li>
+  <li>In 2018 Ubiquiti released both one of the most hardened products and least hardened products, which shows that their security practices are becoming more divergent over time.</li>
+</ul>
+
+<h2 id="vendor-radar-charts">Vendor Radar Charts</h2>
+
+<p>Below is a complete list of average (mean) hardening coverage, grouped by vendor. CITL uses radar charts to visualize this because it give a very clear coverage map: the more area covered, the better the binary hardening (on average).</p>
+
+<p>Unfortunately, with few exceptions (notably Synology) we see there is very little coverage, and even Synology struggles to adopt basic hardening features like ASLR and stack guards.</p>
+
+<p>A perfect score, where all binaries had all 5 basic safety features, would result in a chart that looks like a regular pentagon. Instead, in most vendors’ cases, they struggle to achieve polygon status at all.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/vendor-radars.png" alt="vendor-radars" /></p>
+
+<h2 id="duplicate-binaries">Duplicate Binaries</h2>
+
+<p>With the large number of binaries for different vendor firmwares CITL was interested in how common duplicate binaries were between different vendors. We measured this by looking at how often the SHA-256 hash of a binary was found in 2 or more vendors.</p>
+
+<p><img src="/assets/images/blog/2019-08-iot-data-writeup/heatmap.png" alt="heatmap" /></p>
+
+<p>Surprisingly, we found that 3,704 binaries were duplicated between at least two vendors. Some binaries were found in 9 different vendors.</p>
+
+<p>Duplication between products was also very common; some binaries were duplicated between 109 different products.</p>
+
+<h3 id="why-is-this-happening">Why Is This Happening?</h3>
+
+<p>When manually exploring some of the binaries, one of the binaries duplicated across the largest number of different products was found to be built by <a href="https://buildroot.org/">Buildroot</a>, an open source Linux userspace generation framework. We posit that the use of frameworks like this explains the appearance of identical binaries between vendors.</p>
+
+<p>Regardless the cause, the fact that there is a large number of duplicated binaries presents both a problem and a solution.</p>
+
+<p>The problem: these duplicated binaries present a lucrative target for attackers. A vulnerability in one of the more common binaries could be exploited across large number of vendors and products.</p>
+
+<p>The solution: the fact that so many of the products share a common source and/or build system means that improving hardening could have a outsized impact. For example, in the case of Buildroot, adding binary hardening could impact a large portion of the IoT industry.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>Our research paints a grim picture of binary hardening in the IoT ecosystem.</p>
+
+<p>Vendors are failing to implement basic hardening features, including decades-old best practices.</p>
+
+<p>Even more concerning is the obvious lack of testing for these features. If a vendor is able to remove most of the exploit mitigation from their product line, it undermines the value of asking customers to apply software updates.</p>
+
+<p>Luckily, we think one of the most important takeaways is that there are low-effort paths that can be taken to improve the situation.</p>
+
+<p>Many of these devices are low cost/high volume. They are given the minimal amount of development time to get a new product out the door. This means that security likely finds itself low on the list of priorities.</p>
+
+<p>In the case of home routers and IoT devices, these devices sit in a location of privilege within the users’ home networks. Regardless of whether or not the device’s owner is an intended target, as “set it and forget it” appliances, these devices are an ideal hiding spot for botnets and other attacker-infrastructure. In short, it is a Good Idea for these devices to be reasonably secure.</p>
+
+<p>Unfortunately, if the trend of minimal hardening does not change, these devices will continue to be a soft target for these types of activity.</p>
+
+<p>That said, we conclude with two points which make us optimistic about the future.</p>
+
+<ul>
+  <li>More data and insight on these devices will hopefully drive behavior changes within the vendors.</li>
+  <li>The prevalence of duplicate binaries indicates that it might be possible to fix some issues at a single point. In the case of Buildroot, this can even be done by the community through pull requests.</li>
+</ul>
+
+<h2 id="the-data">The Data</h2>
+
+<p>One of CITL’s goals has been to distribute data to researchers and the wider community. Linked below is a CSV of all data we used for this research.</p>
+
+<p><a href="https://drive.google.com/file/d/1aThJ_OZXB_TX4TyiL_2WRzQmyMMETAt7/view">iot-data.csv.gz (372M)</a></p>
+
+<p>This dataset contains products such as home routers, enterprise equipment, smart cameras, security devices, and more.  It represents a wide range of either found in the home, enterprise or government deployments.</p>
+
+<h3 id="about-the-data">About the Data</h3>
+
+<p>Below is a list of columns, their meaning, and possible data types.</p>
+
+<p>Some columns optionally have numpy.NaN values. Hardening features are normally expressed as either an integer or a NaN value.</p>
+
+<p>NaN values occur when the given hardening feature isn’t generally applicable to the binary in question. This can occur, for instance, in the case of ELF libaries (<code class="highlighter-rouge">.so</code> files), where the ASLR column is NaN because ELF libraries are <em>always</em> relocatable (and thus there is no way for them to <em>not</em> support ASLR).</p>
+
+<p>We invite anyone with questions to reach out to us <a href="mailto:contact@cyber-itl.org">online</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Data Type</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sha_hash</td>
+      <td>str</td>
+      <td>SHA-256 of input binary</td>
+    </tr>
+    <tr>
+      <td>filetype</td>
+      <td>str</td>
+      <td>File type of the binary: (ELF/PE/MachO)</td>
+    </tr>
+    <tr>
+      <td>architecture</td>
+      <td>str</td>
+      <td>CPU Architecture of the binary: (x86/mips/arm/..)</td>
+    </tr>
+    <tr>
+      <td>bitness</td>
+      <td>int</td>
+      <td>CPU bitness of the binary: (32/64)</td>
+    </tr>
+    <tr>
+      <td>vendor</td>
+      <td>str</td>
+      <td>Vendor name</td>
+    </tr>
+    <tr>
+      <td>product</td>
+      <td>str</td>
+      <td>Product name</td>
+    </tr>
+    <tr>
+      <td>input_file</td>
+      <td>str</td>
+      <td>Binary path within firmware rootfs</td>
+    </tr>
+    <tr>
+      <td>release_date</td>
+      <td>str</td>
+      <td>datetime timestamp (Can be None)</td>
+    </tr>
+    <tr>
+      <td>firmware_version</td>
+      <td>str</td>
+      <td>firmware version</td>
+    </tr>
+    <tr>
+      <td>norm_score</td>
+      <td>int</td>
+      <td>normalized CITL score, range 0 - 100</td>
+    </tr>
+    <tr>
+      <td>text_size</td>
+      <td>int</td>
+      <td>size of text segment in bytes</td>
+    </tr>
+    <tr>
+      <td>data_size</td>
+      <td>int</td>
+      <td>size of data segment in bytes</td>
+    </tr>
+    <tr>
+      <td>functions</td>
+      <td>int</td>
+      <td>count of functions within analysis CFG</td>
+    </tr>
+    <tr>
+      <td>blocks</td>
+      <td>int</td>
+      <td>count of basic block within analysis CFG</td>
+    </tr>
+    <tr>
+      <td>is_driver</td>
+      <td>bool</td>
+      <td>Is the binary a kernel module</td>
+    </tr>
+    <tr>
+      <td>is_library</td>
+      <td>bool</td>
+      <td>Is the binary a library</td>
+    </tr>
+    <tr>
+      <td>aslr</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable ASLR: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>non-exec-stack</td>
+      <td>int + NaN</td>
+      <td>Does the binary have a non-exec stack:  0, 1</td>
+    </tr>
+    <tr>
+      <td>stack_guards</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable stack guards: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>fortify</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable fortify source: NAN = None, UNKNOWN_FORT = 0, NOT_FORT = 1, MIXED_FORT = 2, FULL_FORT = 3</td>
+    </tr>
+    <tr>
+      <td>relro</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable RELRO: NAN = None, NONE = 0, PARTIAL = 1, FULL = 2</td>
+    </tr>
+    <tr>
+      <td>seh</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable Windows SEH: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>cfi</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable Windows CFI: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>heap</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable the MacOs HEAP protection: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>extern_funcs_calls</td>
+      <td>int</td>
+      <td>Count of external function calls (library calls) within the CFG</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td>list</td>
+      <td>List of linked library</td>
+    </tr>
+    <tr>
+      <td>good</td>
+      <td>dict</td>
+      <td>Dictionary of ‘good’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+    <tr>
+      <td>bad</td>
+      <td>dict</td>
+      <td>Dictionary of ‘bad’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+    <tr>
+      <td>risky</td>
+      <td>dict</td>
+      <td>Dictionary of ‘risky’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+    <tr>
+      <td>ick</td>
+      <td>dict</td>
+      <td>Dictionary of ‘ick’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+  </tbody>
+</table>
+
+			</div>
+			<div class="container post-nav">
+				<div>
+					 
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="/2018/12/07/a-look-at-home-routers-and-linux-mips.html">&laquo; A look at home routers, and a surprising bug in Linux/MIPS</a>
+  
+					</div>
+				<div class="text-right">
+					
+					</div>
+			</div>
+		</section>
+	</main>
+        </div>
+    </main>	<footer>
+	<div class="footer-top">
+		<div class="container">
+            <div class="row">
+                
+                
+                <div class="col-sm-4 col-lg-3 d-none d-md-block">
+                    <h5>Compare Software</h5>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=OS">Operating Systems</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows">Browsers</a>
+                            
+                            <ul>
+                                
+                                <li>
+                                    <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Windows">on Windows</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=OSX">on MacOS</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="/comparisons/comparison.html?comparisonType=browser&operatingSystem=Linux">on Linux</a>
+                                </li>
+                                
+
+                            </ul>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=smarttv">Smart TVs</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/comparisons/comparison.html?comparisonType=microsoftoffice">Office Updates</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+                
+                
+                <div class="col-sm-3 col-lg-2 d-none d-md-block">
+                    <h5>News</h5>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="/news/blog/">Blog</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/news/press/">Press</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/news/appearances/">Appearances</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+                
+                
+                <div class="col-sm-4 col-lg-3 d-none d-md-block">
+                    <h5>About</h5>
+                    
+                    <ul>
+                        
+                        <li>
+                            <a href="/about/company/">Company</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/about/methodology/">Methodology</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/about/glossary/">Glossary</a>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="/about/partners/">Partners</a>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+                
+                <div class="col-12 col-md-8 col-lg-4">
+                    <!-- Begin MailChimp Signup Form -->
+                    <div id="mc_embed_signup">
+                        <form action="https://cyber-itl.us17.list-manage.com/subscribe/post?u=e9dd02b32620100fe3c4c13aa&amp;id=829354d438" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            <div id="mc_embed_signup_scroll">
+                                <div class="mc-field-group">
+                                    <label for="mce-EMAIL">Sign Up for Updates </label>
+                                    <div class="input-group">
+                                        <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="email@mail.com">
+                                        <span class="input-group-btn">
+                                            <button id="mc-embedded-subscribe" type="submit" class="btn"><img src="/assets/images/chevron.svg" alt="Submit Arrow" /></button>
+                                            <!--		<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">-->
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="mce-responses" class="clear">
+                                    <div class="response" id="mce-error-response" style="display:none"></div>
+                                    <div class="response" id="mce-success-response" style="display:none"></div>
+                                </div>
+                                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                    <input type="text" name="b_e9dd02b32620100fe3c4c13aa_829354d438" tabindex="-1" value="">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--    <script type="text/javascript" src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='BIRTHDAY';ftypes[3]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+        End mc_embed_signup-->
+
+                </div>
+            </div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-6 contact-icons">
+				<a href="mailto:contact@cyber-itl.org"><img src="/assets/images/envelope.svg" alt=""/>contact@cyber-itl.org</a>
+			</div>
+			 <div class="col-12 col-md-6 copyright text-right">
+				© <span id="year">2018</span> Cyber Independent Testing Lab
+			</div>
+		  </div>
+		</div>
+	</div>
+</footer></body>
+<script src='/scripts/jquery-3.3.1.min.js' type="text/javascript"></script>
+<script src='/scripts/site.js' type="text/javascript"></script>
+		
+	
+</html>
