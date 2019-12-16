@@ -1,4 +1,303 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://cyber-itl.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cyber-itl.org/" rel="alternate" type="text/html" /><updated>2019-08-26T00:26:19-07:00</updated><id>https://cyber-itl.org/</id><title type="html">Cyber Independent Testing Lab</title><subtitle>The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</subtitle><entry><title type="html">Binary Hardening in IoT products</title><link href="https://cyber-itl.org/2019/08/26/iot-data-writeup.html" rel="alternate" type="text/html" title="Binary Hardening in IoT products" /><published>2019-08-26T00:00:00-07:00</published><updated>2019-08-26T00:00:00-07:00</updated><id>https://cyber-itl.org/2019/08/26/iot-data-writeup</id><content type="html" xml:base="https://cyber-itl.org/2019/08/26/iot-data-writeup.html">&lt;p&gt;Last year, the team at CITL looked into the state of binary hardening features in IoT firmware.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://cyber-itl.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cyber-itl.org/" rel="alternate" type="text/html" /><updated>2019-12-16T11:28:27-08:00</updated><id>https://cyber-itl.org/</id><title type="html">Cyber Independent Testing Lab</title><subtitle>The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</subtitle><entry><title type="html">Evolution of Android Binary Hardening</title><link href="https://cyber-itl.org/2019/12/16/android-evolution.html" rel="alternate" type="text/html" title="Evolution of Android Binary Hardening" /><published>2019-12-16T00:00:00-08:00</published><updated>2019-12-16T00:00:00-08:00</updated><id>https://cyber-itl.org/2019/12/16/android-evolution</id><content type="html" xml:base="https://cyber-itl.org/2019/12/16/android-evolution.html">&lt;p&gt;How has Google’s Android platform evolved with regards to build safey?&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;evolution-of-android-binary-hardening&quot;&gt;Evolution of Android Binary Hardening&lt;/h2&gt;
+
+&lt;p&gt;Google’s Android is, hands down, the leading platform for mobile users. With &lt;a href=&quot;https://gs.statcounter.com/os-market-share/mobile/worldwide&quot;&gt;more than 75% of the market&lt;/a&gt;, it is perhaps the single most important platform when it comes to end-user security.&lt;/p&gt;
+
+&lt;p&gt;As a Linux variant, Android supports all of the binary hardening features you’d expect, from kernel-provided defenses like ASLR and DEP, to compiler features such as stack guards.&lt;/p&gt;
+
+&lt;p&gt;In our &lt;a href=&quot;https://cyber-itl.org/2019/08/26/iot-data-writeup.html&quot;&gt;previous study of Linux-based IoT devices&lt;/a&gt;, we found a widespread disregard for these features: some were essentially unused, some were used with coin-toss odds.&lt;/p&gt;
+
+&lt;p&gt;So how does the premier mobile platform compare?&lt;/p&gt;
+
+&lt;p&gt;What we found was encouraging:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Over the life cycle of Android, binary hardening has improved drastically&lt;/li&gt;
+  &lt;li&gt;Android has consistently improved and been reasonably consistent with applying hardening&lt;/li&gt;
+  &lt;li&gt;Among the hardening features we studied, &lt;code class=&quot;highlighter-rouge&quot;&gt;FORTIFY_SOURCE&lt;/code&gt; (whose utilization drops after android 6.0.1) was the only one whose utilization could be drastically improved.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;the-corpus&quot;&gt;The corpus&lt;/h3&gt;
+
+&lt;p&gt;For this study, we downloaded major and minor versions of the factory images of Android from &lt;a href=&quot;https://developers.google.com/android/images&quot;&gt;https://developers.google.com/android/images&lt;/a&gt;, mostly for the Nexus/Pixel flagship devices. We then extracted the filesystems and processed every binary or library with our analysis engine.&lt;/p&gt;
+
+&lt;p&gt;In all our corpus includes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;24 Android Releases&lt;/li&gt;
+  &lt;li&gt;14358 binaries&lt;/li&gt;
+  &lt;li&gt;Data from 2009-05-01 to 2019-09-01&lt;/li&gt;
+  &lt;li&gt;Coverage of major &amp;amp; minor versions spanning 1.5.0 to 10.0.0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(&lt;strong&gt;Note:&lt;/strong&gt; We did trim out .odex and .oat files because they are non-standard ELF files handled by different loaders than the Android / Linux kernel.)&lt;/p&gt;
+
+&lt;h3 id=&quot;firmware-size-and-architecture&quot;&gt;Firmware Size and Architecture&lt;/h3&gt;
+
+&lt;p&gt;We begin by looking at how the Android platform has grown over time. The following graph shows the number of binaries we recovered from each version of android:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-bin-count.png&quot; alt=&quot;android-bin-count&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The following graph shows the same data, but tracks &lt;code class=&quot;highlighter-rouge&quot;&gt;aarch64&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;arm&lt;/code&gt; separately:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-arch-count.png&quot; alt=&quot;android-arch-coutn&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;average-scores-per-release&quot;&gt;Average Scores Per Release&lt;/h3&gt;
+
+&lt;p&gt;CITL grades products on a score of 0 to 100, where 100 represents the best concievable score. Briefly, these scores reflect the degree to which a given product makes use of basic build hardening features.&lt;/p&gt;
+
+&lt;p&gt;We computed these scores for each of the Android releases in our corpus. The results are shown in the following graph:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-mean-score.png&quot; alt=&quot;android-mean-score&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As we can clearly see, Android has consistently improved their score with each new release. This is great to see!&lt;/p&gt;
+
+&lt;p&gt;But the graph can tell us even more. Consider the shaded region, which represents the standard deviation of the per-binary scores for each release.&lt;/p&gt;
+
+&lt;p&gt;While each version has some variation in score, the amount of variation is consistent through the lifetime of releases. Higher consistency indicates testing, review, validation or some form of automation that ensures that binaries shipped are uniformly hardened.&lt;/p&gt;
+
+&lt;h3 id=&quot;hardening-features-breakdown&quot;&gt;Hardening Features Breakdown&lt;/h3&gt;
+
+&lt;p&gt;CITL score gives a reasonable approximation of the total hardening. But it is also valuable to break it down into the primary hardening features to see what influences the score.&lt;/p&gt;
+
+&lt;p&gt;Here we plot a Gantt chart of each class of hardening feature. Each point represents a release, while each line represents the period of time that version was ‘current’.&lt;/p&gt;
+
+&lt;p&gt;(&lt;strong&gt;Note:&lt;/strong&gt; We only were able to select ‘example’ releases from the OEM page, so updates within a version are not captured here.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-gantt.png&quot; alt=&quot;android-gantt&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this chart, green represents &lt;code class=&quot;highlighter-rouge&quot;&gt;FORTIFY_SOURCE&lt;/code&gt;, the utilization of which jumps around quite a bit. But for all other features shown, utilization clearly has increased over time.&lt;/p&gt;
+
+&lt;p&gt;In 2013 in particular, it is obvious that the Android team dedicated time and effort into improving the hardening of the binaries in the base install. This trend continued up to the newest release in our dataset (10.0.0).&lt;/p&gt;
+
+&lt;h3 id=&quot;fortify-source&quot;&gt;Fortify Source&lt;/h3&gt;
+
+&lt;p&gt;It is interesting to note that ‘fortify source’ does decline in the later releases. In Android 6.0.1, ~83% of the binaries showed some level of fortification. This means that at least 1 function had fortification added in the binary. But by 10.0.0, only 43% of the binaries showed some level of fortification.&lt;/p&gt;
+
+&lt;p&gt;This was the only major regression in a hardening feature we could find within the Android lifecycle, so we started to dig in.&lt;/p&gt;
+
+&lt;p&gt;Looking at binaries between version 9 and 10, we found that there were a few cases of code being moved from inside a binary to a library. This means the fortifiable functions would be removed and it would drop the binary to a ‘UNKNOWN’ level of fortification. For example, this &lt;a href=&quot;https://android.googlesource.com/platform/frameworks/av/+/4b60b06%5E!/&quot;&gt;diff&lt;/a&gt; shows a &lt;code class=&quot;highlighter-rouge&quot;&gt;snprintf&lt;/code&gt; call that is moved into a library.&lt;/p&gt;
+
+&lt;p&gt;However, cases like this do not seem to be the cause of the overall trend. Looking at just those binaries that changed fortification levels between version 9 and 10, we found:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Increased Fortification&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Decreased Fortification&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;54&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;144&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Unfortunately we have not been able to find a cause for the overall pattern of decreased fortification. It’s possible the explosion in binary count within those version is a cause but we are still unsure. We leave this as a open question for the community and Android security team.&lt;/p&gt;
+
+&lt;h3 id=&quot;version-radar-charts&quot;&gt;Version Radar Charts&lt;/h3&gt;
+
+&lt;p&gt;In order to visualize the evolution of hardening coverage in Android, we plotted radar charts for each version. The radar chart places the average (mean) hardening on each radial axis. The more filled in the chart is, the more binaries have hardening features.&lt;/p&gt;
+
+&lt;p&gt;Animated:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-radars.gif&quot; alt=&quot;android-radars&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Static:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-all-radar.png&quot; alt=&quot;android-radar-all&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;other-hardening-features&quot;&gt;Other Hardening Features&lt;/h3&gt;
+
+&lt;p&gt;In more recent versions of android we also observed newer hardening feature not mentioned in this post. Things like CFI have been added to some binaries. We are still working on supporting some of these newer hardening features and we plan to revisit this data as our support for these features matures.&lt;/p&gt;
+
+&lt;h3 id=&quot;takeaways&quot;&gt;Takeaways&lt;/h3&gt;
+
+&lt;p&gt;Android is a well funded product from one of the largest vendors in the world with billions of users. While it should come as no surprise that Google has invested in hardening their images, we are nonetheless pleased to see these efforts reflected in the data.&lt;/p&gt;
+
+&lt;p&gt;We were happy to see such a positive evolution in Android. It provides a productive counter-point to many of the other products we have looked at. Android has continued to push their average hardening scores higher, while also investing in other technologies not reflected in this report (such as sandboxing, CFI, and udsan).&lt;/p&gt;
+
+&lt;h3 id=&quot;the-data&quot;&gt;The Data&lt;/h3&gt;
+
+&lt;p&gt;As with other posts of this nature, we are making our raw data available for others who are interested in performing their own analysis. Below is a link to the raw data on Android:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://drive.google.com/file/d/1YA68ukc2WednBYZW55RoPe53ADDodURT/view?usp=sharing&quot;&gt;android-data.csv.gz (5.6M)&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;about-the-data&quot;&gt;About the data&lt;/h4&gt;
+
+&lt;p&gt;Below is a list of columns, their meaning and possible data types.&lt;/p&gt;
+
+&lt;p&gt;Some columns optionally have numpy.NaN values. Hardening features are normally expressed as either an integer or a NaN value.&lt;/p&gt;
+
+&lt;p&gt;NaN values occur when the given hardening feature isn’t generally applicable to the binary in question. This can occur, for instance, in the case of ELF libaries (&lt;code class=&quot;highlighter-rouge&quot;&gt;.so&lt;/code&gt; files), where the ASLR column is NaN because ELF libraries are &lt;em&gt;always&lt;/em&gt; relocatable (and thus there is no way for them to &lt;em&gt;not&lt;/em&gt; support ASLR).&lt;/p&gt;
+
+&lt;p&gt;We invite anyone with questions to reach out to us &lt;a href=&quot;mailto:contact@cyber-itl.org&quot;&gt;online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Column Name&lt;/th&gt;
+      &lt;th&gt;Data Type&lt;/th&gt;
+      &lt;th&gt;Meaning&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sha_hash&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;SHA-256 of input binary&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;filetype&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;File type of the binary: (ELF/PE/MachO)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;architecture&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;CPU Architecture of the binary: (x86/mips/arm/..)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;bitness&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;CPU bitness of the binary: (32/64)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;vendor&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;Vendor name&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;product&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;Product name&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;input_file&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;Binary path within firmware rootfs&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;release_date&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;datetime timestamp (Can be None)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;firmware_version&lt;/td&gt;
+      &lt;td&gt;str&lt;/td&gt;
+      &lt;td&gt;firmware version&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;norm_score&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;normalized CITL score, range 0 - 100&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;text_size&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;size of text segment in bytes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;data_size&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;size of data segment in bytes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;functions&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;count of functions within analysis CFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;blocks&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;count of basic block within analysis CFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;is_driver&lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;Is the binary a kernel module&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;is_library&lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;Is the binary a library&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;aslr&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable ASLR: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;non-exec-stack&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary have a non-exec stack:  0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;stack_guards&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable stack guards: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;fortify&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable fortify source: NAN = None, UNKNOWN_FORT = 0, NOT_FORT = 1, MIXED_FORT = 2, FULL_FORT = 3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;relro&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable RELRO: NAN = None, NONE = 0, PARTIAL = 1, FULL = 2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;seh&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable Windows SEH: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cfi&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable Windows CFI: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;heap&lt;/td&gt;
+      &lt;td&gt;int + NaN&lt;/td&gt;
+      &lt;td&gt;Does the binary enable the MacOs HEAP protection: NaN (not applicable), 0, 1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;extern_funcs_calls&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+      &lt;td&gt;Count of external function calls (library calls) within the CFG&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;libs&lt;/td&gt;
+      &lt;td&gt;list&lt;/td&gt;
+      &lt;td&gt;List of linked library&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;good&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘good’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;bad&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘bad’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;risky&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘risky’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ick&lt;/td&gt;
+      &lt;td&gt;dict&lt;/td&gt;
+      &lt;td&gt;Dictionary of ‘ick’ functions with call counts from CFG: {“my_func”: 2}&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name></name></author><summary type="html">How has Google’s Android platform evolved with regards to build safey?</summary></entry><entry><title type="html">Binary Hardening in IoT products</title><link href="https://cyber-itl.org/2019/08/26/iot-data-writeup.html" rel="alternate" type="text/html" title="Binary Hardening in IoT products" /><published>2019-08-26T00:00:00-07:00</published><updated>2019-08-26T00:00:00-07:00</updated><id>https://cyber-itl.org/2019/08/26/iot-data-writeup</id><content type="html" xml:base="https://cyber-itl.org/2019/08/26/iot-data-writeup.html">&lt;p&gt;Last year, the team at CITL looked into the state of binary hardening features in IoT firmware.&lt;/p&gt;
 
 &lt;p&gt;Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.&lt;/p&gt;
 
@@ -815,4 +1114,4 @@ But that's not all. In the second paper, we describe an unfortunate bug in the L
 &lt;figure&gt;&lt;img src=&quot;/assets/images/blog/score-distributions-in-osx-win10-and-linux-3.png&quot; alt=&quot; Windows 10 score distribution. &amp;nbsp;All scores lower than -22 are from Anaconda. &amp;nbsp;Without Anaconda included the 5th percentile is a score of 53 (instead of 40). &amp;nbsp; &quot; /&gt;  &lt;figcaption&gt;Windows 10 score distribution. &amp;nbsp;All scores lower than -22 are from Anaconda. &amp;nbsp;Without Anaconda included the 5th percentile is a score of 53 (instead of 40). &lt;/figcaption&gt;&lt;/figure&gt; 
   
 
-&lt;p&gt;Windows shows a pretty different chart from the previous two. &amp;nbsp;The bin for scores from 65-70 has about 5500 files in it. &amp;nbsp;Even accounting for the increased number of files in the Windows base install, this is much higher than the biggest peaks on either of the other charts, indicating that application of armoring and security features is much more uniform for the Windows environment. &amp;nbsp;Windows also has many more files with a perfect or near-perfect score than OSX or Linux had. &amp;nbsp;While all three environments had the potential for a final score to be slightly over 100, this is the only environment to have any in practice. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This distribution will become a lot broader once we bring in third party applications. &amp;nbsp;This prediction is supported by what Anaconda's presence already does to the chart. &amp;nbsp;Namely, it contributes the lowest 450 or so scores to the chart, including everything scoring a -22 or lower. &amp;nbsp;[Note: Continuum, the company that packages Anaconda, is aware of these findings. Should they decide to move to a modern development with a full complement of safety features available (and frequently enabled by default), their scores will improve significantly. &amp;nbsp;We are hoping they do so, as their current product imposes significant risk on their customers, and it would be a great initial win if this got fixed. We will keep you posted on this topic.]&lt;/p&gt;&lt;p&gt;We are installing a wide variety of third party software onto our test systems. This will provide an understanding of the overall software ecosystem for each environment. &amp;nbsp;More importantly, though, it'll allow consumers to call out all members of a particular software category and compare them based on where they fall on this safety continuum. &amp;nbsp;&lt;/p&gt;&lt;p&gt;With this information it will become a straight forward process to choose and use software that increases the cost to the adversary, and thus measurably decreases the risk to yourself.&amp;nbsp;After all, who would want to install and run the easiest target software for no reason?&lt;/p&gt;</content><author><name></name></author><summary type="html">The data we're sharing first is the data from what we refer to as our static analysis. &amp;nbsp;(Fuzzing and dynamic analysis data will be described later).</summary></entry><entry><title type="html">Our Static Analysis Metrics and Features</title><link href="https://cyber-itl.org/2016/09/01/our-static-analysis-metrics-and-features.html" rel="alternate" type="text/html" title="Our Static Analysis Metrics and Features" /><published>2016-09-01T00:00:00-07:00</published><updated>2016-09-01T00:00:00-07:00</updated><id>https://cyber-itl.org/2016/09/01/our-static-analysis-metrics-and-features</id><content type="html" xml:base="https://cyber-itl.org/2016/09/01/our-static-analysis-metrics-and-features.html">&lt;p&gt;If you've seen &lt;a href=&quot;/2016/09/01/score-distributions-in-osx-win10-and-linux.html&quot;&gt;our post&lt;/a&gt; about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.&lt;!--more--&gt; &amp;nbsp;This post will provide some high level understanding of what factors we consider for those static analysis scores. &amp;nbsp;&lt;/p&gt;&lt;p&gt;The main question we're trying to find the answer to is, &quot;How difficult is it for an attacker to find a new exploit for this software?&quot;. &amp;nbsp;Attackers have limited resources, and just like anyone else, they don't like to waste their time doing something the hard way if an easier path is available. &amp;nbsp;They have tricks and heuristics they use to assess the relative difficulty to exploit software, so that they can focus on the easy targets and low hanging fruit. &amp;nbsp;Mudge has had a long career of doing just that (legally, and for research purposes), so he's developed his own personal toolkit of measurements to take when assessing software risk. &amp;nbsp;By consulting with other luminaries of the security field who have extensive exploit development experience, we've been able to build up the list of static analysis metrics and features which we currently assess.&lt;/p&gt;&lt;p&gt;There are three main categories of static analysis features that we look at for a software binary:&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Complexity&amp;nbsp;&lt;/li&gt;&lt;li&gt;Application Armoring&lt;/li&gt;&lt;li&gt;Developer Hygiene&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;For each of these, I'm going to list some of the main features and why these are important to have when estimating software risk. &amp;nbsp;&lt;/p&gt;&lt;h2&gt;Complexity&lt;/h2&gt;&lt;p&gt;First up, why does complexity matter? &amp;nbsp;Because more complex code is harder to review and maintain, and is more likely to contain bugs. &amp;nbsp;This is why &lt;a href=&quot;http://lars-lab.jpl.nasa.gov/JPL_Coding_Standard_C.pdf&quot;&gt;NASA/JPL&lt;/a&gt; put limits on things like function size for code that's going into critical systems. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We look at more complex measurements like cyclomatic complexity, but my favorite features are the simpler ones:&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Code Size&lt;/li&gt;&lt;li&gt;Number of Conditional Branches&lt;/li&gt;&lt;li&gt;Size &amp;amp; Number of Stack Adjusts&lt;/li&gt;&lt;li&gt;Function Size&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Measurements like code size, number of branches and stack adjusts have a roughly lognormal distribution. &amp;nbsp;In general, we expect the density of branches to be constant. &amp;nbsp;That is, as code size increases, the counts for branches or stack adjusts should increase correspondingly. &amp;nbsp;If the number of branches is highly disproportionate compared to the code size, giving the code a high branch density,&amp;nbsp;that indicates a high level of complexity (and thus a higher level of risk). &amp;nbsp;&lt;/p&gt;&lt;h2&gt;Application Armoring&lt;/h2&gt;&lt;p&gt;Modern compilers, linkers, and loaders come with lots of nifty safety features, but they won't do you any good if the software doesn't have them enabled. &amp;nbsp;These features are to software what airbags and seatbelts are to cars: things that are known and proven to improve safety, and whose use should be established by now as industry-standard. &amp;nbsp;If your car doesn't have airbags, you're entitled to know that before you buy it. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We've broken these features out by which part of the software lifecycle is responsible for implementing it.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Compiler&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Stack Guards&lt;/li&gt;&lt;li&gt;Function Fortification&lt;/li&gt;&lt;li&gt;Control Flow Integrity (CFI/CPI)&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Linker&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Address Space Layout Randomiziation (ASLR)&lt;/li&gt;&lt;li&gt;Segment and Section ordering&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;Loader&lt;ul style=&quot;margin-left:40px&quot;&gt;&lt;li&gt;Section, Segment execution chars&lt;/li&gt;&lt;li&gt;Allocations and access&lt;/li&gt;&lt;li&gt;Code signing and/or verification&lt;/li&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Developer Hygiene&lt;/h2&gt;&lt;p&gt;There are things we can learn about a developer's security skill and knowledge based on what functions are used in the code they write. &amp;nbsp;Some functions, like strcpy and strcat, are hard to use without introducing vulnerabilities. &amp;nbsp;Less risky functions like strncpy and strncat are better, but still easy to use incorrectly. &amp;nbsp;On the other hand, there are functions like strlcpy and strlcat, which were written with security considerations in mind, and which are difficult to use &lt;em&gt;incorrectly&lt;/em&gt;. &amp;nbsp;Finally, there are a few functions, such as system or gets, that should never be used in commercial code, because they simply pose too great of a security risk. &amp;nbsp;&lt;/p&gt;&lt;p&gt;We call these four categories of fuctions &quot;bad&quot;, &quot;risky&quot;, &quot;good&quot;, and &quot;ick&quot;. &amp;nbsp;We have about 500 POSIX and ANSI functions that fall into these categories, and by looking at the frequency, count, and consistency of the function categories used we can learn a lot about the developer practices of a particular software vendor. &amp;nbsp;&lt;/p&gt;&lt;p&gt; &lt;/p&gt;</content><author><name></name></author><summary type="html">If you've seen our post about the score distributions in OSX, Linux, and Windows 10 base installs, your first question is probably about what factors go into computing those scores.</summary></entry></feed>
+&lt;p&gt;Windows shows a pretty different chart from the previous two. &amp;nbsp;The bin for scores from 65-70 has about 5500 files in it. &amp;nbsp;Even accounting for the increased number of files in the Windows base install, this is much higher than the biggest peaks on either of the other charts, indicating that application of armoring and security features is much more uniform for the Windows environment. &amp;nbsp;Windows also has many more files with a perfect or near-perfect score than OSX or Linux had. &amp;nbsp;While all three environments had the potential for a final score to be slightly over 100, this is the only environment to have any in practice. &amp;nbsp;&lt;/p&gt;&lt;p&gt;This distribution will become a lot broader once we bring in third party applications. &amp;nbsp;This prediction is supported by what Anaconda's presence already does to the chart. &amp;nbsp;Namely, it contributes the lowest 450 or so scores to the chart, including everything scoring a -22 or lower. &amp;nbsp;[Note: Continuum, the company that packages Anaconda, is aware of these findings. Should they decide to move to a modern development with a full complement of safety features available (and frequently enabled by default), their scores will improve significantly. &amp;nbsp;We are hoping they do so, as their current product imposes significant risk on their customers, and it would be a great initial win if this got fixed. We will keep you posted on this topic.]&lt;/p&gt;&lt;p&gt;We are installing a wide variety of third party software onto our test systems. This will provide an understanding of the overall software ecosystem for each environment. &amp;nbsp;More importantly, though, it'll allow consumers to call out all members of a particular software category and compare them based on where they fall on this safety continuum. &amp;nbsp;&lt;/p&gt;&lt;p&gt;With this information it will become a straight forward process to choose and use software that increases the cost to the adversary, and thus measurably decreases the risk to yourself.&amp;nbsp;After all, who would want to install and run the easiest target software for no reason?&lt;/p&gt;</content><author><name></name></author><summary type="html">The data we're sharing first is the data from what we refer to as our static analysis. &amp;nbsp;(Fuzzing and dynamic analysis data will be described later).</summary></entry></feed>

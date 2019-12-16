@@ -3,17 +3,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Cyber Independent Testing Lab | The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</title>
+<title>Evolution of Android Binary Hardening | Cyber Independent Testing Lab</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="Cyber Independent Testing Lab" />
+<meta property="og:title" content="Evolution of Android Binary Hardening" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<meta property="og:description" content="The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves." />
-<link rel="canonical" href="https://cyber-itl.org/news/" />
-<meta property="og:url" content="https://cyber-itl.org/news/" />
+<meta name="description" content="How has Google’s Android platform evolved with regards to build safey?" />
+<meta property="og:description" content="How has Google’s Android platform evolved with regards to build safey?" />
+<link rel="canonical" href="https://cyber-itl.org/2019/12/16/android-evolution.html" />
+<meta property="og:url" content="https://cyber-itl.org/2019/12/16/android-evolution.html" />
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-16T00:00:00-08:00" />
 <script type="application/ld+json">
-{"@type":"WebPage","headline":"Cyber Independent Testing Lab","url":"https://cyber-itl.org/news/","description":"The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.","@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","headline":"Evolution of Android Binary Hardening","dateModified":"2019-12-16T00:00:00-08:00","url":"https://cyber-itl.org/2019/12/16/android-evolution.html","datePublished":"2019-12-16T00:00:00-08:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cyber-itl.org/2019/12/16/android-evolution.html"},"description":"How has Google’s Android platform evolved with regards to build safey?","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -259,161 +261,331 @@
 </header>
 <main class="page-content" aria-label="Content">
         <div class="wrapper">
-            <main id="news" class="sub-page blog-page">
-    <section class="hero dark-section">
-        <div class="container">
-            <h1>News</h1>
-        </div>
-    </section>
-    <section class="latest-posts">
-        <div class="container">
-            <div class="header-group">
-                <h2 class="h3-mono">Latest Posts</h2>
-                <a href="/news/blog/" class="d-none d-lg-block">More Posts</a>
-            </div>
-            <div class="row">
+            	<main id="post" class="sub-page blog-page">
+		<section class="hero dark-section">
+			<div class="container width-mid">
+				<h1>Evolution of Android Binary Hardening</h1>
+				<time datetime=" 2019-12-16 00:00:00 -0800" class="h5-mono">Dec 16, 2019
+				</time>
+			</div>
+		</section>
+		<section class="post-content">
+				<div class="container post-container">
+					   <p>How has Google’s Android platform evolved with regards to build safey?</p>
 
-                
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <article class="beige-bg">
-                        
-                        <h3><a href="/2019/12/16/android-evolution.html">Evolution of Android Binary Hardening</a></h3>
-                        <time datetime=" 2019-12-16 00:00:00 -0800" class="label-sans">Dec 16, 2019
-                        </time>
-                        <p>How has Google’s Android platform evolved with regards to build safey?
+<!--more-->
 
-</p>
-                        <a href="/2019/12/16/android-evolution.html" class="btn btn-purple">Read</a>
-                    </article>
-                </div>
-                
-                
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <article class="beige-bg">
-                        
-                        <h3><a href="/2019/08/26/iot-data-writeup.html">Binary Hardening in IoT products</a></h3>
-                        <time datetime=" 2019-08-26 00:00:00 -0700" class="label-sans">Aug 26, 2019
-                        </time>
-                        <p>Last year, the team at CITL looked into the state of binary hardening features in IoT firmware.
+<h2 id="evolution-of-android-binary-hardening">Evolution of Android Binary Hardening</h2>
 
-Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.
+<p>Google’s Android is, hands down, the leading platform for mobile users. With <a href="https://gs.statcounter.com/os-market-share/mobile/worldwide">more than 75% of the market</a>, it is perhaps the single most important platform when it comes to end-user security.</p>
 
-</p>
-                        <a href="/2019/08/26/iot-data-writeup.html" class="btn btn-purple">Read</a>
-                    </article>
-                </div>
-                
-                
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <article class="beige-bg">
-                        
-                        <h3><a href="/2018/12/07/a-look-at-home-routers-and-linux-mips.html">A look at home routers, and a surprising bug in Linux/MIPS</a></h3>
-                        <time datetime=" 2018-12-07 00:00:00 -0800" class="label-sans">Dec 7, 2018
-                        </time>
-                        <p>We reviewed 28 popular home routers for basic hardening features. None performed well. Oh, and we found a bug in the Linux/MIPS architecture.
+<p>As a Linux variant, Android supports all of the binary hardening features you’d expect, from kernel-provided defenses like ASLR and DEP, to compiler features such as stack guards.</p>
 
-</p>
-                        <a href="/2018/12/07/a-look-at-home-routers-and-linux-mips.html" class="btn btn-purple">Read</a>
-                    </article>
-                </div>
-                
-                
+<p>In our <a href="https://cyber-itl.org/2019/08/26/iot-data-writeup.html">previous study of Linux-based IoT devices</a>, we found a widespread disregard for these features: some were essentially unused, some were used with coin-toss odds.</p>
 
-            </div>
-            <div class="d-lg-none text-center">
-                <a href="/news/blog.html" class="btn">More Posts</a>
-            </div>
-        </div>
-    </section>
-    <section class="alt-bg">
-        <div class="container">
-            <h2>Recent Press</h2>
-            <div id="quote-slider">
-                <div class="slider-wrap">
-                    
-                    <div class="quote-slide">
-                        <h3 class="h4-mono"><a href="https://www.the-parallax.com/2018/01/23/browser-secure-citl-shmoocon/">Slowly but surely, browsers are becoming more secure</a></h3>
-                        <p class="quote">
-                            The CITL, which thinks of itself as Consumer Reports for software (and has actually partnered with Consumer Reports to broaden its reach), is one of a few independent initiatives that analyzes code and publicly reports on its findings. Its report acknowledges that browsers are challenging to secure because of their inherent complexity. Major browsers contain millions of lines of code to which hundreds of developers contribute.&nbsp;&nbsp;&nbsp;&nbsp;
-                        </p>
-                        <span class="h4-display">–The Parallax</span>
-                    </div>
-                    
-                    
-                    <div class="quote-slide">
-                        <h3 class="h4-mono"><a href="https://www.csoonline.com/article/3247677/application-security/this-hacker-is-rating-software-security-consumer-reports-style.html">Rating software security Consumer Reports-style</a></h3>
-                        <p class="quote">
-                            The poor security of much enterprise software can be dramatically improved at low cost with the compile-time equivalents of seatbelts and airbags. With that in mind, the Cyber Independent Testing Lab (CITL) is building a Consumer Reports-style rating systems to grade the security of thousands of software binaries.&nbsp;&nbsp;&nbsp;&nbsp;
-                        </p>
-                        <span class="h4-display">–CSO</span>
-                    </div>
-                    
-                    
-                    <div class="quote-slide">
-                        <h3 class="h4-mono"><a href="https://www.cyberscoop.com/defcon-zatko-cyber-itl-measurements-cybersecurity/">No wonder cybersecurity is so bad - There's no way to measure&nbsp;it</a></h3>
-                        <p class="quote">
-                            When the founders of a new nonprofit assessing the cybersecurity of software for consumers were trying to develop a scoring system that would rate programs depending on which security features they used, they encountered a “mind-blowing” problem. No one had ever measured how well such features actually worked.&nbsp;&nbsp;&nbsp;&nbsp;
-                        </p>
-                        <span class="h4-display">–Cyberscoop</span>
-                    </div>
-                    
-                    
-                </div>
-                <div class="indicator">
-                    <button class="active"><span class="sr-only">show slide 1</span></button>
-                    <button><span class="sr-only">show slide 2</span></button>
-                    <button><span class="sr-only">show slide 3</span></button>
-                </div>
-            </div>
-            <div class="text-center">
-                <a class="btn" href="/news/press.html">More Press</a>
-            </div>
-        </div>
-    </section>
-    <section class="appearances">
-        <div class="container">
-            <h2>Appearances</h2>
-            
-            <div class="appearance-group">
-                <div class="group-title">
-                    <svg width="80" height="70" viewBox="0 0 80 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 0.305908L11.319 9.4832L22.253 5.83476e-07" transform="translate(1 32.3616)" stroke="#CAD5D9" stroke-width="3" stroke-miterlimit="10" />
-                        <path d="M0 0.305908L11.319 9.4832L22.253 5.83476e-07" transform="translate(1 32.3616)" stroke="#8ABFE7" stroke-width="3" stroke-miterlimit="10" />
-                        <path d="M0.616296 39.4623C0.231296 37.3974 0.000296203 35.1796 0.000296203 32.9618C-0.0767038 14.7601 14.8613 0 33.1873 0C51.5133 0 66.4513 14.7601 66.4513 33.0382C66.4513 51.3163 51.5133 66 33.1873 66C22.4843 66 12.9363 60.9525 6.8533 53.1518" transform="translate(11.5488 2)" stroke="#CAD5D9" stroke-width="3" stroke-miterlimit="10" />
-                        <path d="M0.616296 39.4623C0.231296 37.3974 0.000296203 35.1796 0.000296203 32.9618C-0.0767038 14.7601 14.8613 0 33.1873 0C51.5133 0 66.4513 14.7601 66.4513 33.0382C66.4513 51.3163 51.5133 66 33.1873 66C22.4843 66 12.9363 60.9525 6.8533 53.1518" transform="translate(11.5488 2)" stroke="#8ABFE7" stroke-width="3" stroke-miterlimit="10" />
-                        <path d="M-5.87463e-07 2.91738e-07V19.8841L17.556 34.3384" transform="translate(44.7363 15.0776)" stroke="#8ABFE7" stroke-width="3" stroke-miterlimit="10" />
-                    </svg>
-                    <h3 class="label-sans">Our Latest</h3>
-                </div>
-                
-                <div class="appearance">
-                    <div>
-                        <h4 class="h3-mono">Schmoocon</h4>
-                        <h5 class="h5-mono"><span>19 Jan 2018</span> / Washington D.C.</h5>
-                    </div>
-                    <div class="d-none d-lg-block">
-                        <a href="news/appearances.html" class="btn btn-red">More Appearances</a>
-                    </div>
-                </div>
-                
-                
-            </div>
-            
-            <div class="video-wrapper">
-                <iframe src="https://archive.org/embed/Shmoocon2018/Shmoocon2018-CitlQuantitativeComparableSoftwareRiskReporting.mp4" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
-            </div>
-            <div class="d-lg-none btn-wrapper">
-                <a href="news/appearances.html" class="btn btn-red">More Appearances</a>
-            </div>
-            
-            
-            
-            
+<p>So how does the premier mobile platform compare?</p>
 
-        </div>
-    </section>
-</main>
+<p>What we found was encouraging:</p>
+<ul>
+  <li>Over the life cycle of Android, binary hardening has improved drastically</li>
+  <li>Android has consistently improved and been reasonably consistent with applying hardening</li>
+  <li>Among the hardening features we studied, <code class="highlighter-rouge">FORTIFY_SOURCE</code> (whose utilization drops after android 6.0.1) was the only one whose utilization could be drastically improved.</li>
+</ul>
 
+<h3 id="the-corpus">The corpus</h3>
+
+<p>For this study, we downloaded major and minor versions of the factory images of Android from <a href="https://developers.google.com/android/images">https://developers.google.com/android/images</a>, mostly for the Nexus/Pixel flagship devices. We then extracted the filesystems and processed every binary or library with our analysis engine.</p>
+
+<p>In all our corpus includes:</p>
+
+<ul>
+  <li>24 Android Releases</li>
+  <li>14358 binaries</li>
+  <li>Data from 2009-05-01 to 2019-09-01</li>
+  <li>Coverage of major &amp; minor versions spanning 1.5.0 to 10.0.0</li>
+</ul>
+
+<p>(<strong>Note:</strong> We did trim out .odex and .oat files because they are non-standard ELF files handled by different loaders than the Android / Linux kernel.)</p>
+
+<h3 id="firmware-size-and-architecture">Firmware Size and Architecture</h3>
+
+<p>We begin by looking at how the Android platform has grown over time. The following graph shows the number of binaries we recovered from each version of android:</p>
+
+<p><img src="/assets/images/blog/2019-12-16-android-evolution/android-bin-count.png" alt="android-bin-count" /></p>
+
+<p>The following graph shows the same data, but tracks <code class="highlighter-rouge">aarch64</code> and <code class="highlighter-rouge">arm</code> separately:</p>
+
+<p><img src="/assets/images/blog/2019-12-16-android-evolution/android-arch-count.png" alt="android-arch-coutn" /></p>
+
+<h3 id="average-scores-per-release">Average Scores Per Release</h3>
+
+<p>CITL grades products on a score of 0 to 100, where 100 represents the best concievable score. Briefly, these scores reflect the degree to which a given product makes use of basic build hardening features.</p>
+
+<p>We computed these scores for each of the Android releases in our corpus. The results are shown in the following graph:</p>
+
+<p><img src="/assets/images/blog/2019-12-16-android-evolution/android-mean-score.png" alt="android-mean-score" /></p>
+
+<p>As we can clearly see, Android has consistently improved their score with each new release. This is great to see!</p>
+
+<p>But the graph can tell us even more. Consider the shaded region, which represents the standard deviation of the per-binary scores for each release.</p>
+
+<p>While each version has some variation in score, the amount of variation is consistent through the lifetime of releases. Higher consistency indicates testing, review, validation or some form of automation that ensures that binaries shipped are uniformly hardened.</p>
+
+<h3 id="hardening-features-breakdown">Hardening Features Breakdown</h3>
+
+<p>CITL score gives a reasonable approximation of the total hardening. But it is also valuable to break it down into the primary hardening features to see what influences the score.</p>
+
+<p>Here we plot a Gantt chart of each class of hardening feature. Each point represents a release, while each line represents the period of time that version was ‘current’.</p>
+
+<p>(<strong>Note:</strong> We only were able to select ‘example’ releases from the OEM page, so updates within a version are not captured here.)</p>
+
+<p><img src="/assets/images/blog/2019-12-16-android-evolution/android-gantt.png" alt="android-gantt" /></p>
+
+<p>In this chart, green represents <code class="highlighter-rouge">FORTIFY_SOURCE</code>, the utilization of which jumps around quite a bit. But for all other features shown, utilization clearly has increased over time.</p>
+
+<p>In 2013 in particular, it is obvious that the Android team dedicated time and effort into improving the hardening of the binaries in the base install. This trend continued up to the newest release in our dataset (10.0.0).</p>
+
+<h3 id="fortify-source">Fortify Source</h3>
+
+<p>It is interesting to note that ‘fortify source’ does decline in the later releases. In Android 6.0.1, ~83% of the binaries showed some level of fortification. This means that at least 1 function had fortification added in the binary. But by 10.0.0, only 43% of the binaries showed some level of fortification.</p>
+
+<p>This was the only major regression in a hardening feature we could find within the Android lifecycle, so we started to dig in.</p>
+
+<p>Looking at binaries between version 9 and 10, we found that there were a few cases of code being moved from inside a binary to a library. This means the fortifiable functions would be removed and it would drop the binary to a ‘UNKNOWN’ level of fortification. For example, this <a href="https://android.googlesource.com/platform/frameworks/av/+/4b60b06%5E!/">diff</a> shows a <code class="highlighter-rouge">snprintf</code> call that is moved into a library.</p>
+
+<p>However, cases like this do not seem to be the cause of the overall trend. Looking at just those binaries that changed fortification levels between version 9 and 10, we found:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Increased Fortification</th>
+      <th style="text-align: center">Decreased Fortification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">54</td>
+      <td style="text-align: center">144</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Unfortunately we have not been able to find a cause for the overall pattern of decreased fortification. It’s possible the explosion in binary count within those version is a cause but we are still unsure. We leave this as a open question for the community and Android security team.</p>
+
+<h3 id="version-radar-charts">Version Radar Charts</h3>
+
+<p>In order to visualize the evolution of hardening coverage in Android, we plotted radar charts for each version. The radar chart places the average (mean) hardening on each radial axis. The more filled in the chart is, the more binaries have hardening features.</p>
+
+<p>Animated:</p>
+
+<p><img src="/assets/images/blog/2019-12-16-android-evolution/android-radars.gif" alt="android-radars" /></p>
+
+<p>Static:</p>
+
+<p><img src="/assets/images/blog/2019-12-16-android-evolution/android-all-radar.png" alt="android-radar-all" /></p>
+
+<h3 id="other-hardening-features">Other Hardening Features</h3>
+
+<p>In more recent versions of android we also observed newer hardening feature not mentioned in this post. Things like CFI have been added to some binaries. We are still working on supporting some of these newer hardening features and we plan to revisit this data as our support for these features matures.</p>
+
+<h3 id="takeaways">Takeaways</h3>
+
+<p>Android is a well funded product from one of the largest vendors in the world with billions of users. While it should come as no surprise that Google has invested in hardening their images, we are nonetheless pleased to see these efforts reflected in the data.</p>
+
+<p>We were happy to see such a positive evolution in Android. It provides a productive counter-point to many of the other products we have looked at. Android has continued to push their average hardening scores higher, while also investing in other technologies not reflected in this report (such as sandboxing, CFI, and udsan).</p>
+
+<h3 id="the-data">The Data</h3>
+
+<p>As with other posts of this nature, we are making our raw data available for others who are interested in performing their own analysis. Below is a link to the raw data on Android:</p>
+
+<p><a href="https://drive.google.com/file/d/1YA68ukc2WednBYZW55RoPe53ADDodURT/view?usp=sharing">android-data.csv.gz (5.6M)</a></p>
+
+<h4 id="about-the-data">About the data</h4>
+
+<p>Below is a list of columns, their meaning and possible data types.</p>
+
+<p>Some columns optionally have numpy.NaN values. Hardening features are normally expressed as either an integer or a NaN value.</p>
+
+<p>NaN values occur when the given hardening feature isn’t generally applicable to the binary in question. This can occur, for instance, in the case of ELF libaries (<code class="highlighter-rouge">.so</code> files), where the ASLR column is NaN because ELF libraries are <em>always</em> relocatable (and thus there is no way for them to <em>not</em> support ASLR).</p>
+
+<p>We invite anyone with questions to reach out to us <a href="mailto:contact@cyber-itl.org">online</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Data Type</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sha_hash</td>
+      <td>str</td>
+      <td>SHA-256 of input binary</td>
+    </tr>
+    <tr>
+      <td>filetype</td>
+      <td>str</td>
+      <td>File type of the binary: (ELF/PE/MachO)</td>
+    </tr>
+    <tr>
+      <td>architecture</td>
+      <td>str</td>
+      <td>CPU Architecture of the binary: (x86/mips/arm/..)</td>
+    </tr>
+    <tr>
+      <td>bitness</td>
+      <td>int</td>
+      <td>CPU bitness of the binary: (32/64)</td>
+    </tr>
+    <tr>
+      <td>vendor</td>
+      <td>str</td>
+      <td>Vendor name</td>
+    </tr>
+    <tr>
+      <td>product</td>
+      <td>str</td>
+      <td>Product name</td>
+    </tr>
+    <tr>
+      <td>input_file</td>
+      <td>str</td>
+      <td>Binary path within firmware rootfs</td>
+    </tr>
+    <tr>
+      <td>release_date</td>
+      <td>str</td>
+      <td>datetime timestamp (Can be None)</td>
+    </tr>
+    <tr>
+      <td>firmware_version</td>
+      <td>str</td>
+      <td>firmware version</td>
+    </tr>
+    <tr>
+      <td>norm_score</td>
+      <td>int</td>
+      <td>normalized CITL score, range 0 - 100</td>
+    </tr>
+    <tr>
+      <td>text_size</td>
+      <td>int</td>
+      <td>size of text segment in bytes</td>
+    </tr>
+    <tr>
+      <td>data_size</td>
+      <td>int</td>
+      <td>size of data segment in bytes</td>
+    </tr>
+    <tr>
+      <td>functions</td>
+      <td>int</td>
+      <td>count of functions within analysis CFG</td>
+    </tr>
+    <tr>
+      <td>blocks</td>
+      <td>int</td>
+      <td>count of basic block within analysis CFG</td>
+    </tr>
+    <tr>
+      <td>is_driver</td>
+      <td>bool</td>
+      <td>Is the binary a kernel module</td>
+    </tr>
+    <tr>
+      <td>is_library</td>
+      <td>bool</td>
+      <td>Is the binary a library</td>
+    </tr>
+    <tr>
+      <td>aslr</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable ASLR: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>non-exec-stack</td>
+      <td>int + NaN</td>
+      <td>Does the binary have a non-exec stack:  0, 1</td>
+    </tr>
+    <tr>
+      <td>stack_guards</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable stack guards: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>fortify</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable fortify source: NAN = None, UNKNOWN_FORT = 0, NOT_FORT = 1, MIXED_FORT = 2, FULL_FORT = 3</td>
+    </tr>
+    <tr>
+      <td>relro</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable RELRO: NAN = None, NONE = 0, PARTIAL = 1, FULL = 2</td>
+    </tr>
+    <tr>
+      <td>seh</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable Windows SEH: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>cfi</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable Windows CFI: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>heap</td>
+      <td>int + NaN</td>
+      <td>Does the binary enable the MacOs HEAP protection: NaN (not applicable), 0, 1</td>
+    </tr>
+    <tr>
+      <td>extern_funcs_calls</td>
+      <td>int</td>
+      <td>Count of external function calls (library calls) within the CFG</td>
+    </tr>
+    <tr>
+      <td>libs</td>
+      <td>list</td>
+      <td>List of linked library</td>
+    </tr>
+    <tr>
+      <td>good</td>
+      <td>dict</td>
+      <td>Dictionary of ‘good’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+    <tr>
+      <td>bad</td>
+      <td>dict</td>
+      <td>Dictionary of ‘bad’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+    <tr>
+      <td>risky</td>
+      <td>dict</td>
+      <td>Dictionary of ‘risky’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+    <tr>
+      <td>ick</td>
+      <td>dict</td>
+      <td>Dictionary of ‘ick’ functions with call counts from CFG: {“my_func”: 2}</td>
+    </tr>
+  </tbody>
+</table>
+
+			</div>
+			<div class="container post-nav">
+				<div>
+					 
+				<h5 class="label-sans">Previous Post:</h5>
+    <a class="prev" href="/2019/08/26/iot-data-writeup.html">&laquo; Binary Hardening in IoT products</a>
+  
+					</div>
+				<div class="text-right">
+					
+					</div>
+			</div>
+		</section>
+	</main>
         </div>
     </main>	<footer>
 	<div class="footer-top">
@@ -571,14 +743,5 @@ Since then we’ve added more vendors and refreshed our analytic techniques. Thi
 <script src='/scripts/jquery-3.3.1.min.js' type="text/javascript"></script>
 <script src='/scripts/site.js' type="text/javascript"></script>
 		
-
-  
-<script src='/scripts/jquery-3.3.1.min.js' type="text/javascript"></script>
-  
-<script src='/scripts/swipe.js' type="text/javascript"></script>
-  
-<script src='/scripts/news.js' type="text/javascript"></script>
-  
-
 	
 </html>
