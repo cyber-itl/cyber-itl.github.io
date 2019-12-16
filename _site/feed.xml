@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://cyber-itl.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cyber-itl.org/" rel="alternate" type="text/html" /><updated>2019-12-16T11:28:27-08:00</updated><id>https://cyber-itl.org/</id><title type="html">Cyber Independent Testing Lab</title><subtitle>The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</subtitle><entry><title type="html">Evolution of Android Binary Hardening</title><link href="https://cyber-itl.org/2019/12/16/android-evolution.html" rel="alternate" type="text/html" title="Evolution of Android Binary Hardening" /><published>2019-12-16T00:00:00-08:00</published><updated>2019-12-16T00:00:00-08:00</updated><id>https://cyber-itl.org/2019/12/16/android-evolution</id><content type="html" xml:base="https://cyber-itl.org/2019/12/16/android-evolution.html">&lt;p&gt;How has Google’s Android platform evolved with regards to build safey?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="https://cyber-itl.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cyber-itl.org/" rel="alternate" type="text/html" /><updated>2019-12-16T12:02:27-08:00</updated><id>https://cyber-itl.org/</id><title type="html">Cyber Independent Testing Lab</title><subtitle>The Cyber Independent Testing Lab (CITL) works for a fair, just, and safe software marketplace for all consumers, empowering consumers to protect themselves.</subtitle><entry><title type="html">Evolution of Android Binary Hardening</title><link href="https://cyber-itl.org/2019/12/16/android-evolution.html" rel="alternate" type="text/html" title="Evolution of Android Binary Hardening" /><published>2019-12-16T00:00:00-08:00</published><updated>2019-12-16T00:00:00-08:00</updated><id>https://cyber-itl.org/2019/12/16/android-evolution</id><content type="html" xml:base="https://cyber-itl.org/2019/12/16/android-evolution.html">&lt;p&gt;How has Google’s Android platform evolved with regards to build safey?&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -105,9 +105,9 @@
 
 &lt;p&gt;Animated:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-radars.gif&quot; alt=&quot;android-radars&quot; /&gt;&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-radars.gif&quot; style=&quot;width:450px;&quot; /&gt;&lt;/center&gt;
 
-&lt;p&gt;Static:&lt;/p&gt;
+&lt;p&gt;Here’s each graph individually:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/blog/2019-12-16-android-evolution/android-all-radar.png&quot; alt=&quot;android-radar-all&quot; /&gt;&lt;/p&gt;
 

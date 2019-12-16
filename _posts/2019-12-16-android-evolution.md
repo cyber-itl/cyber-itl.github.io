@@ -106,9 +106,9 @@ In order to visualize the evolution of hardening coverage in Android, we plotted
 
 Animated:
 
-![android-radars](/assets/images/blog/2019-12-16-android-evolution/android-radars.gif)
+<center><img src="/assets/images/blog/2019-12-16-android-evolution/android-radars.gif" style="width:450px;" /></center>
 
-Static:
+Here's each graph individually:
 
 ![android-radar-all](/assets/images/blog/2019-12-16-android-evolution/android-all-radar.png)
 
