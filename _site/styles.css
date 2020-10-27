@@ -2007,6 +2007,9 @@ footer .footer-bottom {
         color: #8ABFE7; }
 .blog-page .video-wrapper {
   margin-bottom: 40px; }
+.blog-page table tbody td {
+  max-width: 350px;
+  word-wrap: break-word; }
 
 #appearances .past .appearance hgroup {
   display: flex;

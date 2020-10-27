@@ -3133,7 +3133,14 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 	.video-wrapper{
 		margin-bottom: 40px;
 	}
-
+    table {
+        tbody {
+            td {
+                max-width: 350px;
+                word-wrap: break-word;
+            }
+        }
+    }
 }
 #appearances{
 	.past{
