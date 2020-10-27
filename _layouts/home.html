@@ -22,6 +22,14 @@ custom_js:
     <section id="evaluate">
         <div class="container">
             <div class="width-small">
+                <h2>Latest Blog Post:</h2>
+                <p class="body-center">
+                {%- assign latest_post = site.posts[0] -%}
+                <a href="{{ latest_post.url }}">{{ latest_post.title }}</a>
+                </p>
+            </div>
+
+            <div class="width-small">
                 <h2>How We Evaluate</h2>
                 <p class="body-lg">We take software binaries and look at the safety features that are present, the functions that were used, the code complexity, and where possible, the software's performance during crash testing. We evaluate the compiled software that your computer would run, not the source code. Some safety features aren't added until compile time, so source code presents an incomplete view, and getting access to source code would require signing NDAs with vendors, which would compromise our position as an independent testing organization.</p>
             </div>
