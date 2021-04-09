@@ -24,7 +24,12 @@ custom_js:
             <div class="width-small">
                 <h2>Latest Blog Post:</h2>
                 <p class="body-center">
-                {%- assign latest_post = site.posts[0] -%}
+                {% for post in site.posts %}
+                    {% unless post.draft %}
+                        {% assign latest_post = post -%}
+                        {% break %}
+                    {% endunless %}
+                {% endfor %}
                 <a href="{{ latest_post.url }}">{{ latest_post.title }}</a>
                 </p>
             </div>

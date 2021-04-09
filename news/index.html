@@ -21,6 +21,7 @@ custom_js:
             <div class="row">
 
                 {% for post in site.posts %}
+                {% unless post.draft %}
                 <div class="col-12 col-lg-6 col-xl-4">
                     <article class="beige-bg">
                         {% if post.img %}
@@ -35,6 +36,7 @@ custom_js:
                         <a href="{{ post.url }}" class="btn btn-purple">Read</a>
                     </article>
                 </div>
+                {% endunless %}
                 {% if forloop.index == 3 %}
                 {% break %}
                 {% endif %}
