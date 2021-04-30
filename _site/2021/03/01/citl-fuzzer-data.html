@@ -2,9 +2,9 @@
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>CITL Fuzzer Early Data | Cyber Independent Testing Lab</title>
-<meta name="generator" content="Jekyll v3.8.3" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="CITL Fuzzer Early Data" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="CITL’s primary research goal has been focused around if we could formalize a technique security practitioners use for identifying potentially vulnerable code. We wanted to know if we could automatically detect patterns that are used for prioritization in a standard security audit? We started with simple questions based on common indicators. For example: “Does using strcpy() more often mean that software will crash more?”." />
@@ -14,8 +14,10 @@
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-03-01T00:00:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="CITL Fuzzer Early Data" />
 <script type="application/ld+json">
-{"url":"https://cyber-itl.org/2021/03/01/citl-fuzzer-data.html","description":"CITL’s primary research goal has been focused around if we could formalize a technique security practitioners use for identifying potentially vulnerable code. We wanted to know if we could automatically detect patterns that are used for prioritization in a standard security audit? We started with simple questions based on common indicators. For example: “Does using strcpy() more often mean that software will crash more?”.","headline":"CITL Fuzzer Early Data","dateModified":"2021-03-01T00:00:00-08:00","datePublished":"2021-03-01T00:00:00-08:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://cyber-itl.org/2021/03/01/citl-fuzzer-data.html"},"@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","description":"CITL’s primary research goal has been focused around if we could formalize a technique security practitioners use for identifying potentially vulnerable code. We wanted to know if we could automatically detect patterns that are used for prioritization in a standard security audit? We started with simple questions based on common indicators. For example: “Does using strcpy() more often mean that software will crash more?”.","headline":"CITL Fuzzer Early Data","dateModified":"2021-03-01T00:00:00-08:00","datePublished":"2021-03-01T00:00:00-08:00","url":"https://cyber-itl.org/2021/03/01/citl-fuzzer-data.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://cyber-itl.org/2021/03/01/citl-fuzzer-data.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -273,7 +275,7 @@
 				<div class="container post-container">
 					   <p>CITL’s primary research goal has been focused around if we could formalize a technique security practitioners use for identifying potentially vulnerable code. We wanted to know if we could automatically detect patterns that are used for prioritization in a standard security audit? We started with simple questions based on common indicators. For example:</p>
 
-<p>“Does using <code class="highlighter-rouge">strcpy()</code> more often mean that software will crash more?”.</p>
+<p>“Does using <code class="language-plaintext highlighter-rouge">strcpy()</code> more often mean that software will crash more?”.</p>
 
 <!--more-->
 
@@ -305,7 +307,7 @@
 
 <p>Input target set: Ubuntu 18.04 APT (x86-64), every elf executable, skipping targets that used X11, or were unable to link/load correctly. A module is a library or binary (basically any elf file that would be loaded and linked into a process space).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Total number of modules:         69707
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Total number of modules:         69707
 Number of modules with coverage: 22623
 Number of crashing modules:      4795
 Number of crash locations:       13105
@@ -315,7 +317,7 @@ Number of crash locations:       13105
 
 <p>Below is a distribution of crashes, bucketed by signal number. SIGSEGV obviously is the most common in the data, followed by SIGABRT.</p>
 
-<p>SIGABRT is a complex crash state because it can contain c++ exceptions, traditional abort()/assert calls, and even heap corruptions. The GNU malloc implementation uses abort after detecting corrupted heap metadata. Stack canaries also abort after a failed canary check. Luckily we are able to hook and detect most <code class="highlighter-rouge">stack_chk_fail()</code> calls hence the SIGABRT_STACK_CHK bucket.</p>
+<p>SIGABRT is a complex crash state because it can contain c++ exceptions, traditional abort()/assert calls, and even heap corruptions. The GNU malloc implementation uses abort after detecting corrupted heap metadata. Stack canaries also abort after a failed canary check. Luckily we are able to hook and detect most <code class="language-plaintext highlighter-rouge">stack_chk_fail()</code> calls hence the SIGABRT_STACK_CHK bucket.</p>
 
 <p><img src="/assets/images/blog/2021-03-01-citl-fuzzer-data/crash-signals.png" alt="crash-signals" /></p>
 
@@ -407,7 +409,7 @@ Number of crash locations:       13105
 
 <h4 id="filter">Filter:</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>text_size &lt; 20000000 &amp; buckets &lt; 40
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>text_size &lt; 20000000 &amp; buckets &lt; 40
 </code></pre></div></div>
 
 <p><img src="/assets/images/blog/2021-03-01-citl-fuzzer-data/text-size-zoomed.png" alt="text-size-zoomed" /></p>
@@ -428,15 +430,15 @@ Number of crash locations:       13105
 
 <h3 id="function-relationships">Function Relationships</h3>
 
-<p>Using the function call count data, it is possible to explore the relationship of certain function density with crash density. For example answering the question does high density of <code class="highlighter-rouge">strcpy()</code> predict a higher density of crashes?</p>
+<p>Using the function call count data, it is possible to explore the relationship of certain function density with crash density. For example answering the question does high density of <code class="language-plaintext highlighter-rouge">strcpy()</code> predict a higher density of crashes?</p>
 
 <h4 id="strcpy">strcpy</h4>
 
-<p><code class="highlighter-rouge">strcpy()</code> calls compared with crash counts:</p>
+<p><code class="language-plaintext highlighter-rouge">strcpy()</code> calls compared with crash counts:</p>
 
 <p><img src="/assets/images/blog/2021-03-01-citl-fuzzer-data/strcpy-count.png" alt="strcpy-count" /></p>
 
-<p>We can also messure the <code class="highlighter-rouge">strcpy()</code> density by normalizing its call frequency by the text size (<code class="highlighter-rouge">strcpy()</code> calls per byte):</p>
+<p>We can also messure the <code class="language-plaintext highlighter-rouge">strcpy()</code> density by normalizing its call frequency by the text size (<code class="language-plaintext highlighter-rouge">strcpy()</code> calls per byte):</p>
 
 <p><img src="/assets/images/blog/2021-03-01-citl-fuzzer-data/strcpy-density.png" alt="strcpy-density" /></p>
 
@@ -806,9 +808,8 @@ Number of crash locations:       13105
 					</div>
 				<div class="text-right">
 					
-				<h5 class="label-sans">Next Post:</h5>			 
-    <a class="next" href="/2021/04/09/citl-fuzzer-data.html">CITL Fuzzer Early Data &raquo;</a>
-  
+					
+					
 					</div>
 			</div>
 		</section>

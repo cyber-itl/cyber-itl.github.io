@@ -24,9 +24,11 @@ layout: default
 					</div>
 				<div class="text-right">
 					{% if page.next.url %}
-				<h5 class="label-sans">Next Post:</h5>			 
+					{% unless page.next.draft %}
+				<h5 class="label-sans">Next Post:</h5>
     <a class="next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
-  {% endif %}
+					{% endunless %}
+					{% endif %}
 					</div>
 			</div>
 		</section>

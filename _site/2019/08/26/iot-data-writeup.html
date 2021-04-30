@@ -2,9 +2,9 @@
 <html lang="en"><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>Binary Hardening in IoT products | Cyber Independent Testing Lab</title>
-<meta name="generator" content="Jekyll v3.8.3" />
+<meta name="generator" content="Jekyll v3.9.1" />
 <meta property="og:title" content="Binary Hardening in IoT products" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Last year, the team at CITL looked into the state of binary hardening features in IoT firmware. Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments." />
@@ -14,8 +14,10 @@
 <meta property="og:site_name" content="Cyber Independent Testing Lab" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-08-26T00:00:00-07:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Binary Hardening in IoT products" />
 <script type="application/ld+json">
-{"url":"https://cyber-itl.org/2019/08/26/iot-data-writeup.html","description":"Last year, the team at CITL looked into the state of binary hardening features in IoT firmware. Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.","headline":"Binary Hardening in IoT products","dateModified":"2019-08-26T00:00:00-07:00","datePublished":"2019-08-26T00:00:00-07:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://cyber-itl.org/2019/08/26/iot-data-writeup.html"},"@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","description":"Last year, the team at CITL looked into the state of binary hardening features in IoT firmware. Since then we’ve added more vendors and refreshed our analytic techniques. This post will catch you up on the latest findings and developments.","headline":"Binary Hardening in IoT products","dateModified":"2019-08-26T00:00:00-07:00","datePublished":"2019-08-26T00:00:00-07:00","url":"https://cyber-itl.org/2019/08/26/iot-data-writeup.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://cyber-itl.org/2019/08/26/iot-data-writeup.html"},"@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/bootstrap-grid.css">
     <link rel="stylesheet" href="/styles.css">
@@ -325,13 +327,13 @@
 
 <h2 id="cpu-architecture-and-citl-score">CPU Architecture and CITL Score</h2>
 
-<p>At CITL we use a aggregate score to normalize all the different hardening features a binary can have. This score is on a 0 - 100 range and can be thought of as ‘out of all possible features how many did a binary enable?’. It also takes into account the prevalence of riskier functions like <code class="highlighter-rouge">system()</code>, <code class="highlighter-rouge">strcpy()</code> and other common poor hygiene indicator functions. A higher score means the binary has more hardening features enabled and thus higher scores are better.</p>
+<p>At CITL we use a aggregate score to normalize all the different hardening features a binary can have. This score is on a 0 - 100 range and can be thought of as ‘out of all possible features how many did a binary enable?’. It also takes into account the prevalence of riskier functions like <code class="language-plaintext highlighter-rouge">system()</code>, <code class="language-plaintext highlighter-rouge">strcpy()</code> and other common poor hygiene indicator functions. A higher score means the binary has more hardening features enabled and thus higher scores are better.</p>
 
 <p>Here we compare CPU architecture prevalence with their average (mean) score.</p>
 
 <p><img src="/assets/images/blog/2019-08-iot-data-writeup/cpu-arch-vs-score.png" alt="cpu-arch-vs-score" /></p>
 
-<p>In this chart we can see the number of binaries in orange with the average score in red. On the far left we see <code class="highlighter-rouge">aarch64</code> (<code class="highlighter-rouge">arm64</code>) being the highest average scoring, but least common. At third from the left is <code class="highlighter-rouge">mips</code> with the highest binary count and lowest average score.</p>
+<p>In this chart we can see the number of binaries in orange with the average score in red. On the far left we see <code class="language-plaintext highlighter-rouge">aarch64</code> (<code class="language-plaintext highlighter-rouge">arm64</code>) being the highest average scoring, but least common. At third from the left is <code class="language-plaintext highlighter-rouge">mips</code> with the highest binary count and lowest average score.</p>
 
 <h2 id="measuring-changes">Measuring Changes</h2>
 
@@ -591,7 +593,7 @@
 <ul>
   <li>DLINK lost most hardening coverage from 2012 to 2018</li>
   <li>While most changes from 2012 to 2018 are positive, the amount of change tends to be small.</li>
-  <li><code class="highlighter-rouge">non-exec Stack</code> was the only feature that showed notably-increased adoption.</li>
+  <li><code class="language-plaintext highlighter-rouge">non-exec Stack</code> was the only feature that showed notably-increased adoption.</li>
 </ul>
 
 <h4 id="change-between-2012---2018-by-vendor">Change Between 2012 - 2018 by Vendor</h4>
@@ -688,11 +690,11 @@
 
 <p>We were very interested in measuring how updating a single product can effect the coverage of hardening features.</p>
 
-<p>In order to do this, we took the difference in hardening coverage between the first release and the last release of a firmware and compare their changes. A histogram of the deltas can be seen below. As can be seen, for most products the change in score was approximately <code class="highlighter-rouge">0</code>.</p>
+<p>In order to do this, we took the difference in hardening coverage between the first release and the last release of a firmware and compare their changes. A histogram of the deltas can be seen below. As can be seen, for most products the change in score was approximately <code class="language-plaintext highlighter-rouge">0</code>.</p>
 
 <p><img src="/assets/images/blog/2019-08-iot-data-writeup/score-delta-hist.png" alt="score-delta-hist" /></p>
 
-<p>Now consider the histogram’s tails (the regions to the left- and right- of <code class="highlighter-rouge">0</code>). Comparing just the positive changes and negative changes, we found that is was more common for updates to reduce overall hardening than increase it.</p>
+<p>Now consider the histogram’s tails (the regions to the left- and right- of <code class="language-plaintext highlighter-rouge">0</code>). Comparing just the positive changes and negative changes, we found that is was more common for updates to reduce overall hardening than increase it.</p>
 
 <table>
   <thead>
@@ -721,7 +723,7 @@
 
 <p><img src="/assets/images/blog/2019-08-iot-data-writeup/ubi-gantt.png" alt="ubi-gantt" /></p>
 
-<p>Using this chart we can see that, towards the end of summer 2017, <code class="highlighter-rouge">relro</code> dropped from ~80% coverage to below 10%, <code class="highlighter-rouge">stack_guards</code> dropped from ~70% to nearly zero, and <code class="highlighter-rouge">aslr</code> was completely removed.</p>
+<p>Using this chart we can see that, towards the end of summer 2017, <code class="language-plaintext highlighter-rouge">relro</code> dropped from ~80% coverage to below 10%, <code class="language-plaintext highlighter-rouge">stack_guards</code> dropped from ~70% to nearly zero, and <code class="language-plaintext highlighter-rouge">aslr</code> was completely removed.</p>
 
 <p>At the time of publishing, we do not have data for 2019 builds available. However, the observed trend of removing hardening features shows that Ubiquiti most likely did not have any form of regression testing to validate their builds for binary hardening prior to release.</p>
 
@@ -805,7 +807,7 @@
 
 <p>Some columns optionally have numpy.NaN values. Hardening features are normally expressed as either an integer or a NaN value.</p>
 
-<p>NaN values occur when the given hardening feature isn’t generally applicable to the binary in question. This can occur, for instance, in the case of ELF libaries (<code class="highlighter-rouge">.so</code> files), where the ASLR column is NaN because ELF libraries are <em>always</em> relocatable (and thus there is no way for them to <em>not</em> support ASLR).</p>
+<p>NaN values occur when the given hardening feature isn’t generally applicable to the binary in question. This can occur, for instance, in the case of ELF libaries (<code class="language-plaintext highlighter-rouge">.so</code> files), where the ASLR column is NaN because ELF libraries are <em>always</em> relocatable (and thus there is no way for them to <em>not</em> support ASLR).</p>
 
 <p>We invite anyone with questions to reach out to us <a href="mailto:contact@cyber-itl.org">online</a>.</p>
 
@@ -981,9 +983,11 @@
 					</div>
 				<div class="text-right">
 					
-				<h5 class="label-sans">Next Post:</h5>			 
+					
+				<h5 class="label-sans">Next Post:</h5>
     <a class="next" href="/2019/12/16/android-evolution.html">Evolution of Android Binary Hardening &raquo;</a>
-  
+					
+					
 					</div>
 			</div>
 		</section>
