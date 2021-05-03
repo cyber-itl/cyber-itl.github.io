@@ -6,7 +6,6 @@ tags: []
 status: publish
 type: post
 published: true
-draft: true
 meta: {}
 excerpt_separator: <!--more-->
 ---
