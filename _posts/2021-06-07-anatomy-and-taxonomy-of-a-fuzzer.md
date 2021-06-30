@@ -6,7 +6,7 @@ tags: []
 status: publish
 type: post
 published: true
-draft: true
+draft: false
 meta: {}
 excerpt_separator: <!--more-->
 ---
@@ -21,7 +21,7 @@ For computer scientists and programmers, this article is meant to be a casual in
 
 In order to establish context for discussing the functionality of complex, modern fuzzing frameworks, let’s first define some minimal parts and/or properties of a fuzzer. The following flow diagram illustrates a minimal fuzzer.
 
-![block-diag](/assets/images/blog/2021-06-07-anatomy-and-taxonomy-of-a-fuzzer/block-diag.png)
+![block-diag](/assets/images/blog/2021-06-07-anatomy-and-taxonomy-of-a-fuzzer/block-diag.png){: style="max-height: 500px; max-width: 500px; margin: 0 auto; display: block;"}
 
 **Initialize** sets up the environment.  This step is optional but typically sets up the evaluation environment, however this can include any number of one time cost activities that would be beneficial to the subsequent effort, such as loading pre-extracted control flow graphs or semantic models of the unit under test.
 
